@@ -1,0 +1,53 @@
+﻿Website for Ribbon: http://officeribbon.codeplex.com/
+
+HOME
+
+Competition
+	New
+	Open > Select recent
+	Properties
+	-
+	Pilots
+		Spreadsheet
+		Mappings
+	-
+	Define NFZs
+	Define Turnpoints / Gates
+
+Task
+	Add
+	Edit
+	-
+	Scores
+		Spreadsheet
+		Mappings
+	-
+	Track Analysis
+
+League
+	Properties
+
+
+RESULTS
+
+Generate
+	Task
+	Competition
+	Team
+	League
+
+Publish
+	Print
+	Upload via FTP
+
+
+MISC
+
+Tools
+	Options
+	-
+	Convert Track(s)
+	Create PDF
+	
+Help
+	About

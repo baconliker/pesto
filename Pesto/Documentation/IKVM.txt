@@ -1,0 +1,3 @@
+﻿cd \Users\Colin\Code\3rd Party Components\IKVM 7.2.4630.5\bin
+
+ikvmc -target:library -out:"C:\Users\Colin\Code\3rd Party Components\DOTNET\Apache FOP 2.1\Apache.Fop.dll" -recurse:"C:\Users\Colin\Desktop\Apache FOP 2.1 Jars" -version:2.1.0.0 -fileversion:2.1.0.0

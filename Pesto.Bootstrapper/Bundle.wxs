@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?if $(var.Platform) = x64 ?>
+<?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+<?else ?>
+<?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+<?endif ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+	<Bundle 
+    Name="!(bind.packageName.MainApplication)" 
+    Version="!(bind.packageVersion.MainApplication)" 
+    Manufacturer="!(bind.packageManufacturer.MainApplication)" 
+    Copyright="Copyright© 2012-2022, !(bind.packageManufacturer.MainApplication)" 
+    AboutUrl="http://colinbaker.me.uk/software/pesto/" 
+    UpgradeCode="3B49AE43-6DF5-4E4A-AF59-5E7D18321DD4" 
+    DisableModify="yes" 
+    IconSourceFile="Pesto.ico" 
+    Condition="VersionNT &gt;= v6.0">
+    
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkSidebarLicense">
+      <bal:WixStandardBootstrapperApplication SuppressRepair="yes" ShowVersion="no" LicenseUrl="http://www.apache.org/licenses/LICENSE-2.0"/>
+    </BootstrapperApplicationRef>
+
+    <Variable Name="InstallFolder" Type="string" Value="[$(var.PlatformProgramFilesFolder)]!(bind.packageManufacturer.MainApplication)\!(bind.packageName.MainApplication)"/>
+
+    <?if $(var.Platform) = x64 ?>
+      <bal:Condition Message="This installer is intended for 64-bit systems, please use the 32-bit installer instead.">VersionNT64</bal:Condition>
+    <?else ?>
+      <bal:Condition Message="This installer is intended for 32-bit systems, please use the 64-bit installer instead.">NOT VersionNT64</bal:Condition>
+    <?endif ?>
+    
+    <Chain>
+      <!-- Prerequisites -->
+      <PackageGroupRef Id="NetFx45Redist"/>
+
+      <!-- Rollback boundary prevents rollback (uninstall) of prerequisites if main application install fails -->
+      <RollbackBoundary/>
+
+      <!-- Main application -->
+      <MsiPackage Id="MainApplication" SourceFile="$(var.Pesto.Setup.TargetPath)" Compressed="yes" InstallCondition="NOT Installed">
+        <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]"/>
+      </MsiPackage>
+		</Chain>
+	</Bundle>
+</Wix>

@@ -1,0 +1,13 @@
+﻿New installer procedure:
+
+1) Increment .boris file version number if changes have been made to file format
+2) Increment version number in Visual Studio project
+3) Increment version number in Setup project, should be the same as in 2)
+4) Change solution configuration to Release
+5) Rebuild solution for x64 platform
+6) File created in step 5) is copied to C:\Users\Colin\Code\Pesto Assets\Releases
+7) Rename .exe file created with version number used in 2) and 3)
+8) Create folder named using version number, move .exe file into it and create release notes .rtf if required
+9) Copy the .exe file to local website (/software/pesto)
+10) Update version.xml to reflect latest version number and URL
+11) Upload .exe file and version.xml to FTP site

@@ -1,0 +1,187 @@
+﻿*DONE* Allow picking of which aircraft classes are competing in competition
+
+Allow picking of which aircraft classes to include in task / competition / team / league results?
+
+*DONE* Allow picking of which tasks to include in competition results
+
+*DONE* Check automatic complaint/protest deadline calculation (incorrect for tasks published late on penultimate day)
+	Use 19:34 as example publishing date and check rollover to next day
+
+*DONE* Make KML track conversion output as close as possible to Google Earth generated KML
+	Calculate range properly in LookAt element
+	Write HTML descriptions
+
+*NOT POSSIBLE* Use a different separator char when generating CSV files if possible
+
+*DONE* Warn when publishing results and pilots are flying a task
+
+*DONE* Pick mapping columns from a list instead of typing name
+
+*DONE* Open MRU
+
+Rename task spreadsheets to 'Task X Scores.xls' or similar instead of just 'Scores.xls' to make it easier when emailing spreadsheets to people after the comp.  Pesto should still read the old filename (if the new one doesn't exist) for backward compatibility
+	To be done after removal of services namespace and multi-user work
+
+*DONE* Events shown on KML export should correspond to those shown in grid i.e. if we've used the filter to remove some events we're not interested in, this should be reflected in the KML
+
+Backup, including regular reminder to backup
+	No reminder yet
+
+Upload via FTP?
+
+*DONE* Implement team competition for 2013, see rules on ppgcomps website
+
+Remove Services namespace
+
+Move task data to separate files (to aid with multi-user locking)?
+
+Upgrade older competition file versions
+
+*NOT DOING* Pre-process tracks to fill in any 'gaps' where satellite fix is lost
+	!!!! For start/finish points this will result in us recording a time based on the closest fix to the centre but this closest fix may be a fake fix we've added
+
+Handle opening competition files that no longer exist
+	To be done after removal of services namespace and multi-user work
+
+*DONE* When reading IGC file, identify midnight rollover. This is a weakness of the IGC format where the date is only specified once at the beginning
+
+*DONE* When editing competition features, apply changes to task features
+
+*DONE* Import features from KML
+
+*DONE* Export multiple files (pilots) from track analysis form in one action
+
+Handle error when FRDL folder does not exist
+
+*CAN'T FIND A PROBLEM* Handle accented characters in pilot names (in results PDFs)
+
+Display names of features on map
+
+On the Track Analysis screen allow distance measuring between an event/feature and a random location
+
+When measuring between two events allow choosing of whether to measure between event locations or (where applicable) the features related to those events
+
+*DONE* NFZ - allow polygons as well as circles
+
+*DONE* Analyse multiple tracks at once
+
+*DONE* Add cancelled status to task, scores zero
+
+*DONE* Show status (and date?) of each task on competition results
+
+*DONE* Different status for each class?
+
+SysTray notifications for when results need re-issuing
+
+*DONE* Allow copying of data from track events grid (and ability to flip axis / transpose) by right-clicking on column header (just time column?)
+
+                Make tab or crlf separated depending on axis
+
+*DONE* Option to specify (or automatically calculate) height of gates/points/nfzs when doing XML export
+
+*DONE* Ability to remove event on track analysis screen (in case we have a rogue event but using the filter will remove other events we want to keep)
+
+*NOT DOING* Allow toggle between UTC and local time for track events
+	Was displaying both UTC and local time columns but removed UTC because have never found it useful
+
+*DONE* Fix gate detection
+
+*DONE* Try and make take-off / landing detection better
+
+Elapsed track distance (does each fix on track contain cumulative distance?)
+
+*DONE* Check if elapsed time is from beginning of track or first displayed event. Which should it be?
+	It's from first displayed event
+
+Choose event grid columns
+
+Check why spreadsheet converter is not returning 2 when it can't find a sheet of the expected name (an example is where it contains a space e.g. PF1 f)
+
+When generating results and checking if a task is in progress use proposed publish date/time not current date/time
+	Can't duplicate
+
+*DONE* Zooming when adding features - keep current view / zoom instead of attempting to fit features
+
+Allow multiple features to be edited at the same time (multi-select) in order to set width / bearing / lower / upper
+
+Finish gate detection - should we always assume last time hit? (currently uses first time which must be wrong)
+
+*DONE* Re-number events grid when removing rows
+
+Events grid - when changing filters remove events from pilots
+
+Remove FOP font metrics files
+
+*DONE* Specify time zone or UTC offset when creating a new competition
+
+Add GeneratorVersion to all competition files, prevent reading when GeneratorVersion > current version
+
+Copy features to tasks when selected, as we do with NFZs
+
+Remove COM-based and GemBox spreadsheet converters, get spreadsheet contents without writing intermediate CSV
+
+
+
+
+
+Track Analysis
+	*DONE* Allow user to specify FRDL IGC folder
+	*DONE* Check for NFZ incursion
+	*DONE (ONLY MIN)* Check for min / max altitude violations
+	*DONE* Check for takeoff in launch window (will require storing window open/close against task)
+	*DONE* Define possible turnpoints / gates against competition
+	*DONE* Choose turnpoints / gates against task and calculate times hit / entered / exited, etc
+	Events:
+		*DONE* Take-off (info)
+		*DONE* Take-off before launch window open (failure) - always comes after take-off event
+		*DONE* Take-off after launch window close (failure) - always comes after take-off event
+		*DONE* Land (info)
+		*DONE* Land after task close (failure) - always comes after land event
+		*DONE* Land outside airfield (failure) - always comes after land event
+		*DONE* Land outside deck (but within airfield) (failure) - always comes after land event
+		*DONE* Gate crossed (achievement)
+		*DONE* Gate crossed duplicate (warning) - always comes after a gate crossed event
+		Gate crossed in wrong direction (failure)
+		*DONE* Point hit (achievement)
+		*DONE* Point hit duplicate (warning) - always comes after a point hit event
+		360 (info)
+		*DONE* First GPS fix (info)
+		*DONE* GPS fix lost (warning)
+		GPS fix regained (warning)
+		*DONE* Last GPS fix (info)
+		*DONE* NFZ incursion (failure)
+		*DONE* Altitude below minimum (failure)
+
+*DONE* Investigate issue generating competition results caused by Mike Nunn not being scored for a task (issue is with copying a column from task results to competition results, fix put in place involving specifying a default value - check this is the best way)
+
+*DONE - NOW ENFORCED* Think about whether we should enforce that all pilots are listed in task results or whether we can leave them out (affects the previous item above)
+
+Allow multi-user scenario - think about the best way to deal with overlapping edits
+	KISS: File system monitor for competition file with prompt for reload. rely on user communication to prevent work on the same task
+	! May not be an adequate solution when adding / editing of NFZs, turnpoints, gates, etc is added (depending whether we save this to the competition file or as a separate file e.g. gpx)
+	
+	Idea:
+	Calculate file checksum when opening competition file (store in Competition class)
+	Before saving check if file checksum is different to stored checksum and if so prevent saving (or warn but allow to continue?)
+	Create file system watcher for competition file
+	If change is detected and checksum has changed, flash refresh/reload button
+
+
+DEFINITIONS (Features?):
+
+Airfield: user-drawn polygon
+	Detecting if a point is within a polygon:
+	http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
+Deck(s): user-drawn polygon
+Point(s): 
+	Circle
+	Normally 250m radius
+	For turnpoints just need to know it's hit, for start/finish points need time of nearest fix to centrepoint
+	For both types just record an event for the nearest fix to centrepoint.
+Gate(s): 
+	Line (can be surrounded by circle)
+	Normally 500m wide
+	Line must be crossed in the correct direction, normally use fix before, for finish gates use fix immediately after
+	Record an event when line crossed
+Shapes: User drawn shapes: circle, line
+

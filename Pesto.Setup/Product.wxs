@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?if $(var.Platform) = x64 ?>
+    <?define Win64 = "yes" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+  <?else ?>
+    <?define Win64 = "no" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+  <?endif ?>
+  
+  <Product Id="*" Name="Pesto" Language="1033" Version="2.0.0" Manufacturer="Colin Baker" UpgradeCode="D4E11963-902A-4D7A-A9CF-2D88F5E603F8">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"/>
+    
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."/>
+    <MediaTemplate EmbedCab="yes"/>
+
+    <Feature Id="ProductFeature" Title="Main Application">
+      <ComponentGroupRef Id="RootComponents"/>
+      <ComponentGroupRef Id="FontComponents"/>
+      <ComponentGroupRef Id="HtmlComponents"/>
+      <ComponentGroupRef Id="SpreadsheetsComponents"/>
+      <ComponentGroupRef Id="ScoringComponents"/>
+      <ComponentGroupRef Id="StaticDataComponents"/>
+      <ComponentGroupRef Id="XslComponents"/>
+      <ComponentGroupRef Id="LibrariesComponents"/>
+      <ComponentGroupRef Id="PdfComponents"/>
+      <ComponentGroupRef Id="RegistryComponents"/>
+    </Feature>
+
+    <Property Id="ARPPRODUCTICON" Value="ApplicationIcon.ico"/>
+  
+    <!-- Use properties to persist registry values during uninstall/install -->
+    <Property Id="GOOGLEMAPSAPIKEY" Secure="yes">
+      <RegistrySearch Id="GoogleMapsApiKeySearch" Root="HKCU" Key="SOFTWARE\[Manufacturer]\[ProductName]" Name="Google Maps API Key" Type="raw"/>
+    </Property>
+    <Property Id="BYTESCOUTSPREADSHEETREGISTRATIONNAME" Secure="yes">
+      <RegistrySearch Id="BytescoutSpreadsheetRegistrationNameSearch" Root="HKCU" Key="SOFTWARE\[Manufacturer]\[ProductName]" Name="Bytescout Spreadsheet Registration Name" Type="raw"/>
+    </Property>
+    <Property Id="BYTESCOUTSPREADSHEETREGISTRATIONKEY" Secure="yes">
+      <RegistrySearch Id="BytescoutSpreadsheetRegistrationKeySearch" Root="HKCU" Key="SOFTWARE\[Manufacturer]\[ProductName]" Name="Bytescout Spreadsheet Registration Key" Type="raw"/>
+    </Property>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="$(var.PlatformProgramFilesFolder)">
+        <Directory Id="ManufacturerFolder" Name="Colin Baker">
+          <Directory Id="INSTALLFOLDER" Name="Pesto">
+            <Directory Id="ResourcesFolder" Name="Resources">
+              <Directory Id="LocalFontsFolder" Name="Fonts"/>
+              <Directory Id="HtmlFolder" Name="Html"/>
+              <Directory Id="SpreadsheetsFolder" Name="Spreadsheets">
+                <Directory Id="ScoringFolder" Name="Scoring"/>
+              </Directory>
+              <Directory Id="StaticDataFolder" Name="StaticData"/>
+              <Directory Id="XslFolder" Name="Xsl">
+                <Directory Id="LibrariesFolder" Name="Libraries"/>
+              </Directory>
+            </Directory>
+            <Directory Id="ServicesFolder" Name="Services">
+              <Directory Id="PdfFolder" Name="Pdf"/>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder"/>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="RootComponents" Directory="INSTALLFOLDER">
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Pesto.exe" KeyPath="yes">
+          <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="Pesto" WorkingDirectory="INSTALLFOLDER" Icon="ApplicationIcon.ico" Advertise="yes"/>
+        </File>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Pesto.exe.config"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)ColinBaker.Geolocation.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)System.Windows.Forms.Ribbon.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)PdfiumViewer.dll"/>
+      </Component>
+      <?if $(var.Platform) = x64 ?>
+        <Component Win64="yes">
+          <File Source="$(var.Pesto.TargetDir)x64\pdfium.dll"/>
+        </Component>
+      <?else ?>
+        <Component Win64="no">
+          <File Source="$(var.Pesto.TargetDir)x86\pdfium.dll"/>
+        </Component>
+      <?endif ?>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Bytescout.Spreadsheet.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Apache.Fop.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)IKVM.AWT.WinForms.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)IKVM.OpenJDK.Charsets.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)IKVM.OpenJDK.Core.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)IKVM.OpenJDK.Media.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)IKVM.OpenJDK.Security.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)IKVM.OpenJDK.SwingAWT.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)IKVM.OpenJDK.Text.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)IKVM.OpenJDK.Util.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)IKVM.OpenJDK.XML.API.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)IKVM.Runtime.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)ICSharpCode.SharpZipLib.dll"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION">
+          <RegistryValue Type="integer" Name="Pesto.exe" Value="11000" KeyPath="yes"/>
+        </RegistryKey>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="FontComponents" Directory="LocalFontsFolder">
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Fonts\nina.ttf"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Fonts\ninab.ttf"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Fonts\tahoma.ttf"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Fonts\tahomabd.ttf"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="HtmlComponents" Directory="HtmlFolder">
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Html\GoogleMaps.htm"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="SpreadsheetsComponents" Directory="SpreadsheetsFolder">
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Spreadsheets\Pilots.xlsx"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="ScoringComponents" Directory="ScoringFolder">
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Spreadsheets\Scoring\Blank.xlsx"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="StaticDataComponents" Directory="StaticDataFolder">
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\StaticData\AircraftClasses.xml"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="XslComponents" Directory="XslFolder">
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Common.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Overall.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\League.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Task.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Team.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPC-Common.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPC-Task.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPC-Overall.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPC-Team.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPC-Nation.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPCLogo.png"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BMAALogo.png"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\CIMALogo.png"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpen-Common.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpen-Task.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpen-Overall.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpen-Team.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpen-Nation.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpenLogo.png"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="LibrariesComponents" Directory="LibrariesFolder">
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Libraries\date-time.xsl"/>
+      </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Libraries\string.xsl"/>
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="PdfComponents" Directory="PdfFolder">
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Services\Pdf\FopConfig.xml"/>
+      </Component>
+    </ComponentGroup>
+  
+    <ComponentGroup Id="RegistryComponents" Directory="INSTALLFOLDER">
+      <Component>
+        <RegistryValue Root="HKCU" Key="SOFTWARE\[Manufacturer]\[ProductName]" Name="Google Maps API Key" Value="[GOOGLEMAPSAPIKEY]" Type="string" KeyPath="yes"/>
+      </Component>
+      <Component>
+        <RegistryValue Root="HKCU" Key="SOFTWARE\[Manufacturer]\[ProductName]" Name="Bytescout Spreadsheet Registration Name" Value="[BYTESCOUTSPREADSHEETREGISTRATIONNAME]" Type="string" KeyPath="yes"/>
+      </Component>
+      <Component>
+        <RegistryValue Root="HKCU" Key="SOFTWARE\[Manufacturer]\[ProductName]" Name="Bytescout Spreadsheet Registration Key" Value="[BYTESCOUTSPREADSHEETREGISTRATIONKEY]" Type="string" KeyPath="yes"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <Icon Id="ApplicationIcon.ico" SourceFile="$(var.Pesto.ProjectDir)App.ico"/>
+  </Fragment>
+</Wix>

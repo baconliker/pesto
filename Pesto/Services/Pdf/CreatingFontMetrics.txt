@@ -1,0 +1,11 @@
+Java 1.4 or greater required
+
+Run cmd
+C:
+cd \Development\FOP XML-FO Formatter\fop-0.93
+
+"C:\Program Files\Java\j2re1.4.2_19\bin\java" -cp build\fop.jar;lib\avalon-framework-4.2.0.jar;lib\commons-logging-1.0.4.jar;lib\commons-io-1.1.jar;lib\serializer-2.7.0.jar org.apache.fop.fonts.apps.TTFReader C:\Windows\Fonts\nina.ttf C:\Users\Colin\Dropbox\Code\Boris\Boris\Fop\Nina.xml
+"C:\Program Files\Java\j2re1.4.2_19\bin\java" -cp build\fop.jar;lib\avalon-framework-4.2.0.jar;lib\commons-logging-1.0.4.jar;lib\commons-io-1.1.jar;lib\serializer-2.7.0.jar org.apache.fop.fonts.apps.TTFReader C:\Windows\Fonts\ninab.ttf C:\Users\Colin\Dropbox\Code\Boris\Boris\Fop\NinaBold.xml
+
+"C:\Program Files\Java\j2re1.4.2_19\bin\java" -cp build\fop.jar;lib\avalon-framework-4.2.0.jar;lib\commons-logging-1.0.4.jar;lib\commons-io-1.1.jar;lib\serializer-2.7.0.jar org.apache.fop.fonts.apps.TTFReader C:\Windows\Fonts\tahoma.ttf C:\Users\Colin\Dropbox\Code\Boris\Boris\Fop\Tahoma.xml
+"C:\Program Files\Java\j2re1.4.2_19\bin\java" -cp build\fop.jar;lib\avalon-framework-4.2.0.jar;lib\commons-logging-1.0.4.jar;lib\commons-io-1.1.jar;lib\serializer-2.7.0.jar org.apache.fop.fonts.apps.TTFReader C:\Windows\Fonts\tahomabd.ttf C:\Users\Colin\Dropbox\Code\Boris\Boris\Fop\TahomaBold.xml

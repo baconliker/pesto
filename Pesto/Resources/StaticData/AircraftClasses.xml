@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Boris Type="AircraftClasses">
+  <AircraftClass>
+    <Code>PF1</Code>
+    <Description>Paraglider, foot-launched, solo</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>PF1m</Code>
+    <Description>Paraglider, foot-launched, solo, male</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>PF1f</Code>
+    <Description>Paraglider, foot-launched, solo, female</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>PF1d</Code>
+    <Description>Paraglider, foot-launched, solo, discovery</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>PF2</Code>
+    <Description>Paraglider, foot-launched, tandem</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>PL1</Code>
+    <Description>Paraglider, landplane, solo</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>PL1d</Code>
+    <Description>Paraglider, landplane, solo, discovery</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>PL2</Code>
+    <Description>Paraglider, landplane, tandem</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>WF1</Code>
+    <Description>Weight-shift, foot-launched, solo</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>WF2</Code>
+    <Description>Weight-shift, foot-launched, tandem</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>WL1</Code>
+    <Description>Weight-shift, landplane, solo</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>WL2</Code>
+    <Description>Weight-shift, landplane, tandem</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>AL1</Code>
+    <Description>3-axis, landplane, solo</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>AL2</Code>
+    <Description>3-axis, landplane, tandem</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>GL1</Code>
+    <Description>Autogyro, landplane, solo</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>GL2</Code>
+    <Description>Autogyro, landplane, tandem</Description>
+  </AircraftClass>
+  <AircraftClass>
+    <Code>CP</Code>
+    <Description>Club Pilot</Description>
+  </AircraftClass>
+</Boris>

@@ -1,0 +1,425 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Google Maps</title>
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<style type="text/css">
+		html {
+			height: 100%;
+		}
+
+		body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			color: #FFFFFF;
+		}
+
+		#map-canvas {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+	<body>
+		<div id="map-canvas"></div>
+		<script type="text/javascript">
+			var maxMapZoom = 15;
+
+			var earthRadius = 6378137; // In metres
+
+			var map = null;
+
+			var track = null;
+			var features = [];
+
+			var markerIcon = {
+				url: 'http://colinbaker.me.uk/images/pesto/feature-label.png',
+				size: new google.maps.Size(16, 16),
+				anchor: new google.maps.Point(0, 0)
+			}
+
+			var fittingBounds = false;
+
+			function Track() {
+				this.fixes = [];
+				this.mapItem = null;
+			}
+
+			function Feature(name, locations, mapItems) {
+				this.name = name;
+				this.locations = locations;
+				this.mapItems = mapItems;
+			}
+
+			function register(apiKey) {
+				var script1 = document.createElement('script');
+				script1.src = 'https://maps.googleapis.com/maps/api/js?v=3.47&key=' + apiKey + '&callback=initMap';
+				document.getElementsByTagName('head')[0].appendChild(script1);
+			}
+
+			function initMap() {
+				var options =
+				{
+					mapTypeId: google.maps.MapTypeId.HYBRID,
+					mapTypeControl: false,
+					panControl: false,
+					streetViewControl: false,
+					zoomControl: false,
+					backgroundColor: '#FFFFFF',
+					draggableCursor: 'crosshair'
+				};
+
+				map = new google.maps.Map(document.getElementById("map-canvas"), options);
+
+				google.maps.event.addListener(map, 'bounds_changed', mapBoundsChanged);
+				google.maps.event.addListener(map, 'click', mapClick);
+				google.maps.event.addListener(map, 'rightclick', mapRightClick);
+
+				window.external.OnMapInitialized();
+			}
+
+			function mapBoundsChanged() {
+				// Check the map isn't zoomed in too far which can happen when we've only got one feature defined
+				if (fittingBounds && map.getZoom() > maxMapZoom) {
+					map.setZoom(maxMapZoom);
+				}
+
+				fittingBounds = false;
+			}
+
+			function mapClick(event) {
+				window.external.OnMapClick(event.latLng.lat(), event.latLng.lng());
+			}
+
+			function mapRightClick(event) {
+				window.external.OnMapRightClick(event.latLng.lat(), event.latLng.lng());
+			}
+
+			function setToUK() {
+				map.setCenter(new google.maps.LatLng(54.201492, -3.035187));
+				map.setZoom(5);
+			}
+
+			function getCenterLatitude() {
+				return map.getCenter().lat();
+			}
+
+			function getCenterLongitude() {
+				return map.getCenter().lng();
+			}
+
+			function setCenter(latitude, longitude) {
+				map.setCenter(new google.maps.LatLng(latitude, longitude));
+			}
+
+			function getZoom() {
+				return map.getZoom();
+			}
+
+			function setZoom(zoom) {
+				return map.setZoom(zoom);
+			}
+
+			function zoomFullyIn() {
+				map.setZoom(maxMapZoom);
+			}
+
+			function zoomIn() {
+				map.setZoom(map.getZoom() + 1);
+			}
+
+			function zoomOut() {
+				map.setZoom(map.getZoom() - 1);
+			}
+
+			function pan(latitude, longitude) {
+				var center = map.getCenter();
+				var bounds = map.getBounds();
+
+				if (center != null && bounds != null) {
+					dLat = latitude - center.lat();
+					dLon = longitude - center.lng();
+
+					var sw = new google.maps.LatLng(bounds.getSouthWest().lat() + dLat, bounds.getSouthWest().lng() + dLon)
+					var ne = new google.maps.LatLng(bounds.getNorthEast().lat() + dLat, bounds.getNorthEast().lng() + dLon)
+
+					var newBounds = new google.maps.LatLngBounds(sw, ne);
+
+					map.panToBounds(newBounds);
+				}
+				else {
+					map.panTo(new google.maps.LatLng(latitude, longitude));
+				}
+			}
+
+			function clear() {
+				removeTrack();
+
+				for (var i = 0; i < features.length; i++) {
+					for (var j = 0; j < features[i].mapItems.length; j++) {
+						features[i].mapItems[j].setMap(null);
+					}
+				}
+
+				features.length = 0;
+			}
+
+			function removeTrack() {
+				if (track != null) {
+					if (track.mapItem != null) {
+						track.mapItem.setMap(null);
+					}
+
+					track = null;
+
+					itemRemoved();
+				}
+			}
+
+			function startTrack() {
+				track = new Track();
+			}
+
+			function addTrackFix(latitude, longitude) {
+				track.fixes.push(new google.maps.LatLng(latitude, longitude));
+			}
+
+			function finishTrack() {
+				track.mapItem = createLine(track.fixes, '#0000FF');
+
+				itemAdded();
+			}
+
+			function removeFeature(name) {
+				for (var i = 0; i < features.length; i++) {
+					if (features[i].name == name) {
+						for (var j = 0; j < features[i].mapItems.length; j++) {
+							features[i].mapItems[j].setMap(null);
+						}
+
+						features.splice(i, 1);
+
+						itemRemoved();
+
+						break;
+					}
+				}
+			}
+
+			function addPoint(name, latitude, longitude, radius) {
+				var location = new google.maps.LatLng(latitude, longitude);
+
+				var feature = new Feature(name, [location], [createCircle(location, radius, '#0000FF'), createMarker(name, location)]);
+				features.push(feature);
+
+				itemAdded();
+			}
+
+			function addGate(name, latitude, longitude, width, bearing) {
+				var location = new google.maps.LatLng(latitude, longitude);
+
+				var bearing1 = (360 + (bearing - 90)) % 360;
+				var bearing2 = (bearing + 90) % 360;
+
+				var locations = [
+					translateLocation(location, width / 2, bearing1),
+					translateLocation(location, width / 2, bearing2)
+				];
+
+				var feature = new Feature(name, [location], [createLine(locations, '#00FF00'), createMarker(name, location)]);
+				features.push(feature);
+
+				itemAdded();
+			}
+
+			function addNoFlyZone(name, latitude, longitude, radius) {
+				var location = new google.maps.LatLng(latitude, longitude);
+
+				var feature = new Feature(name, [location], [createCircle(location, radius, '#FF0000'), createMarker(name, location)]);
+				features.push(feature);
+
+				itemAdded();
+			}
+
+			function startPolygon(name) {
+				var feature = new Feature(name, [], []);
+
+				features.push(feature);
+			}
+
+			function addPolygonPoint(latitude, longitude) {
+				// Assume we're working on the last feature added
+				var feature = features[features.length - 1];
+
+				feature.locations.push(new google.maps.LatLng(latitude, longitude));
+			}
+
+			function finishNoFlyZonePolygon() {
+				// Assume we're working on the last feature added
+				var feature = features[features.length - 1];
+
+				// Find bounds of polygon. This allows us to find the center for the marker
+				var bounds = new google.maps.LatLngBounds();
+				for (var i = 0; i < feature.locations.length; i++) {
+					bounds.extend(feature.locations[i]);
+				}
+
+				feature.mapItems.push(createPolygon(feature.locations, '#FF0000'));
+				feature.mapItems.push(createMarker(feature.name, bounds.getCenter()));
+
+				itemAdded();
+			}
+
+			function finishAirfieldPolygon() {
+				// Assume we're working on the last feature added
+				var feature = features[features.length - 1];
+
+				// Find bounds of polygon. This allows us to find the center for the marker
+				var bounds = new google.maps.LatLngBounds();
+				for (var i = 0; i < feature.locations.length; i++) {
+					bounds.extend(feature.locations[i]);
+				}
+
+				feature.mapItems.push(createPolygon(feature.locations, '#FFD800'));
+				feature.mapItems.push(createMarker(feature.name, bounds.getCenter()));
+
+				itemAdded();
+			}
+
+			function finishDeckPolygon() {
+				// Assume we're working on the last feature added
+				var feature = features[features.length - 1];
+
+				// Find bounds of polygon. This allows us to find the center for the marker
+				var bounds = new google.maps.LatLngBounds();
+				for (var i = 0; i < feature.locations.length; i++) {
+					bounds.extend(feature.locations[i]);
+				}
+
+				feature.mapItems.push(createPolygon(feature.locations, '#FF6A00'));
+				feature.mapItems.push(createMarker(feature.name, bounds.getCenter()));
+
+				itemAdded();
+			}
+
+			function createCircle(location, radius, color) {
+				var circle = new google.maps.Circle({
+					map: map,
+					strokeColor: color,
+					strokeOpacity: 0.8,
+					strokeWeight: 2,
+					fillColor: '#000000',
+					fillOpacity: 0.4,
+					center: location,
+					radius: radius,
+					clickable: false
+				});
+
+				return circle;
+			}
+
+			function createLine(locations, color) {
+				var line = new google.maps.Polyline({
+					map: map,
+					path: locations,
+					strokeColor: color,
+					strokeOpacity: 0.8,
+					strokeWeight: 2,
+					clickable: false
+				});
+
+				return line;
+			}
+
+			function createPolygon(locations, color) {
+				var polygon = new google.maps.Polygon({
+					map: map,
+					paths: locations,
+					strokeColor: color,
+					strokeOpacity: 0.8,
+					strokeWeight: 2,
+					fillColor: '#000000',
+					fillOpacity: 0.4
+				});
+
+				return polygon;
+			}
+
+			function createMarker(name, location) {
+				var marker = new google.maps.Marker({
+					map: map,
+					position: location,
+					title: name,
+					icon: markerIcon,
+					clickable: true,
+					cursor: 'default'
+				});
+
+				return marker;
+			}
+
+			function itemAdded() {
+				//autoFit();
+			}
+
+			function itemRemoved() {
+				if (features.length > 0 || track != null) {
+					//autoFit();
+				}
+			}
+
+			function autoFit() {
+				if (features.length > 0 || (track != null && track.fixes.length > 0)) {
+					var bounds = new google.maps.LatLngBounds();
+
+					if (track == null && features.length == 0) {
+						// Special case for when we have just one feature, to prevent zooming in too far
+						// TODO: Calculate bounds for single feature which could be a point, gate or nfz (circle or polygon)
+						// When we've done this the mapBoundsChanged event can be ignored/removed
+					}
+					else {
+						if (track != null) {
+							for (var i = 0; i < track.fixes.length; i++) {
+								bounds.extend(track.fixes[i]);
+							}
+						}
+
+						for (var j = 0; j < features.length; j++) {
+							for (var k = 0; k < features[j].locations.length; k++) {
+								bounds.extend(features[j].locations[k]);
+							}
+						}
+					}
+
+					fittingBounds = true;
+					map.fitBounds(bounds);
+				}
+			}
+
+			function translateLocation(location, distance, bearing) {
+				var bearing = degreesToRadians(bearing);
+				var latitude1 = degreesToRadians(location.lat());
+				var longitude1 = degreesToRadians(location.lng());
+
+				var angularDistance = distance / earthRadius;
+
+				var latitude2 = Math.asin(Math.sin(latitude1) * Math.cos(angularDistance) + Math.cos(latitude1) * Math.sin(angularDistance) * Math.cos(bearing));
+				var longitude2 = longitude1 + Math.atan2(Math.sin(bearing) * Math.sin(angularDistance) * Math.cos(latitude1), Math.cos(angularDistance) - Math.sin(latitude1) * Math.sin(latitude2));
+
+				var newLatitude = Math.round(radiansToDegrees(latitude2) * 1000000) / 1000000;
+				var newLongitude = Math.round(radiansToDegrees(longitude2) * 1000000) / 1000000;
+
+				return new google.maps.LatLng(newLatitude, newLongitude);
+			}
+
+			function degreesToRadians(degrees) {
+				return degrees * (Math.PI / 180);
+			}
+
+			function radiansToDegrees(radians) {
+				return radians * (180 / Math.PI);
+			}
+		</script>
+	</body>
+</html>

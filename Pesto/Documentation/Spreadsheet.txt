@@ -1,0 +1,11 @@
+﻿Libraries for reading / manipulating spreadsheets:
+
+NPOI - 
+	Simple text extraction works on all sheets, removes empty lines and cells. 
+	Complicated extraction does not handle some time formats correctly
+
+GemBox - Free version only supports 150 rows and 5 sheets. Do they provide a free version without restrictions for non-profit projects?
+http://www.gemboxsoftware.com/spreadsheet/free-version
+
+ByteScout - Provide a free version for non-profit projects
+https://bytescout.com/buy/purchase.html

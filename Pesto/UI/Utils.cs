@@ -7,7 +7,7 @@ namespace ColinBaker.Pesto.UI
     {
         public static DateTime BuildDateTime(DateTimePicker datePicker, DateTimePicker timePicker)
         {
-            return new DateTime(datePicker.Value.Year, datePicker.Value.Month, datePicker.Value.Day, timePicker.Value.Hour, timePicker.Value.Minute, 0);
+            return new DateTime(datePicker.Value.Year, datePicker.Value.Month, datePicker.Value.Day, timePicker.Value.Hour, timePicker.Value.Minute, 0, DateTimeKind.Unspecified);
         }
     }
 }

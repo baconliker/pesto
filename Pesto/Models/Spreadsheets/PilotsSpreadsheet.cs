@@ -17,6 +17,7 @@ namespace ColinBaker.Pesto.Models.Spreadsheets
             this.Mappings.Add(new SpreadsheetColumnMapping(Column.ColumnType.Country, "Country", false));
             this.Mappings.Add(new SpreadsheetColumnMapping(Column.ColumnType.Motor, "Motor", false));
             this.Mappings.Add(new SpreadsheetColumnMapping(Column.ColumnType.Wing, "Wing", false));
+			this.Mappings.Add(new SpreadsheetColumnMapping(Column.ColumnType.LoggerId, "LoggerID", false));
 		}
 
 		public override string[] GetTemplateFilePaths()

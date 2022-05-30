@@ -871,24 +871,17 @@ namespace ColinBaker.Pesto.UI
                 return;
             }
 
-            if (string.IsNullOrEmpty(m_competition.FrdlIgcPath))
-			{
-				MessageBox.Show("Please set the location of FRDL IGC files in the competition properties.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-			}
-			else
-			{
-				Models.Task task = (tasksTaskListBox.SelectedItem as TaskListItem).Task;
+            Models.Task task = (tasksTaskListBox.SelectedItem as TaskListItem).Task;
 
-				this.Cursor = Cursors.WaitCursor;
+            this.Cursor = Cursors.WaitCursor;
 
-				using (TrackAnalysis.TrackAnalysisForm form = new TrackAnalysis.TrackAnalysisForm(task))
-				{
-					form.ShowDialog();
-				}
+            using (TrackAnalysis.TrackAnalysisForm form = new TrackAnalysis.TrackAnalysisForm(task))
+            {
+                form.ShowDialog();
+            }
 
-				this.Cursor = Cursors.Default;
-			}
-		}
+            this.Cursor = Cursors.Default;
+        }
 
 		private void generateTaskRibbonButton_Click(object sender, EventArgs e)
 		{

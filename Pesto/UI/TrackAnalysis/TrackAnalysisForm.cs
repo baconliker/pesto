@@ -27,12 +27,13 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 			{
 				string pilotNumberColumnName = this.Task.Competition.PilotsSpreadsheet.GetMapping(Models.Column.ColumnType.PilotNumber).ColumnName;
 				string pilotNameColumnName = this.Task.Competition.PilotsSpreadsheet.GetMapping(Models.Column.ColumnType.PilotName).ColumnName;
+                Models.Spreadsheets.SpreadsheetColumnMapping loggerIdMapping = this.Task.Competition.PilotsSpreadsheet.GetMapping(Models.Column.ColumnType.LoggerId);
 
-				using (DataTable pilotData = this.Task.Competition.PilotsSpreadsheet.GetData(aircraftClass.Code))
+                using (DataTable pilotData = this.Task.Competition.PilotsSpreadsheet.GetData(aircraftClass.Code))
 				{
 					foreach (DataRow pilotRow in pilotData.Rows)
 					{
-                        Models.TrackAnalysis.Pilot pilot = new Models.TrackAnalysis.Pilot((int)pilotRow[pilotNumberColumnName], (string)pilotRow[pilotNameColumnName], aircraftClass.Code);
+                        Models.TrackAnalysis.Pilot pilot = new Models.TrackAnalysis.Pilot((int)pilotRow[pilotNumberColumnName], (string)pilotRow[pilotNameColumnName], loggerIdMapping != null && pilotData.Columns.Contains(loggerIdMapping.ColumnName) ? (string)pilotRow[loggerIdMapping.ColumnName] : "", aircraftClass.Code);
 
                         object[] row = new object[3];
 
@@ -253,7 +254,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 
                 if (pilot.Track == null)
                 {
-                    pilot.Track = LoadPilotTrack(pilot);
+                    pilot.Track = Models.TrackAnalysis.TrackAnalyzer.LoadTrack(this.Task, pilot);
                 }
 
                 PopulateMapTrack(pilot.Track);
@@ -262,32 +263,6 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 
                 RefreshControlState();
             }
-        }
-
-        private ColinBaker.Geolocation.Tracks.Track LoadPilotTrack(Models.TrackAnalysis.Pilot pilot)
-        {
-            ColinBaker.Geolocation.Tracks.Track track = null;
-
-            string[] possibleTrackFiles = Models.TrackAnalysis.TrackAnalyzer.GetPossibleTrackFiles(this.Task, pilot.Number);
-
-            if (possibleTrackFiles.Length > 0)
-            {
-                // TODO: Offer option to select track to display (if there is more than 1)
-                // Actually, allow any file to be selected. This will allow multiple tasks to be flown on one flight
-
-                for (int i = possibleTrackFiles.Length - 1; i >= 0; i--)
-                {
-                    track = Models.TrackAnalysis.TrackAnalyzer.LoadTrack(possibleTrackFiles[i]);
-
-                    if (track.Fixes.Count > 0)
-                    {
-                        track.Name = string.Format("Task {0} - {1}", this.Task.Number, pilot.Name);
-                        break;
-                    }
-                }
-            }
-
-            return track;
         }
 
 		private bool ValidateMinAltitude(out int minAltitude)
@@ -413,7 +388,8 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 				}
 			}
 
-			runAnalysisRibbonButton.Enabled = (selectedPilotsTracks > 0);
+            selectTrackRibbonButton.Enabled = pilotsDataGridView.SelectedRows.Count == 1;
+            runAnalysisRibbonButton.Enabled = (selectedPilotsTracks > 0);
 
             removeEventRibbonButton.Enabled = (eventsDataGridView.SelectedRows.Count == 1);
 
@@ -477,6 +453,12 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 
 		private void runAnalysisRibbonButton_Click(object sender, EventArgs e)
 		{
+            if (this.Task.Competition.FlymasterIgcPath.Length > 0 && !this.Task.LandBySet)
+            {
+                MessageBox.Show("A 'Land by' date & time must be set in order to load Flymaster tracks", this.Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                return;
+            }
+
             this.Cursor = Cursors.WaitCursor;
 
             try
@@ -499,11 +481,11 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
                     if (pilot.Track == null)
                     {
                         // Attempt to load track for this pilot
-                        pilot.Track = LoadPilotTrack(pilot);
+                        pilot.Track = Models.TrackAnalysis.TrackAnalyzer.LoadTrack(this.Task, pilot);
 
                         // If there's still no track then add to list of 'trackless' pilots
 
-                        if (pilot.Track == null || pilot.Track.Fixes.Count == 0)
+                        if (pilot.Track == null)
                         {
                             tracklessPilots.Add(pilot);
                         }
@@ -633,14 +615,14 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 
                 foreach (Models.TrackAnalysis.Pilot pilot in pilotsToExport)
                 {
-                    if (pilot.Track == null || pilot.Track.Fixes.Count == 0)
+                    if (pilot.Track == null)
                     {
                         // Attempt to load track for this pilot
-                        pilot.Track = LoadPilotTrack(pilot);
+                        pilot.Track = Models.TrackAnalysis.TrackAnalyzer.LoadTrack(this.Task, pilot);
 
                         // If there's still no track then add to list of 'trackless' pilots
 
-                        if (pilot.Track == null || pilot.Track.Fixes.Count == 0)
+                        if (pilot.Track == null)
                         {
                             tracklessPilots.Add(pilot);
                         }
@@ -952,7 +934,22 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 
 		private void selectTrackRibbonButton_Click(object sender, EventArgs e)
 		{
-            //
+            Models.TrackAnalysis.Pilot pilot = pilotsDataGridView.SelectedRows[0].Tag as Models.TrackAnalysis.Pilot;
+
+            using (PilotManualTracksForm form = new PilotManualTracksForm(pilot.Number, pilot.Name, this.Task))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    pilot.Events.Clear();
+                    ClearEvents();
+
+                    pilot.Track = Models.TrackAnalysis.TrackAnalyzer.LoadTrack(this.Task, pilot);
+
+                    PopulateMapTrack(pilot.Track);
+
+                    RefreshControlState();
+                }
+            }
 		}
 	}
 }

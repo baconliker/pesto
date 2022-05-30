@@ -18,7 +18,8 @@ namespace ColinBaker.Pesto.Models
             TotalScore,
             Country,
             Motor,
-            Wing
+            Wing,
+            LoggerId
         }
 
         public enum ColumnAlignment

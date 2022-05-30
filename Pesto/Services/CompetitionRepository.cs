@@ -178,6 +178,9 @@ namespace ColinBaker.Pesto.Services
                     case "W":
                         mapping.ColumnType = Models.Column.ColumnType.Wing;
                         break;
+                    case "L":
+                        mapping.ColumnType = Models.Column.ColumnType.LoggerId;
+                        break;
                 }
                 if (string.Compare(columnMappingNode.SelectSingleNode("Required").InnerText, "Y", true) == 0)
                 {
@@ -488,6 +491,9 @@ namespace ColinBaker.Pesto.Services
                         break;
                     case Models.Column.ColumnType.Wing:
                         element.InnerText = "W";
+                        break;
+                    case Models.Column.ColumnType.LoggerId:
+                        element.InnerText = "L";
                         break;
                 }
                 columnMappingElement.AppendChild(element);

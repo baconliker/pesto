@@ -43,6 +43,7 @@
 			this.analysisRibbonTab = new System.Windows.Forms.RibbonTab();
 			this.taskRibbonPanel = new System.Windows.Forms.RibbonPanel();
 			this.selectFeaturesRibbonButton = new System.Windows.Forms.RibbonButton();
+			this.selectTrackRibbonButton = new System.Windows.Forms.RibbonButton();
 			this.runAnalysisRibbonButton = new System.Windows.Forms.RibbonButton();
 			this.eventsRibbonPanel = new System.Windows.Forms.RibbonPanel();
 			this.removeEventRibbonButton = new System.Windows.Forms.RibbonButton();
@@ -91,7 +92,6 @@
 			this.copyHorizontallyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.eventsCellContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.copyCellValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.selectTrackRibbonButton = new System.Windows.Forms.RibbonButton();
 			((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
 			this.mainSplitContainer.Panel1.SuspendLayout();
 			this.mainSplitContainer.Panel2.SuspendLayout();
@@ -160,6 +160,16 @@
 			this.selectFeaturesRibbonButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("selectFeaturesRibbonButton.SmallImage")));
 			this.selectFeaturesRibbonButton.Text = "Select Features";
 			this.selectFeaturesRibbonButton.Click += new System.EventHandler(this.selectFeaturesRibbonButton_Click);
+			// 
+			// selectTrackRibbonButton
+			// 
+			this.selectTrackRibbonButton.Image = ((System.Drawing.Image)(resources.GetObject("selectTrackRibbonButton.Image")));
+			this.selectTrackRibbonButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("selectTrackRibbonButton.LargeImage")));
+			this.selectTrackRibbonButton.MinSizeMode = System.Windows.Forms.RibbonElementSizeMode.Large;
+			this.selectTrackRibbonButton.Name = "selectTrackRibbonButton";
+			this.selectTrackRibbonButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("selectTrackRibbonButton.SmallImage")));
+			this.selectTrackRibbonButton.Text = "Manual Tracks";
+			this.selectTrackRibbonButton.Click += new System.EventHandler(this.selectTrackRibbonButton_Click);
 			// 
 			// runAnalysisRibbonButton
 			// 
@@ -372,7 +382,7 @@
 			// 
 			this.mainSplitContainer.Panel2.Controls.Add(this.eventsSplitContainer);
 			this.mainSplitContainer.Size = new System.Drawing.Size(901, 547);
-			this.mainSplitContainer.SplitterDistance = 216;
+			this.mainSplitContainer.SplitterDistance = 215;
 			this.mainSplitContainer.TabIndex = 1;
 			// 
 			// pilotsDataGridView
@@ -420,7 +430,7 @@
 			this.pilotsDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this.pilotsDataGridView.RowHeadersVisible = false;
 			this.pilotsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.pilotsDataGridView.Size = new System.Drawing.Size(216, 547);
+			this.pilotsDataGridView.Size = new System.Drawing.Size(215, 547);
 			this.pilotsDataGridView.TabIndex = 0;
 			this.pilotsDataGridView.SelectionChanged += new System.EventHandler(this.pilotsDataGridView_SelectionChanged);
 			// 
@@ -460,7 +470,7 @@
 			// eventsSplitContainer.Panel2
 			// 
 			this.eventsSplitContainer.Panel2.Controls.Add(this.analysisMap);
-			this.eventsSplitContainer.Size = new System.Drawing.Size(681, 547);
+			this.eventsSplitContainer.Size = new System.Drawing.Size(682, 547);
 			this.eventsSplitContainer.SplitterDistance = 316;
 			this.eventsSplitContainer.TabIndex = 0;
 			// 
@@ -515,7 +525,7 @@
 			this.eventsDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
 			this.eventsDataGridView.RowHeadersVisible = false;
 			this.eventsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.eventsDataGridView.Size = new System.Drawing.Size(100, 205);
+			this.eventsDataGridView.Size = new System.Drawing.Size(150, 316);
 			this.eventsDataGridView.TabIndex = 1;
 			this.eventsDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.eventsDataGridView_CellMouseClick);
 			this.eventsDataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.eventsDataGridView_ColumnHeaderMouseClick);
@@ -609,7 +619,7 @@
 			this.analysisMap.Location = new System.Drawing.Point(0, 0);
 			this.analysisMap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.analysisMap.Name = "analysisMap";
-			this.analysisMap.Size = new System.Drawing.Size(681, 547);
+			this.analysisMap.Size = new System.Drawing.Size(682, 547);
 			this.analysisMap.TabIndex = 0;
 			this.analysisMap.Zoom = -1;
 			this.analysisMap.Resize += new System.EventHandler(this.analysisMap_Resize);
@@ -678,15 +688,6 @@
 			this.copyCellValueToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
 			this.copyCellValueToolStripMenuItem.Text = "Copy";
 			this.copyCellValueToolStripMenuItem.Click += new System.EventHandler(this.copyCellValueToolStripMenuItem_Click);
-			// 
-			// selectTrackRibbonButton
-			// 
-			this.selectTrackRibbonButton.Image = ((System.Drawing.Image)(resources.GetObject("selectTrackRibbonButton.Image")));
-			this.selectTrackRibbonButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("selectTrackRibbonButton.LargeImage")));
-			this.selectTrackRibbonButton.Name = "selectTrackRibbonButton";
-			this.selectTrackRibbonButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("selectTrackRibbonButton.SmallImage")));
-			this.selectTrackRibbonButton.Text = "Select Track";
-			this.selectTrackRibbonButton.Click += new System.EventHandler(this.selectTrackRibbonButton_Click);
 			// 
 			// TrackAnalysisForm
 			// 

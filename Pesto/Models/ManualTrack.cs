@@ -11,5 +11,10 @@ namespace ColinBaker.Pesto.Models
 		public Task Task { get; set; }
 		public int PilotNumber { get; set; }
 		public string TrackFilePath { get; set; }
+
+		public override string ToString()
+		{
+			return this.TrackFilePath;
+		}
 	}
 }

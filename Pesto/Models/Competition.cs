@@ -17,6 +17,7 @@ namespace ColinBaker.Pesto.Models
 			this.Name = string.Empty;
 
             this.FrdlIgcPath = string.Empty;
+            this.FlymasterIgcPath = string.Empty;
             this.BackupPath = string.Empty;
 
 			this.PilotsSpreadsheet = new Spreadsheets.PilotsSpreadsheet(this);

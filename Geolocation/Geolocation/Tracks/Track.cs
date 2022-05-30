@@ -13,7 +13,7 @@ namespace ColinBaker.Geolocation.Tracks
 
 		private readonly ObservableCollection<Fix> m_fixes = new ObservableCollection<Fix>();
 
-		internal Track()
+		public Track()
 		{
 			m_fixes.CollectionChanging += new EventHandler<NotifyCollectionChangingEventArgs<Fix>>(m_fixes_CollectionChanging);
 			m_fixes.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(m_fixes_CollectionChanged);

@@ -234,5 +234,7 @@ namespace ColinBaker.Pesto.Models
 				return (this.LandBy != DateTime.MinValue);
 			}
 		}
+
+		public TrackAnalysis.Events.TrackEvent.EventType[] EventTypeFilters { get; set; } = TrackAnalysis.Events.TrackEvent.DefaultEventTypeFilters;
 	}
 }

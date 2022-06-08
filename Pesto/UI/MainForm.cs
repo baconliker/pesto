@@ -878,6 +878,8 @@ namespace ColinBaker.Pesto.UI
             using (TrackAnalysis.TrackAnalysisForm form = new TrackAnalysis.TrackAnalysisForm(task))
             {
                 form.ShowDialog();
+
+                m_competition.Save();
             }
 
             this.Cursor = Cursors.Default;

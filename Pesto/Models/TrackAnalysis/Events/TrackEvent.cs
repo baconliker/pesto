@@ -57,7 +57,7 @@ namespace ColinBaker.Pesto.Models.TrackAnalysis.Events
 			Failure
 		}
 
-        public static readonly EventType[] AllTypes = {
+        public static readonly EventType[] DefaultEventTypeFilters = {
             EventType.FirstFix,
             EventType.LastFix,
             EventType.FixLost,

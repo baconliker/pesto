@@ -10,8 +10,6 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 {
 	internal partial class TrackAnalysisForm : Form
 	{
-        Models.TrackAnalysis.Events.TrackEvent.EventType[] m_filterEventTypes = Models.TrackAnalysis.Events.TrackEvent.AllTypes;
-
         public TrackAnalysisForm(Models.Task task)
 		{
 			InitializeComponent();
@@ -62,7 +60,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 		{
 			ClearEvents();
 
-			List<Models.TrackAnalysis.Events.TrackEvent.EventType> eventTypesToInclude = new List<Models.TrackAnalysis.Events.TrackEvent.EventType>(m_filterEventTypes);
+			List<Models.TrackAnalysis.Events.TrackEvent.EventType> eventTypesToInclude = new List<Models.TrackAnalysis.Events.TrackEvent.EventType>(this.Task.EventTypeFilters);
 
 			Models.TrackAnalysis.Events.TrackEvent firstEvent = null;
 			int counter = 0;
@@ -434,8 +432,6 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 			{
 				form.ShowDialog();
 
-				this.Task.Competition.Save();
-
 				foreach (DataGridViewRow row in pilotsDataGridView.Rows)
 				{
 					Models.TrackAnalysis.Pilot pilot = row.Tag as Models.TrackAnalysis.Pilot;
@@ -676,7 +672,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
                             {
                                 if (exportKmlFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
-                                    ExportKml(exportKmlFileDialog.FileName, pilotsToExport[0], m_filterEventTypes, form.IncludeTrackFixData, form.ClampTrackToGround, form.IncludeFeatures, form.IncludeEvents);
+                                    ExportKml(exportKmlFileDialog.FileName, pilotsToExport[0], this.Task.EventTypeFilters, form.IncludeTrackFixData, form.ClampTrackToGround, form.IncludeFeatures, form.IncludeEvents);
 
                                     if (MessageBox.Show("Export complete. Do you want to open the KML file in Google Earth now?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                                     {
@@ -692,7 +688,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
                                     {
                                         string kmlFilePath = System.IO.Path.Combine(exportKmlFolderBrowserDialog.SelectedPath, string.Format("Task {0:00} - {1:000} - {2}.kml", this.Task.Number, pilot.Number, pilot.Name));
 
-                                        ExportKml(CleanFilePath(kmlFilePath), pilot, m_filterEventTypes, form.IncludeTrackFixData, form.ClampTrackToGround, form.IncludeFeatures, form.IncludeEvents);
+                                        ExportKml(CleanFilePath(kmlFilePath), pilot, this.Task.EventTypeFilters, form.IncludeTrackFixData, form.ClampTrackToGround, form.IncludeFeatures, form.IncludeEvents);
                                     }
 
                                     MessageBox.Show("Export complete.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -916,11 +912,11 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 
         private void filterEventsRibbonButton_Click(object sender, EventArgs e)
         {
-            using (EventFilterForm form = new EventFilterForm(m_filterEventTypes))
+            using (EventFilterForm form = new EventFilterForm(this.Task.EventTypeFilters))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    m_filterEventTypes = form.EventTypes;
+                    this.Task.EventTypeFilters = form.EventTypes;
 
                     if (pilotsDataGridView.SelectedRows.Count == 1)
                     {

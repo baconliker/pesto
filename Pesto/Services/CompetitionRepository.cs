@@ -377,6 +377,23 @@ namespace ColinBaker.Pesto.Services
                         TrackFilePath = manualTrackNode.InnerText
                     });
                 }
+
+                XmlNode eventTypeFiltersNode = taskNode.SelectSingleNode("EventTypeFilters");
+                if (eventTypeFiltersNode != null)
+                {
+                    string[] eventTypeFilterNames = eventTypeFiltersNode.InnerText.Split(',');
+                    List<Models.TrackAnalysis.Events.TrackEvent.EventType> eventTypeFilters = new List<Models.TrackAnalysis.Events.TrackEvent.EventType>();
+
+                    foreach (string eventTypeFilterName in eventTypeFilterNames)
+                    {
+                        if (Enum.TryParse(eventTypeFilterName, out Models.TrackAnalysis.Events.TrackEvent.EventType eventType))
+                        {
+                            eventTypeFilters.Add(eventType);
+                        }
+                    }
+
+                    task.EventTypeFilters = eventTypeFilters.ToArray();
+                }
             }
 
             return competition;
@@ -706,6 +723,18 @@ namespace ColinBaker.Pesto.Services
                         manualTracksElement.AppendChild(manualTrackElement);
                     }
                 }
+
+                XmlElement eventTypeFiltersElement = document.CreateElement("EventTypeFilters");
+                taskElement.AppendChild(eventTypeFiltersElement);
+
+                List<string> eventTypeFilters = new List<string>();
+
+                foreach (Models.TrackAnalysis.Events.TrackEvent.EventType eventType in task.EventTypeFilters)
+                {
+                    eventTypeFilters.Add(Enum.GetName(typeof(Models.TrackAnalysis.Events.TrackEvent.EventType), eventType));
+                }
+
+                eventTypeFiltersElement.InnerText = string.Join(",", eventTypeFilters);
             }
 
             document.Save(competition.Repository.FilePath);

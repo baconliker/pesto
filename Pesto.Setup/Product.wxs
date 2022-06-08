@@ -8,7 +8,7 @@
     <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
   <?endif ?>
   
-  <Product Id="*" Name="Pesto" Language="1033" Version="2.0.0" Manufacturer="Colin Baker" UpgradeCode="D4E11963-902A-4D7A-A9CF-2D88F5E603F8">
+  <Product Id="*" Name="Pesto" Language="1033" Version="2.1.0" Manufacturer="Colin Baker" UpgradeCode="D4E11963-902A-4D7A-A9CF-2D88F5E603F8">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"/>
     
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."/>

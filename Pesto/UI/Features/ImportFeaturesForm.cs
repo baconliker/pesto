@@ -158,7 +158,7 @@ namespace ColinBaker.Pesto.UI.Features
                                     case Geolocation.Files.Geometry.GeometryType.Point:
                                         Models.Features.Circle nfzCircle = new Models.Features.Circle();
                                         nfzCircle.Center = (placemark.Geometry as Geolocation.Files.Point).Coordinates;
-                                        nfzCircle.Radius = Models.Features.PointFeature.DefaultRadius;
+                                        nfzCircle.Radius = this.Competition.DefaultPointRadius;
                                         newFeature = new Models.Features.NoFlyZoneFeature(newFeatureName, nfzCircle);
                                         break;
                                     case Geolocation.Files.Geometry.GeometryType.Polygon:
@@ -172,7 +172,7 @@ namespace ColinBaker.Pesto.UI.Features
                             case m_featureTypePoint:
                                 Models.Features.Circle pointCircle = new Models.Features.Circle();
                                 pointCircle.Center = (placemark.Geometry as Geolocation.Files.Point).Coordinates;
-                                pointCircle.Radius = Models.Features.PointFeature.DefaultRadius;
+                                pointCircle.Radius = this.Competition.DefaultPointRadius;
                                 newFeature = new Models.Features.PointFeature(newFeatureName, pointCircle);
                                 break;
                         }

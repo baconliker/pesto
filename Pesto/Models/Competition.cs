@@ -171,6 +171,8 @@ namespace ColinBaker.Pesto.Models
         public string FrdlIgcPath { get; set; }
         public string FlymasterIgcPath { get; set; }
 
+        public int DefaultPointRadius { get; set; } = Models.Features.PointFeature.DefaultRadius;
+
         public Spreadsheets.PilotsSpreadsheet PilotsSpreadsheet { get; private set; }
 
         public List<AircraftClass> AircraftClasses { get; set; }

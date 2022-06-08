@@ -55,7 +55,7 @@ namespace ColinBaker.Pesto.UI.Features
 				        circleLongitudeTextBox.Text = initialMapLocation.Longitude.ToString("##0.000000");
 			        }
 
-			        circleRadiusTextBox.Text = Models.Features.PointFeature.DefaultRadius.ToString();
+			        circleRadiusTextBox.Text = this.Competition.DefaultPointRadius.ToString();
 
                     break;
 
@@ -68,7 +68,7 @@ namespace ColinBaker.Pesto.UI.Features
 				        circleLongitudeTextBox.Text = initialMapLocation.Longitude.ToString("##0.000000");
 			        }
 
-			        circleRadiusTextBox.Text = Models.Features.PointFeature.DefaultRadius.ToString();
+			        circleRadiusTextBox.Text = this.Competition.DefaultPointRadius.ToString();
 
                     break;
 

@@ -28,6 +28,8 @@ namespace ColinBaker.Pesto.UI
 
             nationDefinitionsDataGridView.Columns["nationNumberWhoScoreColumn"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopRight;
 
+            defaultPointRadiusTextBox.Text = Models.Features.PointFeature.DefaultRadius.ToString();
+
             this.Height = 595;
         }
 
@@ -64,6 +66,8 @@ namespace ColinBaker.Pesto.UI
                 flymasterIgcLocationTextBox.Text = competition.FlymasterIgcPath;
                 flymasterRadioButton.Checked = true;
             }
+
+            defaultPointRadiusTextBox.Text = competition.DefaultPointRadius.ToString();
 
             this.Height = 595;
         }
@@ -282,7 +286,7 @@ namespace ColinBaker.Pesto.UI
                 if (!System.IO.Directory.Exists(frdlIgcLocationTextBox.Text))
                 {
                     MessageBox.Show("Please enter a valid FRDL IGC location.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    competitionTabControl.SelectedTab = loggersTabPage;
+                    competitionTabControl.SelectedTab = trackAnalysisTabPage;
                     return false;
                 }
             }
@@ -291,9 +295,17 @@ namespace ColinBaker.Pesto.UI
                 if (!System.IO.Directory.Exists(flymasterIgcLocationTextBox.Text))
                 {
                     MessageBox.Show("Please enter a valid Flymaster IGC location.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    competitionTabControl.SelectedTab = loggersTabPage;
+                    competitionTabControl.SelectedTab = trackAnalysisTabPage;
                     return false;
                 }
+            }
+
+            if (defaultPointRadiusTextBox.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Please enter a default turnpoint radius.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                competitionTabControl.SelectedTab = trackAnalysisTabPage;
+                defaultPointRadiusTextBox.Focus();
+                return false;
             }
 
             return true;
@@ -402,6 +414,7 @@ namespace ColinBaker.Pesto.UI
                 this.Competition.NationDefinitions = new List<Models.NationDefinition>(ExtractNationDefinitions());
                 this.Competition.FrdlIgcPath = amodRadioButton.Checked ? frdlIgcLocationTextBox.Text : "";
                 this.Competition.FlymasterIgcPath = flymasterRadioButton.Checked ? flymasterIgcLocationTextBox.Text : "";
+                this.Competition.DefaultPointRadius = int.Parse(defaultPointRadiusTextBox.Text.Trim());
                 this.Competition.BackupPath = backupLocationTextBox.Text;
 			}
 			else
@@ -453,5 +466,14 @@ namespace ColinBaker.Pesto.UI
                 flymasterIgcLocationTextBox.Text = tracksFolderDialog.SelectedPath;
             }
         }
+
+		private void defaultTurnpointRadiusTextBox_Validating(object sender, CancelEventArgs e)
+		{
+			if (defaultPointRadiusTextBox.Text.Trim().Length > 0 && !int.TryParse(defaultPointRadiusTextBox.Text.Trim(), out _))
+            {
+                MessageBox.Show("Please enter a number.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Cancel = true;
+            }
+		}
 	}
 }

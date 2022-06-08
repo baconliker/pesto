@@ -7,7 +7,6 @@ namespace ColinBaker.Pesto.Models.Features
 {
 	class PointFeature : Feature
 	{
-        // TODO: Make configurable. Changed from 250m to 200m for WPC2016 to comply with section 10
 		public const int DefaultRadius = 200;
 
         public PointFeature(string name, Shape shape)

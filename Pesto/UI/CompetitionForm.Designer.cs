@@ -28,13 +28,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.okButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.competitionFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -61,7 +61,11 @@
 			this.locationLabel = new System.Windows.Forms.Label();
 			this.nameTextBox = new System.Windows.Forms.TextBox();
 			this.nameLabel = new System.Windows.Forms.Label();
-			this.loggersTabPage = new System.Windows.Forms.TabPage();
+			this.trackAnalysisTabPage = new System.Windows.Forms.TabPage();
+			this.defaultPointRadiusUnitsLabel = new System.Windows.Forms.Label();
+			this.defaultPointRadiusTextBox = new System.Windows.Forms.TextBox();
+			this.defaultPointRadiusLabel = new System.Windows.Forms.Label();
+			this.loggersGroupBox = new System.Windows.Forms.GroupBox();
 			this.chooseFlymasterIgcLocationButton = new System.Windows.Forms.Button();
 			this.flymasterIgcLocationTextBox = new System.Windows.Forms.TextBox();
 			this.flymasterIgcLocationLabel = new System.Windows.Forms.Label();
@@ -79,7 +83,8 @@
 			this.competitionTabControl.SuspendLayout();
 			this.generalTabPage.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.aircraftClassesDataGridView)).BeginInit();
-			this.loggersTabPage.SuspendLayout();
+			this.trackAnalysisTabPage.SuspendLayout();
+			this.loggersGroupBox.SuspendLayout();
 			this.nationTabPage.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nationDefinitionsDataGridView)).BeginInit();
 			this.SuspendLayout();
@@ -121,7 +126,7 @@
 			// competitionTabControl
 			// 
 			this.competitionTabControl.Controls.Add(this.generalTabPage);
-			this.competitionTabControl.Controls.Add(this.loggersTabPage);
+			this.competitionTabControl.Controls.Add(this.trackAnalysisTabPage);
 			this.competitionTabControl.Controls.Add(this.nationTabPage);
 			this.competitionTabControl.Location = new System.Drawing.Point(8, 8);
 			this.competitionTabControl.Margin = new System.Windows.Forms.Padding(2);
@@ -226,39 +231,39 @@
 			this.aircraftClassesDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.aircraftClassesDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
 			this.aircraftClassesDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-			dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.aircraftClassesDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+			dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.aircraftClassesDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
 			this.aircraftClassesDataGridView.ColumnHeadersHeight = 22;
 			this.aircraftClassesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 			this.aircraftClassesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedColumn,
             this.CodeColumn,
             this.DescriptionColumn});
-			dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.aircraftClassesDataGridView.DefaultCellStyle = dataGridViewCellStyle11;
+			dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.aircraftClassesDataGridView.DefaultCellStyle = dataGridViewCellStyle18;
 			this.aircraftClassesDataGridView.Location = new System.Drawing.Point(11, 168);
 			this.aircraftClassesDataGridView.MultiSelect = false;
 			this.aircraftClassesDataGridView.Name = "aircraftClassesDataGridView";
-			dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.aircraftClassesDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+			dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.aircraftClassesDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
 			this.aircraftClassesDataGridView.RowHeadersVisible = false;
 			this.aircraftClassesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
 			this.aircraftClassesDataGridView.Size = new System.Drawing.Size(449, 167);
@@ -277,11 +282,11 @@
 			// CodeColumn
 			// 
 			this.CodeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-			dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-			this.CodeColumn.DefaultCellStyle = dataGridViewCellStyle9;
+			dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+			this.CodeColumn.DefaultCellStyle = dataGridViewCellStyle16;
 			this.CodeColumn.FillWeight = 53.29951F;
 			this.CodeColumn.HeaderText = "Code";
 			this.CodeColumn.Name = "CodeColumn";
@@ -290,11 +295,11 @@
 			// 
 			// DescriptionColumn
 			// 
-			dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-			this.DescriptionColumn.DefaultCellStyle = dataGridViewCellStyle10;
+			dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+			this.DescriptionColumn.DefaultCellStyle = dataGridViewCellStyle17;
 			this.DescriptionColumn.FillWeight = 201.0153F;
 			this.DescriptionColumn.HeaderText = "Description";
 			this.DescriptionColumn.Name = "DescriptionColumn";
@@ -378,116 +383,150 @@
 			this.nameLabel.TabIndex = 22;
 			this.nameLabel.Text = "Name:";
 			// 
-			// loggersTabPage
+			// trackAnalysisTabPage
 			// 
-			this.loggersTabPage.Controls.Add(this.chooseFlymasterIgcLocationButton);
-			this.loggersTabPage.Controls.Add(this.flymasterIgcLocationTextBox);
-			this.loggersTabPage.Controls.Add(this.flymasterIgcLocationLabel);
-			this.loggersTabPage.Controls.Add(this.flymasterRadioButton);
-			this.loggersTabPage.Controls.Add(this.chooseFrdlIgcLocationButton);
-			this.loggersTabPage.Controls.Add(this.frdlIgcLocationTextBox);
-			this.loggersTabPage.Controls.Add(this.frdlIgcLocationLabel);
-			this.loggersTabPage.Controls.Add(this.amodRadioButton);
-			this.loggersTabPage.Controls.Add(this.noLoggersRadioButton);
-			this.loggersTabPage.Location = new System.Drawing.Point(4, 22);
-			this.loggersTabPage.Name = "loggersTabPage";
-			this.loggersTabPage.Padding = new System.Windows.Forms.Padding(3);
-			this.loggersTabPage.Size = new System.Drawing.Size(476, 484);
-			this.loggersTabPage.TabIndex = 2;
-			this.loggersTabPage.Text = "Loggers";
-			this.loggersTabPage.UseVisualStyleBackColor = true;
+			this.trackAnalysisTabPage.Controls.Add(this.defaultPointRadiusUnitsLabel);
+			this.trackAnalysisTabPage.Controls.Add(this.defaultPointRadiusTextBox);
+			this.trackAnalysisTabPage.Controls.Add(this.defaultPointRadiusLabel);
+			this.trackAnalysisTabPage.Controls.Add(this.loggersGroupBox);
+			this.trackAnalysisTabPage.Location = new System.Drawing.Point(4, 22);
+			this.trackAnalysisTabPage.Name = "trackAnalysisTabPage";
+			this.trackAnalysisTabPage.Padding = new System.Windows.Forms.Padding(3);
+			this.trackAnalysisTabPage.Size = new System.Drawing.Size(476, 484);
+			this.trackAnalysisTabPage.TabIndex = 2;
+			this.trackAnalysisTabPage.Text = "Track Analysis";
+			this.trackAnalysisTabPage.UseVisualStyleBackColor = true;
+			// 
+			// defaultPointRadiusUnitsLabel
+			// 
+			this.defaultPointRadiusUnitsLabel.AutoSize = true;
+			this.defaultPointRadiusUnitsLabel.Location = new System.Drawing.Point(175, 245);
+			this.defaultPointRadiusUnitsLabel.Name = "defaultPointRadiusUnitsLabel";
+			this.defaultPointRadiusUnitsLabel.Size = new System.Drawing.Size(38, 13);
+			this.defaultPointRadiusUnitsLabel.TabIndex = 46;
+			this.defaultPointRadiusUnitsLabel.Text = "metres";
+			// 
+			// defaultPointRadiusTextBox
+			// 
+			this.defaultPointRadiusTextBox.Location = new System.Drawing.Point(114, 242);
+			this.defaultPointRadiusTextBox.Name = "defaultPointRadiusTextBox";
+			this.defaultPointRadiusTextBox.Size = new System.Drawing.Size(55, 20);
+			this.defaultPointRadiusTextBox.TabIndex = 45;
+			this.defaultPointRadiusTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.defaultTurnpointRadiusTextBox_Validating);
+			// 
+			// defaultPointRadiusLabel
+			// 
+			this.defaultPointRadiusLabel.AutoSize = true;
+			this.defaultPointRadiusLabel.Location = new System.Drawing.Point(7, 245);
+			this.defaultPointRadiusLabel.Name = "defaultPointRadiusLabel";
+			this.defaultPointRadiusLabel.Size = new System.Drawing.Size(101, 13);
+			this.defaultPointRadiusLabel.TabIndex = 44;
+			this.defaultPointRadiusLabel.Text = "Default point radius:";
+			// 
+			// loggersGroupBox
+			// 
+			this.loggersGroupBox.Controls.Add(this.chooseFlymasterIgcLocationButton);
+			this.loggersGroupBox.Controls.Add(this.flymasterIgcLocationTextBox);
+			this.loggersGroupBox.Controls.Add(this.flymasterIgcLocationLabel);
+			this.loggersGroupBox.Controls.Add(this.flymasterRadioButton);
+			this.loggersGroupBox.Controls.Add(this.chooseFrdlIgcLocationButton);
+			this.loggersGroupBox.Controls.Add(this.frdlIgcLocationTextBox);
+			this.loggersGroupBox.Controls.Add(this.frdlIgcLocationLabel);
+			this.loggersGroupBox.Controls.Add(this.amodRadioButton);
+			this.loggersGroupBox.Controls.Add(this.noLoggersRadioButton);
+			this.loggersGroupBox.Location = new System.Drawing.Point(10, 6);
+			this.loggersGroupBox.Name = "loggersGroupBox";
+			this.loggersGroupBox.Size = new System.Drawing.Size(456, 221);
+			this.loggersGroupBox.TabIndex = 43;
+			this.loggersGroupBox.TabStop = false;
+			this.loggersGroupBox.Text = "Loggers";
 			// 
 			// chooseFlymasterIgcLocationButton
 			// 
 			this.chooseFlymasterIgcLocationButton.Enabled = false;
-			this.chooseFlymasterIgcLocationButton.Location = new System.Drawing.Point(383, 152);
+			this.chooseFlymasterIgcLocationButton.Location = new System.Drawing.Point(373, 172);
 			this.chooseFlymasterIgcLocationButton.Name = "chooseFlymasterIgcLocationButton";
 			this.chooseFlymasterIgcLocationButton.Size = new System.Drawing.Size(73, 24);
-			this.chooseFlymasterIgcLocationButton.TabIndex = 42;
+			this.chooseFlymasterIgcLocationButton.TabIndex = 51;
 			this.chooseFlymasterIgcLocationButton.Text = "Choose...";
 			this.chooseFlymasterIgcLocationButton.UseVisualStyleBackColor = true;
-			this.chooseFlymasterIgcLocationButton.Click += new System.EventHandler(this.chooseFlymasterIgcLocationButton_Click);
 			// 
 			// flymasterIgcLocationTextBox
 			// 
 			this.flymasterIgcLocationTextBox.Enabled = false;
-			this.flymasterIgcLocationTextBox.Location = new System.Drawing.Point(23, 155);
+			this.flymasterIgcLocationTextBox.Location = new System.Drawing.Point(22, 176);
 			this.flymasterIgcLocationTextBox.Name = "flymasterIgcLocationTextBox";
-			this.flymasterIgcLocationTextBox.Size = new System.Drawing.Size(355, 20);
-			this.flymasterIgcLocationTextBox.TabIndex = 41;
+			this.flymasterIgcLocationTextBox.Size = new System.Drawing.Size(345, 20);
+			this.flymasterIgcLocationTextBox.TabIndex = 50;
 			// 
 			// flymasterIgcLocationLabel
 			// 
 			this.flymasterIgcLocationLabel.AutoSize = true;
-			this.flymasterIgcLocationLabel.Location = new System.Drawing.Point(22, 139);
+			this.flymasterIgcLocationLabel.Location = new System.Drawing.Point(21, 160);
 			this.flymasterIgcLocationLabel.Name = "flymasterIgcLocationLabel";
 			this.flymasterIgcLocationLabel.Size = new System.Drawing.Size(155, 13);
-			this.flymasterIgcLocationLabel.TabIndex = 40;
+			this.flymasterIgcLocationLabel.TabIndex = 49;
 			this.flymasterIgcLocationLabel.Text = "Flymaster Tracker IGC location:";
 			// 
 			// flymasterRadioButton
 			// 
 			this.flymasterRadioButton.AutoSize = true;
-			this.flymasterRadioButton.Location = new System.Drawing.Point(10, 109);
+			this.flymasterRadioButton.Location = new System.Drawing.Point(9, 130);
 			this.flymasterRadioButton.Name = "flymasterRadioButton";
 			this.flymasterRadioButton.Size = new System.Drawing.Size(69, 17);
-			this.flymasterRadioButton.TabIndex = 39;
+			this.flymasterRadioButton.TabIndex = 48;
 			this.flymasterRadioButton.Text = "Flymaster";
 			this.flymasterRadioButton.UseVisualStyleBackColor = true;
-			this.flymasterRadioButton.CheckedChanged += new System.EventHandler(this.flymasterRadioButton_CheckedChanged);
 			// 
 			// chooseFrdlIgcLocationButton
 			// 
 			this.chooseFrdlIgcLocationButton.Enabled = false;
-			this.chooseFrdlIgcLocationButton.Location = new System.Drawing.Point(383, 71);
+			this.chooseFrdlIgcLocationButton.Location = new System.Drawing.Point(373, 92);
 			this.chooseFrdlIgcLocationButton.Name = "chooseFrdlIgcLocationButton";
 			this.chooseFrdlIgcLocationButton.Size = new System.Drawing.Size(73, 24);
-			this.chooseFrdlIgcLocationButton.TabIndex = 38;
+			this.chooseFrdlIgcLocationButton.TabIndex = 47;
 			this.chooseFrdlIgcLocationButton.Text = "Choose...";
 			this.chooseFrdlIgcLocationButton.UseVisualStyleBackColor = true;
-			this.chooseFrdlIgcLocationButton.Click += new System.EventHandler(this.chooseFrdlIgcLocationButton_Click);
 			// 
 			// frdlIgcLocationTextBox
 			// 
 			this.frdlIgcLocationTextBox.Enabled = false;
-			this.frdlIgcLocationTextBox.Location = new System.Drawing.Point(23, 74);
+			this.frdlIgcLocationTextBox.Location = new System.Drawing.Point(22, 95);
 			this.frdlIgcLocationTextBox.Name = "frdlIgcLocationTextBox";
-			this.frdlIgcLocationTextBox.Size = new System.Drawing.Size(355, 20);
-			this.frdlIgcLocationTextBox.TabIndex = 37;
+			this.frdlIgcLocationTextBox.Size = new System.Drawing.Size(345, 20);
+			this.frdlIgcLocationTextBox.TabIndex = 46;
 			// 
 			// frdlIgcLocationLabel
 			// 
 			this.frdlIgcLocationLabel.AutoSize = true;
-			this.frdlIgcLocationLabel.Location = new System.Drawing.Point(22, 58);
+			this.frdlIgcLocationLabel.Location = new System.Drawing.Point(21, 79);
 			this.frdlIgcLocationLabel.Name = "frdlIgcLocationLabel";
 			this.frdlIgcLocationLabel.Size = new System.Drawing.Size(395, 13);
-			this.frdlIgcLocationLabel.TabIndex = 36;
+			this.frdlIgcLocationLabel.TabIndex = 45;
 			this.frdlIgcLocationLabel.Text = "FRDL IGC location (the folder where FRDL stores tracks, normally called \'igcFiles" +
     "\'):";
 			// 
 			// amodRadioButton
 			// 
 			this.amodRadioButton.AutoSize = true;
-			this.amodRadioButton.Location = new System.Drawing.Point(10, 29);
+			this.amodRadioButton.Location = new System.Drawing.Point(9, 50);
 			this.amodRadioButton.Name = "amodRadioButton";
 			this.amodRadioButton.Size = new System.Drawing.Size(57, 17);
-			this.amodRadioButton.TabIndex = 1;
+			this.amodRadioButton.TabIndex = 44;
 			this.amodRadioButton.Text = "AMOD";
 			this.amodRadioButton.UseVisualStyleBackColor = true;
-			this.amodRadioButton.CheckedChanged += new System.EventHandler(this.amodRadioButton_CheckedChanged);
 			// 
 			// noLoggersRadioButton
 			// 
 			this.noLoggersRadioButton.AutoSize = true;
 			this.noLoggersRadioButton.Checked = true;
-			this.noLoggersRadioButton.Location = new System.Drawing.Point(10, 6);
+			this.noLoggersRadioButton.Location = new System.Drawing.Point(9, 27);
 			this.noLoggersRadioButton.Name = "noLoggersRadioButton";
 			this.noLoggersRadioButton.Size = new System.Drawing.Size(51, 17);
-			this.noLoggersRadioButton.TabIndex = 0;
+			this.noLoggersRadioButton.TabIndex = 43;
 			this.noLoggersRadioButton.TabStop = true;
 			this.noLoggersRadioButton.Text = "None";
 			this.noLoggersRadioButton.UseVisualStyleBackColor = true;
-			this.noLoggersRadioButton.CheckedChanged += new System.EventHandler(this.noLoggersRadioButton_CheckedChanged);
 			// 
 			// nationTabPage
 			// 
@@ -540,16 +579,16 @@
 			// 
 			// nationAircraftClassColumn
 			// 
-			dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-			this.nationAircraftClassColumn.DefaultCellStyle = dataGridViewCellStyle13;
+			dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control;
+			this.nationAircraftClassColumn.DefaultCellStyle = dataGridViewCellStyle20;
 			this.nationAircraftClassColumn.HeaderText = "Aircraft Class";
 			this.nationAircraftClassColumn.Name = "nationAircraftClassColumn";
 			this.nationAircraftClassColumn.ReadOnly = true;
 			// 
 			// nationNumberWhoScoreColumn
 			// 
-			dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight;
-			this.nationNumberWhoScoreColumn.DefaultCellStyle = dataGridViewCellStyle14;
+			dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight;
+			this.nationNumberWhoScoreColumn.DefaultCellStyle = dataGridViewCellStyle21;
 			this.nationNumberWhoScoreColumn.FillWeight = 125F;
 			this.nationNumberWhoScoreColumn.HeaderText = "Number Who Score";
 			this.nationNumberWhoScoreColumn.Name = "nationNumberWhoScoreColumn";
@@ -575,8 +614,10 @@
 			this.generalTabPage.ResumeLayout(false);
 			this.generalTabPage.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.aircraftClassesDataGridView)).EndInit();
-			this.loggersTabPage.ResumeLayout(false);
-			this.loggersTabPage.PerformLayout();
+			this.trackAnalysisTabPage.ResumeLayout(false);
+			this.trackAnalysisTabPage.PerformLayout();
+			this.loggersGroupBox.ResumeLayout(false);
+			this.loggersGroupBox.PerformLayout();
 			this.nationTabPage.ResumeLayout(false);
 			this.nationTabPage.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nationDefinitionsDataGridView)).EndInit();
@@ -616,7 +657,8 @@
         private System.Windows.Forms.DataGridView nationDefinitionsDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn nationAircraftClassColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nationNumberWhoScoreColumn;
-		private System.Windows.Forms.TabPage loggersTabPage;
+		private System.Windows.Forms.TabPage trackAnalysisTabPage;
+		private System.Windows.Forms.GroupBox loggersGroupBox;
 		private System.Windows.Forms.Button chooseFlymasterIgcLocationButton;
 		private System.Windows.Forms.TextBox flymasterIgcLocationTextBox;
 		private System.Windows.Forms.Label flymasterIgcLocationLabel;
@@ -626,5 +668,8 @@
 		private System.Windows.Forms.Label frdlIgcLocationLabel;
 		private System.Windows.Forms.RadioButton amodRadioButton;
 		private System.Windows.Forms.RadioButton noLoggersRadioButton;
+		private System.Windows.Forms.Label defaultPointRadiusUnitsLabel;
+		private System.Windows.Forms.TextBox defaultPointRadiusTextBox;
+		private System.Windows.Forms.Label defaultPointRadiusLabel;
 	}
 }

@@ -152,6 +152,12 @@ namespace ColinBaker.Pesto.Services
                 competition.FlymasterIgcPath = flymasterIgcPathNode.InnerText;
             }
 
+            XmlNode defaultTurnpointRadiusNode = competitionNode.SelectSingleNode("DefaultPointRadius");
+            if (defaultTurnpointRadiusNode != null)
+            {
+                competition.DefaultPointRadius = int.Parse(defaultTurnpointRadiusNode.InnerText, System.Globalization.CultureInfo.InvariantCulture);
+            }
+
             competition.PilotsSpreadsheet.Mappings.Clear();
 
             foreach (XmlNode columnMappingNode in competitionNode.SelectNodes("PilotSpreadsheetMappings/ColumnMapping"))
@@ -479,6 +485,10 @@ namespace ColinBaker.Pesto.Services
                 element.InnerText = competition.FlymasterIgcPath;
                 competitionElement.AppendChild(element);
             }
+
+            element = document.CreateElement("DefaultPointRadius");
+            element.InnerText = competition.DefaultPointRadius.ToString("0", System.Globalization.CultureInfo.InvariantCulture);
+            competitionElement.AppendChild(element);
 
             XmlElement pilotSpreadsheetMappingsElement = document.CreateElement("PilotSpreadsheetMappings");
             competitionElement.AppendChild(pilotSpreadsheetMappingsElement);

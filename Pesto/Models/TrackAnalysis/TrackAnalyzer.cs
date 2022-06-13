@@ -44,16 +44,22 @@ namespace ColinBaker.Pesto.Models.TrackAnalysis
 
             Geolocation.Tracks.Track loadedTrack = null;
 
-            // If manual track(s) have been selected use these in preference to Flymaster or FRDL tracks
+            // Attempt to load a track for this pilot in the following priority order:
+            // 1) Manual
+            // 2) Flymaster
+            // 3) FRDL / AMOD
+
             if (task.ManualTracks.Where(t => t.PilotNumber == pilot.Number).Count() > 0)
             {
                 loadedTrack = LoadManualTrack(task, pilot);
             }
-            else if (task.Competition.FlymasterIgcPath.Length > 0)
+            
+            if (loadedTrack == null && task.Competition.FlymasterIgcPath.Length > 0)
             {
                 loadedTrack = LoadFlymasterTrack(task, pilot);
             }
-            else if (task.Competition.FrdlIgcPath.Length > 0)
+            
+            if (loadedTrack == null && task.Competition.FrdlIgcPath.Length > 0)
             {
                 loadedTrack = LoadFrdlTrack(task, pilot);
             }

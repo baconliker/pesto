@@ -168,8 +168,8 @@ namespace ColinBaker.Pesto.Models
 
         public string BackupPath { get; set; }
 
-        public string FrdlIgcPath { get; set; }
-        public string FlymasterIgcPath { get; set; }
+        public string FrdlIgcPath { get; set; } = string.Empty;
+        public string FlymasterIgcPath { get; set; } = string.Empty;
 
         public int DefaultPointRadius { get; set; } = Models.Features.PointFeature.DefaultRadius;
 

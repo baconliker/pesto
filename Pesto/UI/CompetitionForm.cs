@@ -59,12 +59,11 @@ namespace ColinBaker.Pesto.UI
             if (!string.IsNullOrEmpty(competition.FrdlIgcPath))
             {
                 frdlIgcLocationTextBox.Text = competition.FrdlIgcPath;
-                amodRadioButton.Checked = true;
             }
-            else if (!string.IsNullOrEmpty(competition.FlymasterIgcPath))
+            
+            if (!string.IsNullOrEmpty(competition.FlymasterIgcPath))
             {
                 flymasterIgcLocationTextBox.Text = competition.FlymasterIgcPath;
-                flymasterRadioButton.Checked = true;
             }
 
             defaultPointRadiusTextBox.Text = competition.DefaultPointRadius.ToString();
@@ -281,7 +280,7 @@ namespace ColinBaker.Pesto.UI
                 }
             }
 
-            if (amodRadioButton.Checked)
+            if (frdlIgcLocationTextBox.Text.Length > 0)
             {
                 if (!System.IO.Directory.Exists(frdlIgcLocationTextBox.Text))
                 {
@@ -290,7 +289,8 @@ namespace ColinBaker.Pesto.UI
                     return false;
                 }
             }
-            else if (flymasterRadioButton.Checked)
+
+            if (flymasterIgcLocationTextBox.Text.Length > 0)
             {
                 if (!System.IO.Directory.Exists(flymasterIgcLocationTextBox.Text))
                 {
@@ -412,8 +412,8 @@ namespace ColinBaker.Pesto.UI
                 this.Competition.SyncOverallResultsWithAircraftClasses();
                 this.Competition.SyncTeamResultsWithAircraftClasses();
                 this.Competition.NationDefinitions = new List<Models.NationDefinition>(ExtractNationDefinitions());
-                this.Competition.FrdlIgcPath = amodRadioButton.Checked ? frdlIgcLocationTextBox.Text : "";
-                this.Competition.FlymasterIgcPath = flymasterRadioButton.Checked ? flymasterIgcLocationTextBox.Text : "";
+                this.Competition.FrdlIgcPath = frdlIgcLocationTextBox.Text;
+                this.Competition.FlymasterIgcPath = flymasterIgcLocationTextBox.Text;
                 this.Competition.DefaultPointRadius = int.Parse(defaultPointRadiusTextBox.Text.Trim());
                 this.Competition.BackupPath = backupLocationTextBox.Text;
 			}
@@ -423,33 +423,6 @@ namespace ColinBaker.Pesto.UI
 				this.DialogResult = System.Windows.Forms.DialogResult.None;
 			}
 		}
-
-        private void noLoggersRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            frdlIgcLocationTextBox.Enabled = false;
-            chooseFrdlIgcLocationButton.Enabled = false;
-
-            flymasterIgcLocationTextBox.Enabled = false;
-            chooseFlymasterIgcLocationButton.Enabled = false;
-        }
-
-        private void amodRadioButton_CheckedChanged(object sender, EventArgs e)
-		{
-            frdlIgcLocationTextBox.Enabled = true;
-            chooseFrdlIgcLocationButton.Enabled = true;
-
-            flymasterIgcLocationTextBox.Enabled = false;
-            chooseFlymasterIgcLocationButton.Enabled = false;
-        }
-
-		private void flymasterRadioButton_CheckedChanged(object sender, EventArgs e)
-		{
-            frdlIgcLocationTextBox.Enabled = false;
-            chooseFrdlIgcLocationButton.Enabled = false;
-
-            flymasterIgcLocationTextBox.Enabled = true;
-            chooseFlymasterIgcLocationButton.Enabled = true;
-        }
 
         private void chooseFrdlIgcLocationButton_Click(object sender, EventArgs e)
         {

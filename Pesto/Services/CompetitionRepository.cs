@@ -7,7 +7,7 @@ namespace ColinBaker.Pesto.Services
 {
     class CompetitionRepository
     {
-        private const decimal m_currentFileVersion = 1.6M;
+        private const decimal m_currentFileVersion = 1.7M;
 		private const int m_maxRecentCompetitions = 5;
 
         public CompetitionRepository(string filePath)

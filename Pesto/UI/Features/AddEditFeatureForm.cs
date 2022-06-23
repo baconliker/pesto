@@ -14,6 +14,14 @@ namespace ColinBaker.Pesto.UI.Features
         // Design time form size isn't being respected for some reason (due to the ribbon I think)
         private const int m_formHeight = 560;
 
+        private enum LineBearingType
+        {
+            Default = 0,
+            Adobe = 1
+        }
+
+        private static LineBearingType m_lineBearingType = LineBearingType.Default;
+
         private Geolocation.Location m_initialMapLocation = null;
         private int m_initialMapZoom;
 
@@ -42,7 +50,15 @@ namespace ColinBaker.Pesto.UI.Features
                     }
 
                     lineWidthTextBox.Text = Models.Features.GateFeature.DefaultWidth.ToString();
-                    lineBearingTextBox.Text = Models.Features.GateFeature.DefaultBearing.ToString("##0.0");
+
+                    decimal bearing = Models.Features.GateFeature.DefaultBearing;
+                    if (m_lineBearingType == LineBearingType.Adobe)
+                    {
+                        bearing = ConvertBetweenBearingTypes(bearing);
+                    }
+
+                    lineBearingTypeComboBox.SelectedIndex = (int)m_lineBearingType;
+                    lineBearingTextBox.Text = bearing.ToString("##0.0");
 
                     break;
 
@@ -115,7 +131,15 @@ namespace ColinBaker.Pesto.UI.Features
                     lineLatitudeTextBox.Text = gateLine.Center.Latitude.ToString("#0.000000");
                     lineLongitudeTextBox.Text = gateLine.Center.Longitude.ToString("##0.000000");
                     lineWidthTextBox.Text = gateLine.Width.ToString();
-                    lineBearingTextBox.Text = gateLine.Bearing.ToString("##0.0");
+
+                    decimal bearing = gateLine.Bearing;
+                    if (m_lineBearingType == LineBearingType.Adobe)
+                    {
+                        bearing = ConvertBetweenBearingTypes(bearing);
+                    }
+
+                    lineBearingTypeComboBox.SelectedIndex = (int)m_lineBearingType;
+                    lineBearingTextBox.Text = bearing.ToString("##0.0");
 
                     if (gate.LowerAltitude != Geolocation.Location.UnknownAltitude)
                     {
@@ -531,7 +555,7 @@ namespace ColinBaker.Pesto.UI.Features
                         return false;
 			        }
 
-                    if (String.IsNullOrWhiteSpace(lineBearingTextBox.Text))
+                    if (lineBearingTextBox.Text.Length == 0)
                     {
                         MessageBox.Show("Please enter a valid bearing.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         lineBearingTextBox.Focus();
@@ -584,6 +608,17 @@ namespace ColinBaker.Pesto.UI.Features
             return true;
         }
 
+        private static decimal ConvertBetweenBearingTypes(decimal bearing)
+        {
+            return (90 - bearing) % 360;
+        }
+
+        private static decimal RoundDown(decimal i, int decimalPlaces)
+        {
+            var power = Convert.ToDecimal(Math.Pow(10, decimalPlaces));
+            return Math.Floor(i * power) / power;
+        }
+
         private void RefreshControlState()
         {
             Models.Features.Shape.ShapeType shapeType = (shapeComboBox.SelectedItem as ShapeListItem).Type;
@@ -623,7 +658,13 @@ namespace ColinBaker.Pesto.UI.Features
                         case Models.Features.Feature.FeatureType.Gate:
                             Models.Features.GateFeature existingGate = this.Feature as Models.Features.GateFeature;
 
-                            existingGate.Shape = new Models.Features.Line(new Geolocation.Location(decimal.Parse(lineLatitudeTextBox.Text), decimal.Parse(lineLongitudeTextBox.Text)), int.Parse(lineWidthTextBox.Text), decimal.Parse(lineBearingTextBox.Text));
+                            decimal bearing = decimal.Parse(lineBearingTextBox.Text);
+                            if ((LineBearingType)lineBearingTypeComboBox.SelectedIndex == LineBearingType.Adobe)
+                            {
+                                bearing = ConvertBetweenBearingTypes(bearing);
+                            }
+
+                            existingGate.Shape = new Models.Features.Line(new Geolocation.Location(decimal.Parse(lineLatitudeTextBox.Text), decimal.Parse(lineLongitudeTextBox.Text)), int.Parse(lineWidthTextBox.Text), bearing);
 
                             if (!string.IsNullOrWhiteSpace(lowerAltitudeTextBox.Text))
                             {
@@ -1001,19 +1042,19 @@ namespace ColinBaker.Pesto.UI.Features
 
         private void lineBearingTextBox_Validating(object sender, CancelEventArgs e)
         {
-            decimal bearing;
-
             if (lineBearingTextBox.Text.Length > 0)
             {
-                if (!decimal.TryParse(lineBearingTextBox.Text, out bearing))
+                if (decimal.TryParse(lineBearingTextBox.Text, out decimal bearing) && bearing >= 0 && bearing < 360)
                 {
-                    MessageBox.Show("Please enter a valid bearing.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    e.Cancel = true;
+                    lineBearingTextBox.Text = RoundDown(bearing, 1).ToString("##0.0");
+
+                    ClearMap();
+                    ShowMap();
                 }
                 else
                 {
-                    ClearMap();
-                    ShowMap();
+                    MessageBox.Show("Please enter a valid bearing.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    e.Cancel = true;
                 }
             }
             else
@@ -1067,5 +1108,15 @@ namespace ColinBaker.Pesto.UI.Features
                     break;
             }
         }
-    }
+
+		private void lineBearingTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+            if (lineBearingTextBox.Text.Length > 0)
+            {
+                decimal bearing = decimal.Parse(lineBearingTextBox.Text);
+                lineBearingTextBox.Text = ConvertBetweenBearingTypes(bearing).ToString("##0.0");
+            }
+            m_lineBearingType = (LineBearingType)lineBearingTypeComboBox.SelectedIndex;
+        }
+	}
 }

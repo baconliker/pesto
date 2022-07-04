@@ -380,7 +380,14 @@ namespace ColinBaker.Pesto.UI.Features
                     if (!string.IsNullOrWhiteSpace(lineLatitudeTextBox.Text) && !string.IsNullOrWhiteSpace(lineLongitudeTextBox.Text) && !string.IsNullOrWhiteSpace(lineWidthTextBox.Text) && !string.IsNullOrWhiteSpace(lineBearingTextBox.Text))
                     {
                         Models.Features.GateFeature gate = new Models.Features.GateFeature(nameTextBox.Text);
-                        gate.Shape = new Models.Features.Line(new Geolocation.Location(decimal.Parse(lineLatitudeTextBox.Text), decimal.Parse(lineLongitudeTextBox.Text)), int.Parse(lineWidthTextBox.Text), decimal.Parse(lineBearingTextBox.Text));
+
+                        decimal bearing = decimal.Parse(lineBearingTextBox.Text);
+                        if ((LineBearingType)lineBearingTypeComboBox.SelectedIndex == LineBearingType.Adobe)
+                        {
+                            bearing = ConvertBetweenBearingTypes(bearing);
+                        }
+
+                        gate.Shape = new Models.Features.Line(new Geolocation.Location(decimal.Parse(lineLatitudeTextBox.Text), decimal.Parse(lineLongitudeTextBox.Text)), int.Parse(lineWidthTextBox.Text), bearing);
 
                         feature = gate;
                     }
@@ -610,7 +617,12 @@ namespace ColinBaker.Pesto.UI.Features
 
         private static decimal ConvertBetweenBearingTypes(decimal bearing)
         {
-            return (90 - bearing) % 360;
+            // Use this formula to calculate the modulus because C#'s % operator returns a simple remainder (which differs when using negative numbers)
+
+            decimal a = 90 - bearing;
+            decimal b = 360;
+
+            return a - b * Math.Floor(a / b);
         }
 
         private static decimal RoundDown(decimal i, int decimalPlaces)
@@ -1111,12 +1123,17 @@ namespace ColinBaker.Pesto.UI.Features
 
 		private void lineBearingTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-            if (lineBearingTextBox.Text.Length > 0)
+            // Check whether the item has actually changed because the SelectedIndexChanged event is fired when clicking on the combobox even when the selected item hasn't been changed
+            if (lineBearingTypeComboBox.SelectedIndex != (int)m_lineBearingType)
             {
-                decimal bearing = decimal.Parse(lineBearingTextBox.Text);
-                lineBearingTextBox.Text = ConvertBetweenBearingTypes(bearing).ToString("##0.0");
+                if (lineBearingTextBox.Text.Length > 0)
+                {
+                    decimal bearing = decimal.Parse(lineBearingTextBox.Text);
+                    lineBearingTextBox.Text = ConvertBetweenBearingTypes(bearing).ToString("##0.0");
+                }
+
+                m_lineBearingType = (LineBearingType)lineBearingTypeComboBox.SelectedIndex;
             }
-            m_lineBearingType = (LineBearingType)lineBearingTypeComboBox.SelectedIndex;
         }
 	}
 }

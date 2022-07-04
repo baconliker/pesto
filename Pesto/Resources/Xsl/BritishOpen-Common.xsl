@@ -6,15 +6,20 @@
 
   <xsl:template name="header">
     <fo:block>
-      <!--<fo:external-graphic src="Resources/Xsl/Banner.png" width="289mm" height="30.8mm" content-width="scale-to-fit" content-height="scale-to-fit"/>-->
       <fo:table width="100%" table-layout="fixed">
-        <fo:table-column column-width="70%"/>
-        <fo:table-column column-width="30%"/>
+        <fo:table-column column-width="70mm"/>
+        <fo:table-column column-width="45mm"/>
+        <fo:table-column column-width="proportional-column-width(1)"/>
         <fo:table-body>
           <fo:table-row>
             <fo:table-cell>
               <fo:block>
-                <fo:external-graphic src="Resources/Xsl/BritishOpenLogo.png" width="72.8mm" height="28.9mm" content-width="scale-to-fit" content-height="scale-to-fit"/>
+                <fo:external-graphic src="Resources/Xsl/BritishOpenLogo.png" width="64.0mm" height="24.9mm" content-width="scale-to-fit" content-height="scale-to-fit"/>
+              </fo:block>
+            </fo:table-cell>
+            <fo:table-cell padding-top="2.9mm">
+              <fo:block>
+                <fo:external-graphic src="Resources/Xsl/GreenDragonsLogo.png" width="37.3mm" height="22.0mm" content-width="scale-to-fit" content-height="scale-to-fit"/>
               </fo:block>
             </fo:table-cell>
             <fo:table-cell>

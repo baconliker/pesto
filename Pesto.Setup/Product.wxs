@@ -239,6 +239,9 @@
       <Component Win64="$(var.Win64)">
         <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpenLogo.png"/>
       </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\GreenDragonsLogo.png"/>
+      </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="LibrariesComponents" Directory="LibrariesFolder">

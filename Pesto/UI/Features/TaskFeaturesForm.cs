@@ -150,6 +150,14 @@ namespace ColinBaker.Pesto.UI.Features
 			m_ignoreEvent = false;
 		}
 
+		private void SelectListboxItems(CheckedListBox listBox, bool selected)
+		{
+			for (int i = 0; i < listBox.Items.Count; i++)
+			{
+				listBox.SetItemChecked(i, selected);
+			}
+		}
+
 		#region Map
 
 		private void ShowMap()
@@ -434,5 +442,17 @@ namespace ColinBaker.Pesto.UI.Features
 
 			RefreshControlState();
 		}
-    }
+
+		private void selectAllRibbonButton_Click(object sender, EventArgs e)
+		{
+			SelectListboxItems(turnpointsCheckedListBox, true);
+			SelectListboxItems(hiddenGatesCheckedListBox, true);
+		}
+
+		private void selectNoneRibbonButton_Click(object sender, EventArgs e)
+		{
+			SelectListboxItems(turnpointsCheckedListBox, false);
+			SelectListboxItems(hiddenGatesCheckedListBox, false);
+		}
+	}
 }

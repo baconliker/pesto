@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?if $(var.Platform) = x64 ?>
     <?define Win64 = "yes" ?>
     <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
@@ -8,7 +8,7 @@
     <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
   <?endif ?>
   
-  <Product Id="*" Name="Pesto" Language="1033" Version="2.3.0" Manufacturer="Colin Baker" UpgradeCode="D4E11963-902A-4D7A-A9CF-2D88F5E603F8">
+  <Product Id="*" Name="Pesto" Language="1033" Version="2.4.0" Manufacturer="Colin Baker" UpgradeCode="D4E11963-902A-4D7A-A9CF-2D88F5E603F8">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"/>
     
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."/>
@@ -65,12 +65,6 @@
       </Directory>
 
       <Directory Id="ProgramMenuFolder"/>
-
-      <Directory Id="CommonAppDataFolder">
-        <Directory Id="ManufacturerProgramDataFolder" Name="!(bind.property.Manufacturer)">
-          <Directory Id="ProductProgramDataFolder" Name="!(bind.property.ProductName)"/>
-        </Directory>
-      </Directory>
     </Directory>
   </Fragment>
 
@@ -80,11 +74,6 @@
         <File Source="$(var.Pesto.TargetDir)Pesto.exe" KeyPath="yes">
           <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="Pesto" WorkingDirectory="INSTALLFOLDER" Icon="ApplicationIcon.ico" Advertise="yes"/>
         </File>
-
-        <!-- Create folder in ProgramData for applications logs, etc -->
-        <CreateFolder Directory="ProductProgramDataFolder">
-          <util:PermissionEx User="Users" Domain="[MachineName]" CreateChild="yes" CreateFile="yes" Delete="yes" DeleteChild="yes" WriteAttributes="yes" WriteExtendedAttributes="yes"/>
-        </CreateFolder>
       </Component>
       <Component Win64="$(var.Win64)">
         <File Source="$(var.Pesto.TargetDir)Pesto.exe.config"/>

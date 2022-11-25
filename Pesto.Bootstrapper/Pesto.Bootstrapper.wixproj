@@ -33,9 +33,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-    <LinkerAdditionalOptions>-ext WixNetfxExtension</LinkerAdditionalOptions>
-    <CompilerAdditionalOptions>
-    </CompilerAdditionalOptions>
+    <LinkerAdditionalOptions>-ext WixNetfxExtension -ext WixUtilExtension</LinkerAdditionalOptions>
+    <CompilerAdditionalOptions>-ext WixUtilExtension</CompilerAdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bundle.wxs" />

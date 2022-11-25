@@ -336,14 +336,12 @@
 			// 
 			// featuresMap
 			// 
-			this.featuresMap.CenterLocation = null;
 			this.featuresMap.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.featuresMap.Location = new System.Drawing.Point(0, 0);
 			this.featuresMap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.featuresMap.Name = "featuresMap";
 			this.featuresMap.Size = new System.Drawing.Size(564, 463);
 			this.featuresMap.TabIndex = 0;
-			this.featuresMap.Zoom = -1;
 			// 
 			// TaskFeaturesForm
 			// 

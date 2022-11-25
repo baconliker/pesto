@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ColinBaker.Pesto.UI.Features
@@ -160,73 +161,73 @@ namespace ColinBaker.Pesto.UI.Features
 
 		#region Map
 
-		private void ShowMap()
+		private async Task ShowMapAsync()
 		{
 			featuresMap.Visible = true;
 
             if (this.Task.TakeOffDeck != null)
             {
-                AddFeatureToMap(this.Task.TakeOffDeck);
+				await AddFeatureToMapAsync(this.Task.TakeOffDeck);
             }
 
             if (this.Task.LandingDeck != null)
             {
-                AddFeatureToMap(this.Task.LandingDeck);
+				await AddFeatureToMapAsync(this.Task.LandingDeck);
             }
 
             if (this.Task.StartPointOrGate != null)
 			{
-				AddFeatureToMap(this.Task.StartPointOrGate);
+				await AddFeatureToMapAsync(this.Task.StartPointOrGate);
 			}
 
 			if (this.Task.FinishPointOrGate != null)
 			{
-				AddFeatureToMap(this.Task.FinishPointOrGate);
+				await AddFeatureToMapAsync(this.Task.FinishPointOrGate);
 			}
 
 			foreach (Models.Features.PointFeature turnpoint in this.Task.Turnpoints)
 			{
-				AddFeatureToMap(turnpoint);
+				await AddFeatureToMapAsync(turnpoint);
 			}
 
 			foreach (Models.Features.GateFeature gate in this.Task.HiddenGates)
 			{
-				AddFeatureToMap(gate);
+				await AddFeatureToMapAsync(gate);
 			}
 
             foreach (Models.Features.NoFlyZoneFeature nfz in this.Task.NoFlyZones)
             {
-                AddFeatureToMap(nfz);
+				await AddFeatureToMapAsync(nfz);
             }
 
             foreach (Models.Features.Feature feature in this.Task.Competition.Features)
 			{
 				if (feature.Type == Models.Features.Feature.FeatureType.Airfield)
 				{
-					AddFeatureToMap(feature);
+					await AddFeatureToMapAsync(feature);
 				}
 			}
 		}
 
-		private void HideMap()
+		private async Task HideMapAsync()
 		{
 			featuresMap.Visible = false;
-			featuresMap.Clear();
+			await featuresMap.ClearAsync();
 		}
 
-		private void AddFeatureToMap(Models.Features.Feature feature)
+		private async Task AddFeatureToMapAsync(Models.Features.Feature feature)
 		{
 			if (featuresMap.Visible)
 			{
-				featuresMap.AddFeature(feature);
+				await featuresMap.AddFeatureAsync(feature);
 			}
 		}
 
-		private void RemoveFeatureFromMap(Models.Features.Feature feature)
+		private async Task RemoveFeatureFromMapAsync(Models.Features.Feature feature)
 		{
 			if (featuresMap.Visible)
 			{
-				featuresMap.RemoveFeature(feature.Name);
+				await featuresMap.RemoveFeatureAsync(feature.Name);
 			}
 		}
 
@@ -238,7 +239,7 @@ namespace ColinBaker.Pesto.UI.Features
 			zoomOutRibbonButton.Enabled = featuresMap.Visible;
 		}
 
-		private void TaskFeaturesForm_Load(object sender, EventArgs e)
+		private async void TaskFeaturesForm_Load(object sender, EventArgs e)
 		{
             PopulateDecks(this.Task.TakeOffDeck, takeOffDeckComboBox);
             PopulateDecks(this.Task.LandingDeck, landingDeckComboBox);
@@ -247,10 +248,10 @@ namespace ColinBaker.Pesto.UI.Features
 			PopulateTurnpoints();
 			PopulateHiddenGates();
 
-			ShowMap();
+			await ShowMapAsync();
 		}
 
-		private void defineRibbonButton_Click(object sender, EventArgs e)
+		private async void defineRibbonButton_Click(object sender, EventArgs e)
 		{
 			using (FeatureDefinitionForm form = new FeatureDefinitionForm(this.Task.Competition))
 			{
@@ -258,48 +259,48 @@ namespace ColinBaker.Pesto.UI.Features
 
 				this.Task.Competition.Save();
 
-				HideMap();
+				await HideMapAsync();
                 PopulateDecks(this.Task.TakeOffDeck, takeOffDeckComboBox);
                 PopulateDecks(this.Task.LandingDeck, landingDeckComboBox);
                 PopulateStartPointGate();
 				PopulateFinishPointGate();
 				PopulateTurnpoints();
 				PopulateHiddenGates();
-				ShowMap();
+				await ShowMapAsync();
 			}
 		}
 
-		private void showMapRibbonButton_Click(object sender, EventArgs e)
+		private async void showMapRibbonButton_Click(object sender, EventArgs e)
 		{
 			if (showMapRibbonButton.Checked)
 			{
-				ShowMap();
+				await ShowMapAsync();
 			}
 			else
 			{
-				HideMap();
+				await HideMapAsync();
 			}
 
 			RefreshControlState();
 		}
 
-		private void zoomInRibbonButton_Click(object sender, EventArgs e)
+		private async void zoomInRibbonButton_Click(object sender, EventArgs e)
 		{
-			featuresMap.ZoomIn();
+			await featuresMap.ZoomInAsync();
 		}
 
-		private void zoomOutRibbonButton_Click(object sender, EventArgs e)
+		private async void zoomOutRibbonButton_Click(object sender, EventArgs e)
 		{
-			featuresMap.ZoomOut();
+			await featuresMap.ZoomOutAsync();
 		}
 
-        private void takeOffDeckComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private async void takeOffDeckComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (m_ignoreEvent) return;
 
             if (this.Task.TakeOffDeck != null)
             {
-                RemoveFeatureFromMap(this.Task.TakeOffDeck);
+				await RemoveFeatureFromMapAsync(this.Task.TakeOffDeck);
             }
 
             if (takeOffDeckComboBox.SelectedIndex == 0)
@@ -311,17 +312,17 @@ namespace ColinBaker.Pesto.UI.Features
                 FeatureListItem selectedItem = takeOffDeckComboBox.SelectedItem as FeatureListItem;
 
                 this.Task.TakeOffDeck = selectedItem.Feature as Models.Features.DeckFeature;
-                AddFeatureToMap(selectedItem.Feature);
+				await AddFeatureToMapAsync(selectedItem.Feature);
             }
         }
 
-        private void landingDeckComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private async void landingDeckComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (m_ignoreEvent) return;
 
             if (this.Task.LandingDeck != null)
             {
-                RemoveFeatureFromMap(this.Task.LandingDeck);
+				await RemoveFeatureFromMapAsync(this.Task.LandingDeck);
             }
 
             if (landingDeckComboBox.SelectedIndex == 0)
@@ -333,17 +334,17 @@ namespace ColinBaker.Pesto.UI.Features
                 FeatureListItem selectedItem = landingDeckComboBox.SelectedItem as FeatureListItem;
 
                 this.Task.LandingDeck = selectedItem.Feature as Models.Features.DeckFeature;
-                AddFeatureToMap(selectedItem.Feature);
+				await AddFeatureToMapAsync(selectedItem.Feature);
             }
         }
 
-        private void startPointGateComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private async void startPointGateComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (m_ignoreEvent) return;
 
 			if (this.Task.StartPointOrGate != null)
 			{
-				RemoveFeatureFromMap(this.Task.StartPointOrGate);
+				await RemoveFeatureFromMapAsync(this.Task.StartPointOrGate);
 			}
 
 			if (startPointGateComboBox.SelectedIndex == 0)
@@ -355,17 +356,17 @@ namespace ColinBaker.Pesto.UI.Features
 				FeatureListItem selectedItem = startPointGateComboBox.SelectedItem as FeatureListItem;
 
 				this.Task.StartPointOrGate = selectedItem.Feature;
-				AddFeatureToMap(selectedItem.Feature);
+				await AddFeatureToMapAsync(selectedItem.Feature);
 			}
 		}
 
-		private void finishPointGateComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		private async void finishPointGateComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (m_ignoreEvent) return;
 
 			if (this.Task.FinishPointOrGate != null)
 			{
-				RemoveFeatureFromMap(this.Task.FinishPointOrGate);
+				await RemoveFeatureFromMapAsync(this.Task.FinishPointOrGate);
 			}
 
 			if (finishPointGateComboBox.SelectedIndex == 0)
@@ -377,11 +378,11 @@ namespace ColinBaker.Pesto.UI.Features
 				FeatureListItem selectedItem = finishPointGateComboBox.SelectedItem as FeatureListItem;
 
 				this.Task.FinishPointOrGate = selectedItem.Feature;
-				AddFeatureToMap(selectedItem.Feature);
+				await AddFeatureToMapAsync(selectedItem.Feature);
 			}
 		}
 
-		private void turnpointsCheckedListBox_ItemCheck(object sender, ItemCheckEventArgs e)
+		private async void turnpointsCheckedListBox_ItemCheck(object sender, ItemCheckEventArgs e)
 		{
 			if (m_ignoreEvent) return;
 
@@ -392,7 +393,7 @@ namespace ColinBaker.Pesto.UI.Features
 				if (e.NewValue == CheckState.Checked)
 				{
 					this.Task.Turnpoints.Add(selectedItem.Feature as Models.Features.PointFeature);
-					AddFeatureToMap(selectedItem.Feature);
+					await AddFeatureToMapAsync(selectedItem.Feature);
 				}
 				else if (e.NewValue == CheckState.Unchecked)
 				{
@@ -405,14 +406,14 @@ namespace ColinBaker.Pesto.UI.Features
 						}
 					}
 
-					RemoveFeatureFromMap(selectedItem.Feature);
+					await RemoveFeatureFromMapAsync(selectedItem.Feature);
 				}
 			}
 
 			RefreshControlState();
 		}
 
-		private void hiddenGatesCheckedListBox_ItemCheck(object sender, ItemCheckEventArgs e)
+		private async void hiddenGatesCheckedListBox_ItemCheck(object sender, ItemCheckEventArgs e)
 		{
 			if (m_ignoreEvent) return;
 
@@ -423,7 +424,7 @@ namespace ColinBaker.Pesto.UI.Features
 				if (e.NewValue == CheckState.Checked)
 				{
 					this.Task.HiddenGates.Add(selectedItem.Feature as Models.Features.GateFeature);
-					AddFeatureToMap(selectedItem.Feature);
+					await AddFeatureToMapAsync(selectedItem.Feature);
 				}
 				else if (e.NewValue == CheckState.Unchecked)
 				{
@@ -436,7 +437,7 @@ namespace ColinBaker.Pesto.UI.Features
 						}
 					}
 
-					RemoveFeatureFromMap(selectedItem.Feature);
+					await RemoveFeatureFromMapAsync(selectedItem.Feature);
 				}
 			}
 

@@ -32,7 +32,7 @@
     
     <Chain>
       <!-- Prerequisites -->
-      <PackageGroupRef Id="NetFx45Redist"/>
+      <PackageGroupRef Id="NetFx472Redist"/>
 
       <!-- Rollback boundary prevents rollback (uninstall) of prerequisites if main application install fails -->
       <RollbackBoundary/>

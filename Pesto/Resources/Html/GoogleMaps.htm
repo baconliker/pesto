@@ -24,6 +24,8 @@
 	<body>
 		<div id="map-canvas"></div>
 		<script type="text/javascript">
+			const hostProxy = chrome.webview.hostObjects.sync.proxy;
+
 			var maxMapZoom = 15;
 
 			var earthRadius = 6378137; // In metres
@@ -54,7 +56,7 @@
 
 			function register(apiKey) {
 				var script1 = document.createElement('script');
-				script1.src = 'https://maps.googleapis.com/maps/api/js?v=3.47&key=' + apiKey + '&callback=initMap';
+				script1.src = 'https://maps.googleapis.com/maps/api/js?key=' + apiKey + '&callback=initMap';
 				document.getElementsByTagName('head')[0].appendChild(script1);
 			}
 
@@ -76,7 +78,7 @@
 				google.maps.event.addListener(map, 'click', mapClick);
 				google.maps.event.addListener(map, 'rightclick', mapRightClick);
 
-				window.external.OnMapInitialized();
+				hostProxy.OnMapInitialized();
 			}
 
 			function mapBoundsChanged() {
@@ -89,11 +91,11 @@
 			}
 
 			function mapClick(event) {
-				window.external.OnMapClick(event.latLng.lat(), event.latLng.lng());
+				hostProxy.OnMapClick(event.latLng.lat(), event.latLng.lng());
 			}
 
 			function mapRightClick(event) {
-				window.external.OnMapRightClick(event.latLng.lat(), event.latLng.lng());
+				hostProxy.OnMapRightClick(event.latLng.lat(), event.latLng.lng());
 			}
 
 			function setToUK() {

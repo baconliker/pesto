@@ -267,14 +267,12 @@
             // 
             // featuresMap
             // 
-            this.featuresMap.CenterLocation = null;
             this.featuresMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.featuresMap.Location = new System.Drawing.Point(0, 0);
             this.featuresMap.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.featuresMap.Name = "featuresMap";
             this.featuresMap.Size = new System.Drawing.Size(819, 719);
             this.featuresMap.TabIndex = 0;
-            this.featuresMap.Zoom = -1;
             this.featuresMap.MapRightClicked += new System.EventHandler<ColinBaker.Pesto.UI.MapClickedEventArgs>(this.featuresMap_MapRightClicked);
             // 
             // mapContextMenuStrip

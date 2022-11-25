@@ -538,12 +538,10 @@
 			this.featureMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.featureMap.CenterLocation = null;
 			this.featureMap.Location = new System.Drawing.Point(286, 120);
 			this.featureMap.Name = "featureMap";
 			this.featureMap.Size = new System.Drawing.Size(488, 396);
 			this.featureMap.TabIndex = 9;
-			this.featureMap.Zoom = -1;
 			this.featureMap.MapInitialized += new System.EventHandler(this.featureMap_MapInitialized);
 			this.featureMap.MapClicked += new System.EventHandler<ColinBaker.Pesto.UI.MapClickedEventArgs>(this.featureMap_MapClicked);
 			// 

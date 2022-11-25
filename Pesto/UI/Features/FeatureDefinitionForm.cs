@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ColinBaker.Pesto.UI.Features
@@ -22,10 +23,10 @@ namespace ColinBaker.Pesto.UI.Features
 
 		public Models.Competition Competition { get; private set; }
 
-        private void AddFeature(Models.Features.Feature.FeatureType type, Geolocation.Location location, bool useLocationCoordinates)
+        private async Task AddFeatureAsync(Models.Features.Feature.FeatureType type, Geolocation.Location location, bool useLocationCoordinates)
         {
-            using (AddEditFeatureForm form = new AddEditFeatureForm(type, this.Competition, location, featuresMap.Zoom, useLocationCoordinates))
-            {
+			using (AddEditFeatureForm form = new AddEditFeatureForm(type, this.Competition, location, await featuresMap.GetZoomAsync(), useLocationCoordinates))
+			{
                 if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     FeatureTreeNode groupNode = null;
@@ -50,12 +51,12 @@ namespace ColinBaker.Pesto.UI.Features
                     }
 
                     AddFeatureToTree(form.Feature, groupNode);
-                    AddFeatureToMap(form.Feature);
+                    await AddFeatureToMapAsync(form.Feature);
                 }
             }
         }
 
-		private void EditFeature(Models.Features.Feature feature)
+		private async Task EditFeatureAsync(Models.Features.Feature feature)
 		{
             string oldFeatureName = feature.Name;
 
@@ -90,8 +91,8 @@ namespace ColinBaker.Pesto.UI.Features
                         {
                             featureNode.Text = FeatureTreeNode.BuildText(featureNode.Type, featureNode.Feature);
 
-                            RemoveFeatureFromMap(oldFeatureName);
-                            AddFeatureToMap(feature);
+							await RemoveFeatureFromMapAsync(oldFeatureName);
+							await AddFeatureToMapAsync(feature);
 
                             break;
                         }
@@ -201,35 +202,35 @@ namespace ColinBaker.Pesto.UI.Features
 
 		#region Map
 
-		private void ShowMap()
+		private async Task ShowMapAsync()
 		{
 			featuresMap.Visible = true;
 
 			foreach (Models.Features.Feature feature in this.Competition.Features)
 			{
-				AddFeatureToMap(feature);
+				await AddFeatureToMapAsync(feature);
 			}
 		}
 
-		private void HideMap()
+		private async Task HideMapAsync()
 		{
 			featuresMap.Visible = false;
-			featuresMap.Clear();
+			await featuresMap.ClearAsync();
 		}
 
-		private void AddFeatureToMap(Models.Features.Feature feature)
+		private async Task AddFeatureToMapAsync(Models.Features.Feature feature)
 		{
 			if (featuresMap.Visible)
 			{
-				featuresMap.AddFeature(feature);
+				await featuresMap.AddFeatureAsync(feature);
 			}
 		}
 
-		private void RemoveFeatureFromMap(string featureName)
+		private async Task RemoveFeatureFromMapAsync(string featureName)
 		{
 			if (featuresMap.Visible)
 			{
-				featuresMap.RemoveFeature(featureName);
+				await featuresMap.RemoveFeatureAsync(featureName);
 			}
 		}
 
@@ -273,49 +274,49 @@ namespace ColinBaker.Pesto.UI.Features
 			zoomOutRibbonButton.Enabled = featuresMap.Visible;
         }
 
-		private void FeatureDefinitionForm_Load(object sender, EventArgs e)
+		private async void FeatureDefinitionForm_Load(object sender, EventArgs e)
 		{
 			PopulateFeaturesTree();
 
-			ShowMap();
+			await ShowMapAsync();
 		}
 
-		private void addPointRibbonButton_Click(object sender, EventArgs e)
+		private async void addPointRibbonButton_Click(object sender, EventArgs e)
 		{
-            AddFeature(Models.Features.Feature.FeatureType.Point, featuresMap.CenterLocation, false);
+			await AddFeatureAsync(Models.Features.Feature.FeatureType.Point, await featuresMap.GetCenterAsync(), false);
 		}
 
-		private void addGateRibbonButton_Click(object sender, EventArgs e)
+		private async void addGateRibbonButton_Click(object sender, EventArgs e)
 		{
-            AddFeature(Models.Features.Feature.FeatureType.Gate, featuresMap.CenterLocation, false);
+			await AddFeatureAsync(Models.Features.Feature.FeatureType.Gate, await featuresMap.GetCenterAsync(), false);
 		}
 
-		private void addNfzRibbonButton_Click(object sender, EventArgs e)
+		private async void addNfzRibbonButton_Click(object sender, EventArgs e)
 		{
-            AddFeature(Models.Features.Feature.FeatureType.NoFlyZone, featuresMap.CenterLocation, false);
+			await AddFeatureAsync(Models.Features.Feature.FeatureType.NoFlyZone, await featuresMap.GetCenterAsync(), false);
 		}
 
-        private void addAirfieldRibbonButton_Click(object sender, EventArgs e)
+        private async void addAirfieldRibbonButton_Click(object sender, EventArgs e)
         {
-            AddFeature(Models.Features.Feature.FeatureType.Airfield, featuresMap.CenterLocation, false);
+			await AddFeatureAsync(Models.Features.Feature.FeatureType.Airfield, await featuresMap.GetCenterAsync(), false);
         }
 
-        private void addDeckRibbonButton_Click(object sender, EventArgs e)
+        private async void addDeckRibbonButton_Click(object sender, EventArgs e)
         {
-            AddFeature(Models.Features.Feature.FeatureType.Deck, featuresMap.CenterLocation, false);
+			await AddFeatureAsync(Models.Features.Feature.FeatureType.Deck, await featuresMap.GetCenterAsync(), false);
         }
 
-        private void editRibbonButton_Click(object sender, EventArgs e)
+        private async void editRibbonButton_Click(object sender, EventArgs e)
 		{
 			FeatureTreeNode selectedNode = featuresTreeView.SelectedNode as FeatureTreeNode;
 
 			if (selectedNode.Type == FeatureTreeNode.FeatureTreeNodeType.Feature)
 			{
-				EditFeature(selectedNode.Feature);
+				await EditFeatureAsync(selectedNode.Feature);
 			}
 		}
 
-        private void deleteRibbonButton_Click(object sender, EventArgs e)
+        private async void deleteRibbonButton_Click(object sender, EventArgs e)
         {
 			FeatureTreeNode selectedNode = featuresTreeView.SelectedNode as FeatureTreeNode;
 
@@ -361,33 +362,33 @@ namespace ColinBaker.Pesto.UI.Features
 
                     selectedNode.Remove();
 
-					RemoveFeatureFromMap(selectedNode.Feature.Name);
+					await RemoveFeatureFromMapAsync(selectedNode.Feature.Name);
                 }
             }
         }
 
-		private void showMapRibbonButton_Click(object sender, EventArgs e)
+		private async void showMapRibbonButton_Click(object sender, EventArgs e)
 		{
 			if (showMapRibbonButton.Checked)
 			{
-				ShowMap();
+				await ShowMapAsync();
 			}
 			else
 			{
-				HideMap();
+				await HideMapAsync();
 			}
 
 			RefreshControlState();
 		}
 
-		private void zoomInRibbonButton_Click(object sender, EventArgs e)
+		private async void zoomInRibbonButton_Click(object sender, EventArgs e)
 		{
-			featuresMap.ZoomIn();
+			await featuresMap.ZoomInAsync();
 		}
 
-		private void zoomOutRibbonButton_Click(object sender, EventArgs e)
+		private async void zoomOutRibbonButton_Click(object sender, EventArgs e)
 		{
-			featuresMap.ZoomOut();
+			await featuresMap.ZoomOutAsync();
 		}
 
 		private void featuresTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -395,13 +396,13 @@ namespace ColinBaker.Pesto.UI.Features
 			RefreshControlState();
 		}
 
-		private void featuresTreeView_MouseDoubleClick(object sender, MouseEventArgs e)
+		private async void featuresTreeView_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
 			FeatureTreeNode selectedNode = featuresTreeView.SelectedNode as FeatureTreeNode;
 
 			if (selectedNode.Type == FeatureTreeNode.FeatureTreeNodeType.Feature)
 			{
-				EditFeature(selectedNode.Feature);
+				await EditFeatureAsync(selectedNode.Feature);
 			}
 		}
 
@@ -412,22 +413,22 @@ namespace ColinBaker.Pesto.UI.Features
             mapContextMenuStrip.Show(Cursor.Position);
 		}
 
-		private void addPointToolStripMenuItem_Click(object sender, EventArgs e)
+		private async void addPointToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-            AddFeature(Models.Features.Feature.FeatureType.Point, m_rightClickLocation, true);
+			await AddFeatureAsync(Models.Features.Feature.FeatureType.Point, m_rightClickLocation, true);
 		}
 
-		private void addGateToolStripMenuItem_Click(object sender, EventArgs e)
+		private async void addGateToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-            AddFeature(Models.Features.Feature.FeatureType.Gate, m_rightClickLocation, true);
+			await AddFeatureAsync(Models.Features.Feature.FeatureType.Gate, m_rightClickLocation, true);
 		}
 
-		private void addNfzToolStripMenuItem_Click(object sender, EventArgs e)
+		private async void addNfzToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-            AddFeature(Models.Features.Feature.FeatureType.NoFlyZone, m_rightClickLocation, true);
+			await AddFeatureAsync(Models.Features.Feature.FeatureType.NoFlyZone, m_rightClickLocation, true);
 		}
 
-        private void importRibbonButton_Click(object sender, EventArgs e)
+        private async void importRibbonButton_Click(object sender, EventArgs e)
         {
             if (importOpenFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -443,22 +444,22 @@ namespace ColinBaker.Pesto.UI.Features
                             {
                                 case Models.Features.Feature.FeatureType.Airfield:
                                     AddFeatureToTree(feature, GetFirstNodeOfType(FeatureTreeNode.FeatureTreeNodeType.AirfieldGroup));
-                                    AddFeatureToMap(feature);
+									await AddFeatureToMapAsync(feature);
                                     break;
 
                                 case Models.Features.Feature.FeatureType.Deck:
                                     AddFeatureToTree(feature, GetFirstNodeOfType(FeatureTreeNode.FeatureTreeNodeType.DecksGroup));
-                                    AddFeatureToMap(feature);
+									await AddFeatureToMapAsync(feature);
                                     break;
 
                                 case Models.Features.Feature.FeatureType.NoFlyZone:
                                     AddFeatureToTree(feature, GetFirstNodeOfType(FeatureTreeNode.FeatureTreeNodeType.NoFlyZonesGroup));
-                                    AddFeatureToMap(feature);
+									await AddFeatureToMapAsync(feature);
                                     break;
 
                                 case Models.Features.Feature.FeatureType.Point:
                                     AddFeatureToTree(feature, GetFirstNodeOfType(FeatureTreeNode.FeatureTreeNodeType.PointsGroup));
-                                    AddFeatureToMap(feature);
+									await AddFeatureToMapAsync(feature);
                                     break;
                             }
                         }
@@ -467,7 +468,7 @@ namespace ColinBaker.Pesto.UI.Features
             }
         }
 
-        private void cloneRibbonButton_Click(object sender, EventArgs e)
+        private async void cloneRibbonButton_Click(object sender, EventArgs e)
         {
             FeatureTreeNode selectedNode = featuresTreeView.SelectedNode as FeatureTreeNode;
 
@@ -487,7 +488,7 @@ namespace ColinBaker.Pesto.UI.Features
             FeatureTreeNode groupNode = GetFirstNodeOfType(FeatureTreeNode.FeatureTreeNodeType.PointsGroup);
 
             AddFeatureToTree(pointClone, groupNode);
-            AddFeatureToMap(pointClone);
+			await AddFeatureToMapAsync(pointClone);
         }
     }
 }

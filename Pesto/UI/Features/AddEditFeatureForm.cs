@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ColinBaker.Pesto.UI.Features
@@ -251,7 +252,7 @@ namespace ColinBaker.Pesto.UI.Features
 
         #region Map
 
-        private void ShowMap()
+        private async Task ShowMapAsync()
         {
             featureMap.Visible = true;
 
@@ -261,31 +262,31 @@ namespace ColinBaker.Pesto.UI.Features
 
             if (temporaryFeature != null)
             {
-                AddFeatureToMap(temporaryFeature);
+                await AddFeatureToMapAsync(temporaryFeature);
             }
 
             RefreshControlState();
         }
 
-        private void HideMap()
+        private async Task HideMapAsync()
         {
             featureMap.Visible = false;
 
-            ClearMap();
+            await ClearMapAsync();
         }
 
-        private void ClearMap()
+        private async Task ClearMapAsync()
         {
-            featureMap.Clear();
+            await featureMap.ClearAsync();
 
             RefreshControlState();
         }
 
-        private void AddFeatureToMap(Models.Features.Feature feature)
+        private async Task AddFeatureToMapAsync(Models.Features.Feature feature)
         {
             if (featureMap.Visible)
             {
-                featureMap.AddFeature(feature);
+                await featureMap.AddFeatureAsync(feature);
             }
         }
 
@@ -796,7 +797,7 @@ namespace ColinBaker.Pesto.UI.Features
             this.Close();
         }
 
-        private void shapeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private async void shapeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             circleGroupBox.Visible = false;
             lineGroupBox.Visible = false;
@@ -817,51 +818,51 @@ namespace ColinBaker.Pesto.UI.Features
                     break;
             }
 
-            ClearMap();
-            ShowMap();
+            await ClearMapAsync();
+            await ShowMapAsync();
         }
 
-        private void showMapRibbonButton_Click(object sender, EventArgs e)
+        private async void showMapRibbonButton_Click(object sender, EventArgs e)
         {
             if (showMapRibbonButton.Checked)
             {
-                ShowMap();
+                await ShowMapAsync();
             }
             else
             {
-                HideMap();
+                await HideMapAsync();
             }
         }
 
-        private void zoomInRibbonButton_Click(object sender, EventArgs e)
+        private async void zoomInRibbonButton_Click(object sender, EventArgs e)
         {
-            featureMap.ZoomIn();
+            await featureMap.ZoomInAsync();
         }
 
-        private void zoomOutRibbonButton_Click(object sender, EventArgs e)
+        private async void zoomOutRibbonButton_Click(object sender, EventArgs e)
         {
-            featureMap.ZoomOut();
+            await featureMap.ZoomOutAsync();
         }
 
-        private void featureMap_MapInitialized(object sender, EventArgs e)
+        private async void featureMap_MapInitialized(object sender, EventArgs e)
         {
-            ShowMap();
+            await ShowMapAsync();
 
             if (this.Feature != null)
             {
-                featureMap.AutoFit();
+                await featureMap.AutoFitAsync();
             }
             else
             {
                 if (m_initialMapLocation != null)
                 {
-                    featureMap.CenterLocation = m_initialMapLocation;
-                    featureMap.Zoom = m_initialMapZoom;
+                    await featureMap.SetCenterAsync(m_initialMapLocation);
+                    await featureMap.SetZoomAsync(m_initialMapZoom);
                 }
             }
         }
 
-        private void featureMap_MapClicked(object sender, MapClickedEventArgs e)
+        private async void featureMap_MapClicked(object sender, MapClickedEventArgs e)
         {
             ShapeListItem selectedShape = shapeComboBox.SelectedItem as ShapeListItem;
 
@@ -882,11 +883,11 @@ namespace ColinBaker.Pesto.UI.Features
                     break;
             }
 
-            ClearMap();
-            ShowMap();
+            await ClearMapAsync();
+            await ShowMapAsync();
         }
 
-        private void circleLatitudeTextBox_Validating(object sender, CancelEventArgs e)
+        private async void circleLatitudeTextBox_Validating(object sender, CancelEventArgs e)
         {
             decimal latitude;
 
@@ -899,17 +900,17 @@ namespace ColinBaker.Pesto.UI.Features
                 }
                 else
                 {
-                    ClearMap();
-                    ShowMap();
+                    await ClearMapAsync();
+                    await ShowMapAsync();
                 }
             }
             else
             {
-                ClearMap();
+                await ClearMapAsync();
             }
         }
 
-        private void circleLongitudeTextBox_Validating(object sender, CancelEventArgs e)
+        private async void circleLongitudeTextBox_Validating(object sender, CancelEventArgs e)
         {
             decimal longitude;
 
@@ -922,17 +923,17 @@ namespace ColinBaker.Pesto.UI.Features
                 }
                 else
                 {
-                    ClearMap();
-                    ShowMap();
+                    await ClearMapAsync();
+                    await ShowMapAsync();
                 }
             }
             else
             {
-                ClearMap();
+                await ClearMapAsync();
             }
         }
 
-        private void circleRadiusTextBox_Validating(object sender, CancelEventArgs e)
+        private async void circleRadiusTextBox_Validating(object sender, CancelEventArgs e)
         {
             int radius;
 
@@ -945,13 +946,13 @@ namespace ColinBaker.Pesto.UI.Features
                 }
                 else
                 {
-                    ClearMap();
-                    ShowMap();
+                    await ClearMapAsync();
+                    await ShowMapAsync();
                 }
             }
             else
             {
-                ClearMap();
+                await ClearMapAsync();
             }
         }
 
@@ -983,7 +984,7 @@ namespace ColinBaker.Pesto.UI.Features
             }
         }
 
-        private void lineLatitudeTextBox_Validating(object sender, CancelEventArgs e)
+        private async void lineLatitudeTextBox_Validating(object sender, CancelEventArgs e)
         {
             decimal latitude;
 
@@ -996,17 +997,17 @@ namespace ColinBaker.Pesto.UI.Features
                 }
                 else
                 {
-                    ClearMap();
-                    ShowMap();
+                    await ClearMapAsync();
+                    await ShowMapAsync();
                 }
             }
             else
             {
-                ClearMap();
+                await ClearMapAsync();
             }
         }
 
-        private void lineLongitudeTextBox_Validating(object sender, CancelEventArgs e)
+        private async void lineLongitudeTextBox_Validating(object sender, CancelEventArgs e)
         {
             decimal longitude;
 
@@ -1019,17 +1020,17 @@ namespace ColinBaker.Pesto.UI.Features
                 }
                 else
                 {
-                    ClearMap();
-                    ShowMap();
+                    await ClearMapAsync();
+                    await ShowMapAsync();
                 }
             }
             else
             {
-                ClearMap();
+                await ClearMapAsync();
             }
         }
 
-        private void lineWidthTextBox_Validating(object sender, CancelEventArgs e)
+        private async void lineWidthTextBox_Validating(object sender, CancelEventArgs e)
         {
             int width;
 
@@ -1042,17 +1043,17 @@ namespace ColinBaker.Pesto.UI.Features
                 }
                 else
                 {
-                    ClearMap();
-                    ShowMap();
+                    await ClearMapAsync();
+                    await ShowMapAsync();
                 }
             }
             else
             {
-                ClearMap();
+                await ClearMapAsync();
             }
         }
 
-        private void lineBearingTextBox_Validating(object sender, CancelEventArgs e)
+        private async void lineBearingTextBox_Validating(object sender, CancelEventArgs e)
         {
             if (lineBearingTextBox.Text.Length > 0)
             {
@@ -1060,8 +1061,8 @@ namespace ColinBaker.Pesto.UI.Features
                 {
                     lineBearingTextBox.Text = RoundDown(bearing, 1).ToString("##0.0");
 
-                    ClearMap();
-                    ShowMap();
+                    await ClearMapAsync();
+                    await ShowMapAsync();
                 }
                 else
                 {
@@ -1071,7 +1072,7 @@ namespace ColinBaker.Pesto.UI.Features
             }
             else
             {
-                ClearMap();
+                await ClearMapAsync();
             }
         }
 
@@ -1080,20 +1081,20 @@ namespace ColinBaker.Pesto.UI.Features
             AddPolygonVertex(null);
         }
 
-        private void removePolygonRibbonButton_Click(object sender, EventArgs e)
+        private async void removePolygonRibbonButton_Click(object sender, EventArgs e)
         {
             polygonDataGridView.Rows.RemoveAt(polygonDataGridView.Rows.Count - 1);
 
-            ClearMap();
-            ShowMap();
+            await ClearMapAsync();
+            await ShowMapAsync();
         }
 
-        private void removeAllPolygonRibbonButton_Click(object sender, EventArgs e)
+        private async void removeAllPolygonRibbonButton_Click(object sender, EventArgs e)
         {
             polygonDataGridView.Rows.Clear();
 
-            ClearMap();
-            ShowMap();
+            await ClearMapAsync();
+            await ShowMapAsync();
         }
 
         private void polygonDataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)

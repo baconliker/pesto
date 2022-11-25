@@ -614,14 +614,12 @@
 			// 
 			// analysisMap
 			// 
-			this.analysisMap.CenterLocation = null;
 			this.analysisMap.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.analysisMap.Location = new System.Drawing.Point(0, 0);
 			this.analysisMap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.analysisMap.Name = "analysisMap";
 			this.analysisMap.Size = new System.Drawing.Size(682, 547);
 			this.analysisMap.TabIndex = 0;
-			this.analysisMap.Zoom = -1;
 			this.analysisMap.Resize += new System.EventHandler(this.analysisMap_Resize);
 			// 
 			// eventClassificationImageList

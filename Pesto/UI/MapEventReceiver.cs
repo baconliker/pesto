@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ColinBaker.Pesto.UI
 {
-	[System.Runtime.InteropServices.ComVisibleAttribute(true)]
+	[System.Runtime.InteropServices.ComVisible(true)]
 	public class MapEventReceiver
 	{
         public event EventHandler MapInitialized;

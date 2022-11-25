@@ -713,7 +713,7 @@ namespace ColinBaker.Pesto.UI
 
 		private void defineFeaturesRibbonButton_Click(object sender, EventArgs e)
 		{
-			using (Features.FeatureDefinitionForm form = new Features.FeatureDefinitionForm(m_competition))
+            using (Features.FeatureDefinitionForm form = new Features.FeatureDefinitionForm(m_competition))
 			{
 				form.ShowDialog();
 

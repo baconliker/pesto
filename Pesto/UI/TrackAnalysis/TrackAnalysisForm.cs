@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ColinBaker.Pesto.UI.TrackAnalysis
 {
@@ -163,86 +164,86 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 			}
 		}
 
-		private void ClearMap()
+		private async Task ClearMapAsync()
 		{
-			analysisMap.Clear();
+			await analysisMap.ClearAsync();
 		}
 
-		private void PopulateMapFeatures()
+		private async Task PopulateMapFeaturesAsync()
 		{
             if (this.Task.TakeOffDeck != null)
             {
-                analysisMap.AddFeature(this.Task.TakeOffDeck);
+                await analysisMap.AddFeatureAsync(this.Task.TakeOffDeck);
             }
 
             if (this.Task.LandingDeck != null)
             {
-                analysisMap.AddFeature(this.Task.LandingDeck);
+                await analysisMap.AddFeatureAsync(this.Task.LandingDeck);
             }
 
             if (this.Task.StartPointOrGate != null)
 			{
-				analysisMap.AddFeature(this.Task.StartPointOrGate);
+                await analysisMap.AddFeatureAsync(this.Task.StartPointOrGate);
 			}
 
 			if (this.Task.FinishPointOrGate != null)
 			{
-				analysisMap.AddFeature(this.Task.FinishPointOrGate);
+                await analysisMap.AddFeatureAsync(this.Task.FinishPointOrGate);
 			}
 
 			foreach (Models.Features.PointFeature turnpoint in this.Task.Turnpoints)
 			{
-				analysisMap.AddFeature(turnpoint);
+                await analysisMap.AddFeatureAsync(turnpoint);
 			}
 
 			foreach (Models.Features.GateFeature hiddenGate in this.Task.HiddenGates)
 			{
-				analysisMap.AddFeature(hiddenGate);
+                await analysisMap.AddFeatureAsync(hiddenGate);
 			}
 
             foreach (Models.Features.NoFlyZoneFeature nfz in this.Task.NoFlyZones)
             {
-                analysisMap.AddFeature(nfz);
+                await analysisMap.AddFeatureAsync(nfz);
             }
 
             foreach (Models.Features.Feature feature in this.Task.Competition.Features)
 			{
 				if (feature.Type == Models.Features.Feature.FeatureType.Airfield)
 				{
-					analysisMap.AddFeature(feature);
+                    await analysisMap.AddFeatureAsync(feature);
 				}
 			}
 		}
 
-		private void ClearMapTrack()
+		private async Task ClearMapTrackAsync()
 		{
-			analysisMap.RemoveTrack();
+            await analysisMap.RemoveTrackAsync();
 		}
 
-		private void PopulateMapTrack(Geolocation.Tracks.Track track)
+		private async Task PopulateMapTrackAsync(Geolocation.Tracks.Track track)
 		{
-			ClearMapTrack();
+            await ClearMapTrackAsync();
 
             if (track != null)
             {
-                analysisMap.AddTrack(track);
+                await analysisMap.AddTrackAsync(track);
             }
 
-            analysisMap.AutoFit();
+            await analysisMap.AutoFitAsync();
 		}
 
-		private void ShowMapEventLocation()
+		private async Task ShowMapEventLocationAsync()
 		{
 			if (eventsDataGridView.SelectedRows.Count == 1)
 			{
 				Models.TrackAnalysis.Events.TrackEvent trackEvent = eventsDataGridView.CurrentRow.Tag as Models.TrackAnalysis.Events.TrackEvent;
 
-				analysisMap.Pan(trackEvent.Location);
-				analysisMap.ZoomFullyIn();
+				await analysisMap.PanAsync(trackEvent.Location);
+				await analysisMap.ZoomFullyInAsync();
 			}
 		}
 
-        private void PilotSelected()
+        private async Task PilotSelectedAsync()
         {
             Models.TrackAnalysis.Pilot pilot = pilotsDataGridView.SelectedRows[0].Tag as Models.TrackAnalysis.Pilot;
 
@@ -255,9 +256,9 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
                     pilot.Track = Models.TrackAnalysis.TrackAnalyzer.LoadTrack(this.Task, pilot);
                 }
 
-                PopulateMapTrack(pilot.Track);
+                await PopulateMapTrackAsync(pilot.Track);
 
-                ShowMapEventLocation();
+                await ShowMapEventLocationAsync();
 
                 RefreshControlState();
             }
@@ -399,7 +400,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 			openKmlRibbonButton.Enabled = (pilotsDataGridView.SelectedRows.Count >= 1);
 		}
 
-		private void TrackAnalysisForm_Load(object sender, EventArgs e)
+		private async void TrackAnalysisForm_Load(object sender, EventArgs e)
 		{
 			this.Cursor = Cursors.WaitCursor;
 
@@ -409,9 +410,9 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 
 			PopulatePilots();
 
-			PopulateMapFeatures();
+            await PopulateMapFeaturesAsync();
 
-            PilotSelected();
+            await PilotSelectedAsync();
 
 			this.Cursor = Cursors.Default;
 		}
@@ -426,7 +427,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 			}
 		}
 
-		private void selectFeaturesRibbonButton_Click(object sender, EventArgs e)
+		private async void selectFeaturesRibbonButton_Click(object sender, EventArgs e)
 		{
 			using (Features.TaskFeaturesForm form = new Features.TaskFeaturesForm(this.Task))
 			{
@@ -440,14 +441,14 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 				}
 				
 				ClearEvents();
-				ClearMap();
-				PopulateMapFeatures();
+				await ClearMapAsync();
+                await PopulateMapFeaturesAsync();
 
-				PilotSelected();
+				await PilotSelectedAsync();
 			}
 		}
 
-		private void runAnalysisRibbonButton_Click(object sender, EventArgs e)
+		private async void runAnalysisRibbonButton_Click(object sender, EventArgs e)
 		{
             if (this.Task.Competition.FlymasterIgcPath.Length > 0 && !this.Task.LandBySet)
             {
@@ -540,7 +541,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
                             if (pilotsToAnalyze[0].Events.Count > 0)
                             {
                                 PopulateEvents(pilotsToAnalyze[0].Events);
-                                ShowMapEventLocation();
+                                await ShowMapEventLocationAsync();
                             }
                             else
                             {
@@ -704,48 +705,48 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
             }
         }
 
-		private void zoomInRibbonButton_Click(object sender, EventArgs e)
+		private async void zoomInRibbonButton_Click(object sender, EventArgs e)
 		{
-			analysisMap.ZoomIn();
+			await analysisMap.ZoomInAsync();
 		}
 
-		private void zoomOutRibbonButton_Click(object sender, EventArgs e)
+		private async void zoomOutRibbonButton_Click(object sender, EventArgs e)
 		{
-			analysisMap.ZoomOut();
+			await analysisMap.ZoomOutAsync();
 		}
 
-		private void pilotsDataGridView_SelectionChanged(object sender, EventArgs e)
+		private async void pilotsDataGridView_SelectionChanged(object sender, EventArgs e)
 		{
 			if (pilotsDataGridView.SelectedRows.Count == 1)
 			{
 				this.Cursor = Cursors.WaitCursor;
 
-				PilotSelected();
+				await PilotSelectedAsync();
 
 				this.Cursor = Cursors.Default;
 			}
 			else
 			{
 				ClearEvents();
-				ClearMapTrack();
+                await ClearMapTrackAsync();
 
                 RefreshControlState();
             }
 		}
 
-		private void eventsDataGridView_SelectionChanged(object sender, EventArgs e)
+		private async void eventsDataGridView_SelectionChanged(object sender, EventArgs e)
 		{
 			if (eventsDataGridView.SelectedRows.Count == 1 && eventsDataGridView.SelectedRows[0].Tag != null)
 			{
-				ShowMapEventLocation();
+				await ShowMapEventLocationAsync();
 			}
 
 			RefreshControlState();
 		}
 
-		private void analysisMap_Resize(object sender, EventArgs e)
+		private async void analysisMap_Resize(object sender, EventArgs e)
 		{
-			ShowMapEventLocation();
+			await ShowMapEventLocationAsync();
 		}
 
         private void distanceDirectRibbonButton_Click(object sender, EventArgs e)
@@ -928,7 +929,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
             }
         }
 
-		private void selectTrackRibbonButton_Click(object sender, EventArgs e)
+		private async void selectTrackRibbonButton_Click(object sender, EventArgs e)
 		{
             Models.TrackAnalysis.Pilot pilot = pilotsDataGridView.SelectedRows[0].Tag as Models.TrackAnalysis.Pilot;
 
@@ -941,7 +942,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 
                     pilot.Track = Models.TrackAnalysis.TrackAnalyzer.LoadTrack(this.Task, pilot);
 
-                    PopulateMapTrack(pilot.Track);
+                    await PopulateMapTrackAsync(pilot.Track);
 
                     RefreshControlState();
                 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColinBaker.Pesto.Models.Features;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -88,7 +89,7 @@ namespace ColinBaker.Pesto.Models.TrackAnalysis.Analyzers
 
 		private void CheckPointState(PointState pointState, ref Geolocation.Tracks.Track track, int fixIndex)
 		{
-            int distanceToCentre;
+            double distanceToCentre;
 
             if (IsWithinPoint(track.Fixes[fixIndex], pointState.Point, out distanceToCentre))
 			{
@@ -155,13 +156,13 @@ namespace ColinBaker.Pesto.Models.TrackAnalysis.Analyzers
 			}
 		}
 
-        private bool IsWithinPoint(Geolocation.Tracks.Fix fix, Features.PointFeature point, out int distanceToCentre)
+        private bool IsWithinPoint(Geolocation.Tracks.Fix fix, Features.PointFeature point, out double distanceToCentre)
         {
             Models.Features.Circle pointCircle = point.Shape as Models.Features.Circle;
 
-            distanceToCentre = Convert.ToInt32(m_distanceCalculator.CalculateDistance(fix, pointCircle.Center));
+            distanceToCentre = m_distanceCalculator.CalculateDistance(fix, pointCircle.Center);
 
-            if (distanceToCentre < pointCircle.Radius)
+            if (distanceToCentre <= (double)pointCircle.Radius)
             {
                 if (point.LowerAltitude != Geolocation.Location.UnknownAltitude && point.UpperAltitude != Geolocation.Location.UnknownAltitude)
                 {
@@ -323,12 +324,12 @@ namespace ColinBaker.Pesto.Models.TrackAnalysis.Analyzers
 
 		private class PointVisit
 		{
-			public PointVisit(int closestDistance)
+			public PointVisit(double closestDistance)
 			{
 				this.ClosestDistance = closestDistance;
 			}
 
-			public int ClosestDistance { get; set; }
+			public double ClosestDistance { get; set; }
 			public Geolocation.Tracks.Fix ClosestFix { get; set; }
 		}
 	}

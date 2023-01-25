@@ -129,9 +129,9 @@ namespace ColinBaker.Pesto.Models.TrackAnalysis.Analyzers
 
         private bool IsFixWithinCircle(Geolocation.Tracks.Fix fix, Features.Circle circle)
         {
-            int distanceToCentre = Convert.ToInt32(m_distanceCalculator.CalculateDistance(fix, circle.Center));
+            double distanceToCentre = m_distanceCalculator.CalculateDistance(fix, circle.Center);
 
-            if (distanceToCentre < circle.Radius)
+            if (distanceToCentre <= (double)circle.Radius)
             {
                 return true;
             }

@@ -51,12 +51,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pesto\Pesto.csproj">
-      <Project>{967b4d49-0a1b-4210-95a7-31825d5f9cfb}</Project>
-      <Name>Loris</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +72,12 @@
     <PackageReference Include="NUnit">
       <Version>3.0.1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pesto\Pesto.csproj">
+      <Project>{967b4d49-0a1b-4210-95a7-31825d5f9cfb}</Project>
+      <Name>Pesto</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

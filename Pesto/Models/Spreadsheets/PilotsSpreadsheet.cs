@@ -25,7 +25,7 @@ namespace ColinBaker.Pesto.Models.Spreadsheets
 			return new string[] { System.Windows.Forms.Application.StartupPath + @"\Resources\Spreadsheets\Pilots.xlsx" };
 		}
 
-		protected override string GetFilePath()
+		public override string GetFilePath()
 		{
 			return this.Competition.GetFolderPath() + @"\Pilots.xlsx";
 		}

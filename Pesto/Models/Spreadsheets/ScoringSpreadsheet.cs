@@ -20,7 +20,7 @@ namespace ColinBaker.Pesto.Models.Spreadsheets
 			return System.IO.Directory.GetFiles(System.Windows.Forms.Application.StartupPath + @"\Resources\Spreadsheets\Scoring");
 		}
 
-		protected override string GetFilePath()
+		public override string GetFilePath()
 		{
 			return this.Task.GetFolderPath() + @"\Scoring.xlsx";
 		}

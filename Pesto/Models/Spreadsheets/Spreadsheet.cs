@@ -12,7 +12,7 @@ namespace ColinBaker.Pesto.Models.Spreadsheets
 		private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
 		public abstract string[] GetTemplateFilePaths();
-		protected abstract string GetFilePath();
+		public abstract string GetFilePath();
 
 		public Spreadsheet()
 		{
@@ -46,6 +46,18 @@ namespace ColinBaker.Pesto.Models.Spreadsheets
                 process.Start();
             }
         }
+
+		public void CopyTo(string filePath)
+		{
+			System.IO.FileInfo file = new System.IO.FileInfo(filePath);
+
+			if (!file.Directory.Exists)
+			{
+				file.Directory.Create();
+			}
+			
+			System.IO.File.Copy(GetFilePath(), file.FullName);
+		}
 
 		public bool MappingsComplete()
 		{

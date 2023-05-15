@@ -49,6 +49,7 @@
 			this.taskRibbonPanel = new System.Windows.Forms.RibbonPanel();
 			this.addTaskRibbonButton = new System.Windows.Forms.RibbonButton();
 			this.editTaskRibbonButton = new System.Windows.Forms.RibbonButton();
+			this.copyTaskRibbonButton = new System.Windows.Forms.RibbonButton();
 			this.ribbonSeparator6 = new System.Windows.Forms.RibbonSeparator();
 			this.scoresRibbonButton = new System.Windows.Forms.RibbonButton();
 			this.taskSpreadsheetRibbonButton = new System.Windows.Forms.RibbonButton();
@@ -286,6 +287,7 @@
 			this.taskRibbonPanel.Image = ((System.Drawing.Image)(resources.GetObject("taskRibbonPanel.Image")));
 			this.taskRibbonPanel.Items.Add(this.addTaskRibbonButton);
 			this.taskRibbonPanel.Items.Add(this.editTaskRibbonButton);
+			this.taskRibbonPanel.Items.Add(this.copyTaskRibbonButton);
 			this.taskRibbonPanel.Items.Add(this.ribbonSeparator6);
 			this.taskRibbonPanel.Items.Add(this.scoresRibbonButton);
 			this.taskRibbonPanel.Items.Add(this.ribbonSeparator7);
@@ -313,6 +315,15 @@
 			this.editTaskRibbonButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("editTaskRibbonButton.SmallImage")));
 			this.editTaskRibbonButton.Text = "Edit";
 			this.editTaskRibbonButton.Click += new System.EventHandler(this.editTaskRibbonButton_Click);
+			// 
+			// copyTaskRibbonButton
+			// 
+			this.copyTaskRibbonButton.Image = ((System.Drawing.Image)(resources.GetObject("copyTaskRibbonButton.Image")));
+			this.copyTaskRibbonButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("copyTaskRibbonButton.LargeImage")));
+			this.copyTaskRibbonButton.Name = "copyTaskRibbonButton";
+			this.copyTaskRibbonButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("copyTaskRibbonButton.SmallImage")));
+			this.copyTaskRibbonButton.Text = "Copy";
+			this.copyTaskRibbonButton.Click += new System.EventHandler(this.copyTaskRibbonButton_Click);
 			// 
 			// ribbonSeparator6
 			// 
@@ -803,5 +814,6 @@
         private PdfViewer taskResultsPdfViewer;
         private System.Windows.Forms.NotifyIcon reminderNotifyIcon;
         private System.Windows.Forms.RibbonButton remindersRibbonButton;
-    }
+		private System.Windows.Forms.RibbonButton copyTaskRibbonButton;
+	}
 }

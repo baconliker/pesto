@@ -369,7 +369,8 @@ namespace ColinBaker.Pesto.UI
 
 			addTaskRibbonButton.Enabled = (m_competition != null);
 			editTaskRibbonButton.Enabled = (m_competition != null && selectedTask != null);
-			scoresRibbonButton.Enabled = (m_competition != null && selectedTask != null);
+            copyTaskRibbonButton.Enabled = (m_competition != null && selectedTask != null);
+            scoresRibbonButton.Enabled = (m_competition != null && selectedTask != null);
 			taskMappingsRibbonButton.Enabled = taskSpreadsheetExists;
 			selectTaskFeaturesRibbonButton.Enabled = (m_competition != null && selectedTask != null);
 			trackAnalysisRibbonButton.Enabled = (pilotsSpreadsheetExists && m_competition.PilotsSpreadsheet.MappingsComplete() && selectedTask != null);
@@ -1268,5 +1269,20 @@ namespace ColinBaker.Pesto.UI
 
             m_remindersForm.Activate();
         }
-    }
+
+		private void copyTaskRibbonButton_Click(object sender, EventArgs e)
+		{
+            Models.Task taskToCopy = (tasksTaskListBox.SelectedItem as TaskListItem).Task;
+
+            Services.TaskDuplicator duplicator = new Services.TaskDuplicator();
+            Models.Task newTask = duplicator.Duplicate(taskToCopy, m_competition);
+
+            int newItemIndex = tasksTaskListBox.Items.Add(new TaskListItem(newTask));
+            tasksTaskListBox.SelectedIndex = newItemIndex;
+
+            mainSplitContainer.SplitterDistance = tasksTaskListBox.GetRecommendedWidth();
+
+            RefreshControlState();
+        }
+	}
 }

@@ -205,6 +205,7 @@
     <Compile Include="Services\SettingsStore.cs" />
     <Compile Include="Services\Spreadsheet\SpreadsheetConverter.cs" />
     <Compile Include="Services\ApplicationUpdater.cs" />
+    <Compile Include="Services\TaskDuplicator.cs" />
     <Compile Include="UI\AircraftClassListBox.cs">
       <SubType>Component</SubType>
     </Compile>

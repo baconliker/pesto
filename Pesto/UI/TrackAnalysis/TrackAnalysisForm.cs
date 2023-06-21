@@ -217,16 +217,16 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 
 		private async Task ClearMapTrackAsync()
 		{
-            await analysisMap.RemoveTrackAsync();
+            await analysisMap.ClearTracksAsync();
 		}
 
-		private async Task PopulateMapTrackAsync(Geolocation.Tracks.Track track)
+		private async Task PopulateMapTrackAsync(Geolocation.Tracks.Track track, int pilotNumber)
 		{
             await ClearMapTrackAsync();
 
             if (track != null)
             {
-                await analysisMap.AddTrackAsync(track);
+                await analysisMap.AddTrackAsync(track, pilotNumber);
             }
 
             await analysisMap.AutoFitAsync();
@@ -256,7 +256,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
                     pilot.Track = Models.TrackAnalysis.TrackAnalyzer.LoadTrack(this.Task, pilot);
                 }
 
-                await PopulateMapTrackAsync(pilot.Track);
+                await PopulateMapTrackAsync(pilot.Track, pilot.Number);
 
                 await ShowMapEventLocationAsync();
 
@@ -942,7 +942,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 
                     pilot.Track = Models.TrackAnalysis.TrackAnalyzer.LoadTrack(this.Task, pilot);
 
-                    await PopulateMapTrackAsync(pilot.Track);
+                    await PopulateMapTrackAsync(pilot.Track, pilot.Number);
 
                     RefreshControlState();
                 }

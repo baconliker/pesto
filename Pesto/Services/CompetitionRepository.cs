@@ -152,6 +152,24 @@ namespace ColinBaker.Pesto.Services
                 competition.FlymasterIgcPath = flymasterIgcPathNode.InnerText;
             }
 
+            XmlNode flymasterApiNode;
+            
+            flymasterApiNode = competitionNode.SelectSingleNode("FlymasterApiUsername");
+            if (flymasterApiNode != null)
+            {
+                competition.FlymasterApiUsername = flymasterApiNode.InnerText;
+            }
+            flymasterApiNode = competitionNode.SelectSingleNode("FlymasterApiPassword");
+            if (flymasterApiNode != null)
+            {
+                competition.FlymasterApiPassword = flymasterApiNode.InnerText;
+            }
+            flymasterApiNode = competitionNode.SelectSingleNode("FlymasterApiGroupId");
+            if (flymasterApiNode != null)
+            {
+                competition.FlymasterApiGroupId = flymasterApiNode.InnerText;
+            }
+
             XmlNode defaultTurnpointRadiusNode = competitionNode.SelectSingleNode("DefaultPointRadius");
             if (defaultTurnpointRadiusNode != null)
             {
@@ -483,6 +501,25 @@ namespace ColinBaker.Pesto.Services
             {
                 element = document.CreateElement("FlymasterIgcPath");
                 element.InnerText = competition.FlymasterIgcPath;
+                competitionElement.AppendChild(element);
+            }
+
+            if (!string.IsNullOrEmpty(competition.FlymasterApiUsername))
+            {
+                element = document.CreateElement("FlymasterApiUsername");
+                element.InnerText = competition.FlymasterApiUsername;
+                competitionElement.AppendChild(element);
+            }
+            if (!string.IsNullOrEmpty(competition.FlymasterApiPassword))
+            {
+                element = document.CreateElement("FlymasterApiPassword");
+                element.InnerText = competition.FlymasterApiPassword;
+                competitionElement.AppendChild(element);
+            }
+            if (!string.IsNullOrEmpty(competition.FlymasterApiGroupId))
+            {
+                element = document.CreateElement("FlymasterApiGroupId");
+                element.InnerText = competition.FlymasterApiGroupId;
                 competitionElement.AppendChild(element);
             }
 

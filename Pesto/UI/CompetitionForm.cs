@@ -66,6 +66,10 @@ namespace ColinBaker.Pesto.UI
                 flymasterIgcLocationTextBox.Text = competition.FlymasterIgcPath;
             }
 
+            flymasterApiUsernameTextBox.Text = competition.FlymasterApiUsername;
+            flymasterApiPasswordTextBox.Text = competition.FlymasterApiPassword;
+            flymasterApiGroupIdTextBox.Text = competition.FlymasterApiGroupId;
+
             defaultPointRadiusTextBox.Text = competition.DefaultPointRadius.ToString();
 
             this.Height = 595;
@@ -414,6 +418,9 @@ namespace ColinBaker.Pesto.UI
                 this.Competition.NationDefinitions = new List<Models.NationDefinition>(ExtractNationDefinitions());
                 this.Competition.FrdlIgcPath = frdlIgcLocationTextBox.Text;
                 this.Competition.FlymasterIgcPath = flymasterIgcLocationTextBox.Text;
+                this.Competition.FlymasterApiUsername = flymasterApiUsernameTextBox.Text.Trim();
+                this.Competition.FlymasterApiPassword = flymasterApiPasswordTextBox.Text;
+                this.Competition.FlymasterApiGroupId = flymasterApiGroupIdTextBox.Text.Trim();
                 this.Competition.DefaultPointRadius = int.Parse(defaultPointRadiusTextBox.Text.Trim());
                 this.Competition.BackupPath = backupLocationTextBox.Text;
 			}

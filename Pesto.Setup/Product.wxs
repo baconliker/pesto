@@ -144,6 +144,9 @@
       <Component Win64="$(var.Win64)">
         <File Source="$(var.Pesto.TargetDir)runtimes\win-x64\native\WebView2Loader.dll"/>
       </Component>
+      <Component Win64="$(var.Win64)">
+        <File Source="$(var.Pesto.TargetDir)Newtonsoft.Json.dll"/>
+      </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="FontComponents" Directory="LocalFontsFolder">

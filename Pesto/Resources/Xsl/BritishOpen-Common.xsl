@@ -19,7 +19,7 @@
             </fo:table-cell>
             <fo:table-cell padding-top="2.9mm">
               <fo:block>
-                <fo:external-graphic src="Resources/Xsl/GreenDragonsLogo.png" width="37.3mm" height="22.0mm" content-width="scale-to-fit" content-height="scale-to-fit"/>
+                <fo:external-graphic src="Resources/Xsl/VittoraziMotorsLogo.png" width="49.4mm" height="22.0mm" content-width="scale-to-fit" content-height="scale-to-fit"/>
               </fo:block>
             </fo:table-cell>
             <fo:table-cell>

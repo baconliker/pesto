@@ -42,12 +42,14 @@ namespace ColinBaker.Pesto.UI
 
 		public async Task ClearAsync()
 		{
-			m_queuedFeatures.Clear();
-			m_queuedTracks.Clear();
-
 			if (m_initialized)
 			{
 				await ExecuteScriptAsync("clear()").ConfigureAwait(false);
+			}
+			else
+			{
+				m_queuedFeatures.Clear();
+				m_queuedTracks.Clear();
 			}
 		}
 
@@ -90,6 +92,14 @@ namespace ColinBaker.Pesto.UI
 				await ExecuteScriptAsync("autoFit()").ConfigureAwait(false);
             }
         }
+
+		public async Task AutoFitTracksAsync()
+		{
+			if (m_initialized)
+			{
+				await ExecuteScriptAsync("autoFitTracks()").ConfigureAwait(false);
+			}
+		}
 
 		public async Task AddFeatureAsync(Models.Features.Feature feature)
 		{
@@ -192,11 +202,11 @@ namespace ColinBaker.Pesto.UI
 			}
 		}
 
-		public async Task AddTrackAsync(Geolocation.Tracks.Track track)
+		public async Task AddTrackAsync(Geolocation.Tracks.Track track, int pilotNumber)
 		{
 			if (m_initialized)
 			{
-				await ExecuteScriptAsync("startTrack()");
+				await ExecuteScriptAsync($"startTrack({pilotNumber})");
 				foreach (ColinBaker.Geolocation.Tracks.Fix fix in track.Fixes)
 				{
 					await ExecuteScriptAsync($"addTrackFix({decimal.Round(fix.Latitude, 6)}, {decimal.Round(fix.Longitude, 6)})");
@@ -211,17 +221,14 @@ namespace ColinBaker.Pesto.UI
 			}
 		}
 
-		public async Task RemoveTrackAsync()
+		public async Task ClearTracksAsync()
 		{
 			if (m_initialized)
 			{
-				await ExecuteScriptAsync("removeTrack()").ConfigureAwait(false);
+				await ExecuteScriptAsync("clearTracks()").ConfigureAwait(false);
 			}
 			else
 			{
-				// Remove the track from the queue if it's there
-
-				// This will need to be modified if we ever support more than one track at a time
 				m_queuedTracks.Clear();
 			}
 		}
@@ -285,20 +292,20 @@ namespace ColinBaker.Pesto.UI
 				m_queuedFeatures.Clear();
 
 				// Add tracks that are queued
-				foreach (ColinBaker.Geolocation.Tracks.Track track in m_queuedTracks)
+				foreach (Geolocation.Tracks.Track track in m_queuedTracks)
 				{
-					await AddTrackAsync(track);
+					await AddTrackAsync(track, 0);
 				}
 				m_queuedTracks.Clear();
 
-                await AutoFitAsync();
+				await AutoFitAsync();
 			}
 			else
 			{
 				await SetToUKAsync();
 			}
 
-            OnMapInitialized(e);
+			OnMapInitialized(e);
 		}
 
 		public void m_eventReceiver_MapClicked(object sender, MapClickedEventArgs e)
@@ -370,7 +377,7 @@ namespace ColinBaker.Pesto.UI
 
 		private async Task<object> ExecuteScriptAsync(string javaScript)
 		{
-			if (!m_processFailed)
+			if (!m_processFailed && mapWebView.CoreWebView2 != null)
 			{
 				return await mapWebView.CoreWebView2.ExecuteScriptAsync(javaScript).ConfigureAwait(false);
 			}

@@ -92,6 +92,7 @@
 			this.teamResultsTabPage = new System.Windows.Forms.TabPage();
 			this.teamResultsPdfViewer = new ColinBaker.Pesto.UI.PdfViewer();
 			this.reminderNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+			this.liveScoresRibbonButton = new System.Windows.Forms.RibbonButton();
 			((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
 			this.mainSplitContainer.Panel1.SuspendLayout();
 			this.mainSplitContainer.Panel2.SuspendLayout();
@@ -119,7 +120,7 @@
 			this.mainRibbon.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2013;
 			this.mainRibbon.OrbVisible = false;
 			this.mainRibbon.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-			this.mainRibbon.Size = new System.Drawing.Size(699, 122);
+			this.mainRibbon.Size = new System.Drawing.Size(866, 122);
 			this.mainRibbon.TabIndex = 0;
 			this.mainRibbon.Tabs.Add(this.homeRibbonTab);
 			this.mainRibbon.Tabs.Add(this.resultsRibbonTab);
@@ -293,6 +294,7 @@
 			this.taskRibbonPanel.Items.Add(this.ribbonSeparator7);
 			this.taskRibbonPanel.Items.Add(this.selectTaskFeaturesRibbonButton);
 			this.taskRibbonPanel.Items.Add(this.trackAnalysisRibbonButton);
+			this.taskRibbonPanel.Items.Add(this.liveScoresRibbonButton);
 			this.taskRibbonPanel.Name = "taskRibbonPanel";
 			this.taskRibbonPanel.Text = "Task";
 			// 
@@ -583,9 +585,9 @@
 			// mainStatusStrip
 			// 
 			this.mainStatusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
-			this.mainStatusStrip.Location = new System.Drawing.Point(0, 504);
+			this.mainStatusStrip.Location = new System.Drawing.Point(0, 583);
 			this.mainStatusStrip.Name = "mainStatusStrip";
-			this.mainStatusStrip.Size = new System.Drawing.Size(699, 22);
+			this.mainStatusStrip.Size = new System.Drawing.Size(866, 22);
 			this.mainStatusStrip.TabIndex = 1;
 			this.mainStatusStrip.Text = "statusStrip1";
 			// 
@@ -594,7 +596,7 @@
 			this.pnlStartup.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.pnlStartup.Location = new System.Drawing.Point(0, 0);
 			this.pnlStartup.Name = "pnlStartup";
-			this.pnlStartup.Size = new System.Drawing.Size(699, 526);
+			this.pnlStartup.Size = new System.Drawing.Size(866, 605);
 			this.pnlStartup.TabIndex = 3;
 			// 
 			// mainSplitContainer
@@ -721,11 +723,20 @@
 			this.reminderNotifyIcon.BalloonTipClicked += new System.EventHandler(this.reminderNotifyIcon_BalloonTipClicked);
 			this.reminderNotifyIcon.BalloonTipClosed += new System.EventHandler(this.reminderNotifyIcon_BalloonTipClosed);
 			// 
+			// liveScoresRibbonButton
+			// 
+			this.liveScoresRibbonButton.Image = ((System.Drawing.Image)(resources.GetObject("liveScoresRibbonButton.Image")));
+			this.liveScoresRibbonButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("liveScoresRibbonButton.LargeImage")));
+			this.liveScoresRibbonButton.Name = "liveScoresRibbonButton";
+			this.liveScoresRibbonButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("liveScoresRibbonButton.SmallImage")));
+			this.liveScoresRibbonButton.Text = "Live Scores";
+			this.liveScoresRibbonButton.Click += new System.EventHandler(this.liveScoresRibbonButton_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(699, 526);
+			this.ClientSize = new System.Drawing.Size(866, 605);
 			this.Controls.Add(this.mainStatusStrip);
 			this.Controls.Add(this.mainRibbon);
 			this.Controls.Add(this.pnlStartup);
@@ -815,5 +826,6 @@
         private System.Windows.Forms.NotifyIcon reminderNotifyIcon;
         private System.Windows.Forms.RibbonButton remindersRibbonButton;
 		private System.Windows.Forms.RibbonButton copyTaskRibbonButton;
+		private System.Windows.Forms.RibbonButton liveScoresRibbonButton;
 	}
 }

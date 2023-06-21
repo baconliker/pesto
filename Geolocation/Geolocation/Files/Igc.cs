@@ -89,8 +89,8 @@ namespace ColinBaker.Geolocation.Files
 			{
 				DateTime previousFixTime = track.Fixes[track.Fixes.Count - 1].Time;
 
-				// Assumes we have a fix sometime in the minute before midnight and similarly in the minute afterwards
-				if (fixTime.Hour == 0 && fixTime.Minute == 0 && previousFixTime.Hour == 23 && previousFixTime.Minute == 59)
+				// Handle rollover to the next day
+				if (fixTime < previousFixTime)
 				{
 					fixTime = fixTime.AddDays(1);
 					m_currentDate = m_currentDate.AddDays(1);

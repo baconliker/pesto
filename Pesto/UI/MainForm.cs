@@ -374,8 +374,9 @@ namespace ColinBaker.Pesto.UI
 			taskMappingsRibbonButton.Enabled = taskSpreadsheetExists;
 			selectTaskFeaturesRibbonButton.Enabled = (m_competition != null && selectedTask != null);
 			trackAnalysisRibbonButton.Enabled = (pilotsSpreadsheetExists && m_competition.PilotsSpreadsheet.MappingsComplete() && selectedTask != null);
+            liveScoresRibbonButton.Enabled = (pilotsSpreadsheetExists && m_competition.PilotsSpreadsheet.MappingsComplete() && selectedTask != null && selectedTask.Type == Models.Task.TaskType.Navigation);
 
-			generateTaskRibbonButton.Enabled = (pilotsSpreadsheetExists && taskSpreadsheetExists);
+            generateTaskRibbonButton.Enabled = (pilotsSpreadsheetExists && taskSpreadsheetExists);
 			generateOverallRibbonButton.Enabled = pilotsSpreadsheetExists && m_competition.Tasks.Count > 0 && selectedAircraftClass != null;
 			generateTeamRibbonButton.Enabled = pilotsSpreadsheetExists && m_competition.Tasks.Count > 0 && selectedAircraftClass != null;
             generateNationRibbonButton.Enabled = pilotsSpreadsheetExists && m_competition.Tasks.Count > 0 && m_competition.NationDefinitions.Count > 0;
@@ -1283,6 +1284,42 @@ namespace ColinBaker.Pesto.UI
             mainSplitContainer.SplitterDistance = tasksTaskListBox.GetRecommendedWidth();
 
             RefreshControlState();
+        }
+
+		private void liveScoresRibbonButton_Click(object sender, EventArgs e)
+		{
+            Services.SettingsStore store = new Services.SettingsStore();
+
+            if (string.IsNullOrEmpty(store.GoogleMapsApiKey))
+            {
+                MessageBox.Show("Google API key not set. Please set these details in the Options screen.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(store.BytescoutSpreadsheetRegistrationName) || string.IsNullOrEmpty(store.BytescoutSpreadsheetRegistrationKey))
+            {
+                MessageBox.Show("Bytescout Spreadsheet registration details not set. Please set these details in the Options screen.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(m_competition.FlymasterApiUsername) || string.IsNullOrEmpty(m_competition.FlymasterApiPassword) || string.IsNullOrEmpty(m_competition.FlymasterApiGroupId))
+            {
+                MessageBox.Show("Flymaster API details not set. Please set these details in the competition Properties screen.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            Models.Task task = (tasksTaskListBox.SelectedItem as TaskListItem).Task;
+
+            if (!task.LandBySet)
+            {
+                MessageBox.Show("A 'Land by' date & time must be set in order to load Flymaster tracks", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            using (LiveScores.LiveScoresForm form = new LiveScores.LiveScoresForm(task))
+            {
+                form.ShowDialog();
+            }
         }
 	}
 }

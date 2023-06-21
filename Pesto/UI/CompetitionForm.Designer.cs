@@ -78,6 +78,13 @@
 			this.nationDefinitionsDataGridView = new System.Windows.Forms.DataGridView();
 			this.nationAircraftClassColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.nationNumberWhoScoreColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.flymasterApiGroupBox = new System.Windows.Forms.GroupBox();
+			this.flymasterApiUsernameLabel = new System.Windows.Forms.Label();
+			this.flymasterApiUsernameTextBox = new System.Windows.Forms.TextBox();
+			this.flymasterApiPasswordlabel = new System.Windows.Forms.Label();
+			this.flymasterApiPasswordTextBox = new System.Windows.Forms.TextBox();
+			this.flymasterApiGroupIdLabel = new System.Windows.Forms.Label();
+			this.flymasterApiGroupIdTextBox = new System.Windows.Forms.TextBox();
 			this.competitionTabControl.SuspendLayout();
 			this.generalTabPage.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.aircraftClassesDataGridView)).BeginInit();
@@ -85,6 +92,7 @@
 			this.loggersGroupBox.SuspendLayout();
 			this.nationTabPage.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nationDefinitionsDataGridView)).BeginInit();
+			this.flymasterApiGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// okButton
@@ -398,7 +406,7 @@
 			// defaultPointRadiusUnitsLabel
 			// 
 			this.defaultPointRadiusUnitsLabel.AutoSize = true;
-			this.defaultPointRadiusUnitsLabel.Location = new System.Drawing.Point(175, 226);
+			this.defaultPointRadiusUnitsLabel.Location = new System.Drawing.Point(175, 368);
 			this.defaultPointRadiusUnitsLabel.Name = "defaultPointRadiusUnitsLabel";
 			this.defaultPointRadiusUnitsLabel.Size = new System.Drawing.Size(38, 13);
 			this.defaultPointRadiusUnitsLabel.TabIndex = 46;
@@ -406,7 +414,7 @@
 			// 
 			// defaultPointRadiusTextBox
 			// 
-			this.defaultPointRadiusTextBox.Location = new System.Drawing.Point(114, 223);
+			this.defaultPointRadiusTextBox.Location = new System.Drawing.Point(114, 365);
 			this.defaultPointRadiusTextBox.Name = "defaultPointRadiusTextBox";
 			this.defaultPointRadiusTextBox.Size = new System.Drawing.Size(55, 20);
 			this.defaultPointRadiusTextBox.TabIndex = 45;
@@ -415,7 +423,7 @@
 			// defaultPointRadiusLabel
 			// 
 			this.defaultPointRadiusLabel.AutoSize = true;
-			this.defaultPointRadiusLabel.Location = new System.Drawing.Point(7, 226);
+			this.defaultPointRadiusLabel.Location = new System.Drawing.Point(7, 368);
 			this.defaultPointRadiusLabel.Name = "defaultPointRadiusLabel";
 			this.defaultPointRadiusLabel.Size = new System.Drawing.Size(101, 13);
 			this.defaultPointRadiusLabel.TabIndex = 44;
@@ -423,6 +431,7 @@
 			// 
 			// loggersGroupBox
 			// 
+			this.loggersGroupBox.Controls.Add(this.flymasterApiGroupBox);
 			this.loggersGroupBox.Controls.Add(this.loggersNoteLabel);
 			this.loggersGroupBox.Controls.Add(this.chooseFlymasterIgcLocationButton);
 			this.loggersGroupBox.Controls.Add(this.flymasterIgcLocationTextBox);
@@ -432,7 +441,7 @@
 			this.loggersGroupBox.Controls.Add(this.frdlIgcLocationLabel);
 			this.loggersGroupBox.Location = new System.Drawing.Point(10, 6);
 			this.loggersGroupBox.Name = "loggersGroupBox";
-			this.loggersGroupBox.Size = new System.Drawing.Size(456, 195);
+			this.loggersGroupBox.Size = new System.Drawing.Size(456, 337);
 			this.loggersGroupBox.TabIndex = 43;
 			this.loggersGroupBox.TabStop = false;
 			this.loggersGroupBox.Text = "Loggers";
@@ -440,7 +449,7 @@
 			// loggersNoteLabel
 			// 
 			this.loggersNoteLabel.AutoSize = true;
-			this.loggersNoteLabel.Location = new System.Drawing.Point(11, 160);
+			this.loggersNoteLabel.Location = new System.Drawing.Point(11, 309);
 			this.loggersNoteLabel.Name = "loggersNoteLabel";
 			this.loggersNoteLabel.Size = new System.Drawing.Size(439, 13);
 			this.loggersNoteLabel.TabIndex = 52;
@@ -565,6 +574,69 @@
 			this.nationNumberWhoScoreColumn.HeaderText = "Number Who Score";
 			this.nationNumberWhoScoreColumn.Name = "nationNumberWhoScoreColumn";
 			// 
+			// flymasterApiGroupBox
+			// 
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiGroupIdTextBox);
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiGroupIdLabel);
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiPasswordTextBox);
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiPasswordlabel);
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiUsernameTextBox);
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiUsernameLabel);
+			this.flymasterApiGroupBox.Location = new System.Drawing.Point(12, 149);
+			this.flymasterApiGroupBox.Name = "flymasterApiGroupBox";
+			this.flymasterApiGroupBox.Size = new System.Drawing.Size(434, 133);
+			this.flymasterApiGroupBox.TabIndex = 53;
+			this.flymasterApiGroupBox.TabStop = false;
+			this.flymasterApiGroupBox.Text = "Flymaster API";
+			// 
+			// flymasterApiUsernameLabel
+			// 
+			this.flymasterApiUsernameLabel.AutoSize = true;
+			this.flymasterApiUsernameLabel.Location = new System.Drawing.Point(15, 40);
+			this.flymasterApiUsernameLabel.Name = "flymasterApiUsernameLabel";
+			this.flymasterApiUsernameLabel.Size = new System.Drawing.Size(58, 13);
+			this.flymasterApiUsernameLabel.TabIndex = 0;
+			this.flymasterApiUsernameLabel.Text = "Username:";
+			// 
+			// flymasterApiUsernameTextBox
+			// 
+			this.flymasterApiUsernameTextBox.Location = new System.Drawing.Point(92, 37);
+			this.flymasterApiUsernameTextBox.Name = "flymasterApiUsernameTextBox";
+			this.flymasterApiUsernameTextBox.Size = new System.Drawing.Size(180, 20);
+			this.flymasterApiUsernameTextBox.TabIndex = 1;
+			// 
+			// flymasterApiPasswordlabel
+			// 
+			this.flymasterApiPasswordlabel.AutoSize = true;
+			this.flymasterApiPasswordlabel.Location = new System.Drawing.Point(17, 66);
+			this.flymasterApiPasswordlabel.Name = "flymasterApiPasswordlabel";
+			this.flymasterApiPasswordlabel.Size = new System.Drawing.Size(56, 13);
+			this.flymasterApiPasswordlabel.TabIndex = 2;
+			this.flymasterApiPasswordlabel.Text = "Password:";
+			// 
+			// flymasterApiPasswordTextBox
+			// 
+			this.flymasterApiPasswordTextBox.Location = new System.Drawing.Point(92, 63);
+			this.flymasterApiPasswordTextBox.Name = "flymasterApiPasswordTextBox";
+			this.flymasterApiPasswordTextBox.Size = new System.Drawing.Size(180, 20);
+			this.flymasterApiPasswordTextBox.TabIndex = 3;
+			// 
+			// flymasterApiGroupIdLabel
+			// 
+			this.flymasterApiGroupIdLabel.AutoSize = true;
+			this.flymasterApiGroupIdLabel.Location = new System.Drawing.Point(17, 92);
+			this.flymasterApiGroupIdLabel.Name = "flymasterApiGroupIdLabel";
+			this.flymasterApiGroupIdLabel.Size = new System.Drawing.Size(53, 13);
+			this.flymasterApiGroupIdLabel.TabIndex = 4;
+			this.flymasterApiGroupIdLabel.Text = "Group ID:";
+			// 
+			// flymasterApiGroupIdTextBox
+			// 
+			this.flymasterApiGroupIdTextBox.Location = new System.Drawing.Point(92, 89);
+			this.flymasterApiGroupIdTextBox.Name = "flymasterApiGroupIdTextBox";
+			this.flymasterApiGroupIdTextBox.Size = new System.Drawing.Size(99, 20);
+			this.flymasterApiGroupIdTextBox.TabIndex = 5;
+			// 
 			// CompetitionForm
 			// 
 			this.AcceptButton = this.okButton;
@@ -593,6 +665,8 @@
 			this.nationTabPage.ResumeLayout(false);
 			this.nationTabPage.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nationDefinitionsDataGridView)).EndInit();
+			this.flymasterApiGroupBox.ResumeLayout(false);
+			this.flymasterApiGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -641,5 +715,12 @@
 		private System.Windows.Forms.TextBox defaultPointRadiusTextBox;
 		private System.Windows.Forms.Label defaultPointRadiusLabel;
 		private System.Windows.Forms.Label loggersNoteLabel;
+		private System.Windows.Forms.GroupBox flymasterApiGroupBox;
+		private System.Windows.Forms.TextBox flymasterApiGroupIdTextBox;
+		private System.Windows.Forms.Label flymasterApiGroupIdLabel;
+		private System.Windows.Forms.TextBox flymasterApiPasswordTextBox;
+		private System.Windows.Forms.Label flymasterApiPasswordlabel;
+		private System.Windows.Forms.TextBox flymasterApiUsernameTextBox;
+		private System.Windows.Forms.Label flymasterApiUsernameLabel;
 	}
 }

@@ -32,20 +32,15 @@
 
 			var map = null;
 
-			var track = null;
+			var tracks = [];
 			var features = [];
-
-			var markerIcon = {
-				url: 'http://colinbaker.me.uk/images/pesto/feature-label.png',
-				size: new google.maps.Size(16, 16),
-				anchor: new google.maps.Point(0, 0)
-			}
 
 			var fittingBounds = false;
 
-			function Track() {
+			function Track(pilotNumber) {
+				this.pilotNumber = pilotNumber;
 				this.fixes = [];
-				this.mapItem = null;
+				this.mapItems = [];
 			}
 
 			function Feature(name, locations, mapItems) {
@@ -68,6 +63,7 @@
 					panControl: false,
 					streetViewControl: false,
 					zoomControl: false,
+					fullscreenControl: false,
 					backgroundColor: '#FFFFFF',
 					draggableCursor: 'crosshair'
 				};
@@ -156,7 +152,7 @@
 			}
 
 			function clear() {
-				removeTrack();
+				clearTracks();
 
 				for (var i = 0; i < features.length; i++) {
 					for (var j = 0; j < features[i].mapItems.length; j++) {
@@ -167,28 +163,47 @@
 				features.length = 0;
 			}
 
-			function removeTrack() {
-				if (track != null) {
-					if (track.mapItem != null) {
-						track.mapItem.setMap(null);
+			function clearTracks() {
+				for (var i = 0; i < tracks.length; i++) {
+					for (var j = 0; j < tracks[i].mapItems.length; j++) {
+						tracks[i].mapItems[j].setMap(null);
 					}
-
-					track = null;
 
 					itemRemoved();
 				}
+
+				tracks.length = 0;
 			}
 
-			function startTrack() {
-				track = new Track();
+			function startTrack(pilotNumber) {
+				//var track = new Track(pilotNumber);
+				tracks.push(new Track(pilotNumber));
 			}
 
 			function addTrackFix(latitude, longitude) {
+				// Assume we're working on the last track added
+				var track = tracks[tracks.length - 1];
+
 				track.fixes.push(new google.maps.LatLng(latitude, longitude));
 			}
 
 			function finishTrack() {
-				track.mapItem = createLine(track.fixes, '#0000FF');
+				// Assume we're working on the last track added
+				var track = tracks[tracks.length - 1];
+
+				track.mapItems.push(createLine(track.fixes, '#0000FF'));
+				track.mapItems.push(new google.maps.Marker({
+					map: map,
+					position: track.fixes[track.fixes.length - 1],
+					title: track.pilotNumber,
+					icon: {
+						url: 'https://colinbaker.me.uk/images/pesto/track-marker.aspx?number=' + track.pilotNumber,
+						size: new google.maps.Size(32, 32),
+						anchor: new google.maps.Point(16, 32)
+					},
+					clickable: false,
+					cursor: 'default'
+				}));
 
 				itemAdded();
 			}
@@ -353,7 +368,11 @@
 					map: map,
 					position: location,
 					title: name,
-					icon: markerIcon,
+					icon: {
+						url: 'https://colinbaker.me.uk/images/pesto/feature-label.png',
+						size: new google.maps.Size(16, 16),
+						anchor: new google.maps.Point(0, 0)
+					},
 					clickable: true,
 					cursor: 'default'
 				});
@@ -366,24 +385,24 @@
 			}
 
 			function itemRemoved() {
-				if (features.length > 0 || track != null) {
+				if (features.length > 0 || tracks.length > 0) {
 					//autoFit();
 				}
 			}
 
 			function autoFit() {
-				if (features.length > 0 || (track != null && track.fixes.length > 0)) {
+				if (features.length > 0 || tracks.length > 0) {
 					var bounds = new google.maps.LatLngBounds();
 
-					if (track == null && features.length == 0) {
+					if (tracks.length == 0 && features.length == 0) {
 						// Special case for when we have just one feature, to prevent zooming in too far
 						// TODO: Calculate bounds for single feature which could be a point, gate or nfz (circle or polygon)
 						// When we've done this the mapBoundsChanged event can be ignored/removed
 					}
 					else {
-						if (track != null) {
-							for (var i = 0; i < track.fixes.length; i++) {
-								bounds.extend(track.fixes[i]);
+						for (var l = 0; l < tracks.length; l++) {
+							for (var i = 0; i < tracks[l].fixes.length; i++) {
+								bounds.extend(tracks[l].fixes[i]);
 							}
 						}
 
@@ -391,6 +410,21 @@
 							for (var k = 0; k < features[j].locations.length; k++) {
 								bounds.extend(features[j].locations[k]);
 							}
+						}
+					}
+
+					fittingBounds = true;
+					map.fitBounds(bounds);
+				}
+			}
+
+			function autoFitTracks() {
+				if (tracks.length > 0) {
+					var bounds = new google.maps.LatLngBounds();
+
+					for (var l = 0; l < tracks.length; l++) {
+						for (var i = 0; i < tracks[l].fixes.length; i++) {
+							bounds.extend(tracks[l].fixes[i]);
 						}
 					}
 

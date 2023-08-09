@@ -87,15 +87,9 @@
       <Component Win64="$(var.Win64)">
         <File Source="$(var.Pesto.TargetDir)PdfiumViewer.dll"/>
       </Component>
-      <?if $(var.Platform) = x64 ?>
-        <Component Win64="yes">
-          <File Source="$(var.Pesto.TargetDir)x64\pdfium.dll"/>
-        </Component>
-      <?else ?>
-        <Component Win64="no">
-          <File Source="$(var.Pesto.TargetDir)x86\pdfium.dll"/>
-        </Component>
-      <?endif ?>
+      <Component Win64="yes">
+        <File Source="$(var.Pesto.TargetDir)x64\pdfium.dll"/>
+      </Component>
       <Component Win64="$(var.Win64)">
         <File Source="$(var.Pesto.TargetDir)Bytescout.Spreadsheet.dll"/>
       </Component>

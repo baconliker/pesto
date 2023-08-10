@@ -7,7 +7,7 @@ namespace ColinBaker.Pesto.Services
 {
     class CompetitionRepository
     {
-        private const decimal m_currentFileVersion = 1.7M;
+        private const decimal m_currentFileVersion = 1.8M;
 		private const int m_maxRecentCompetitions = 5;
 
         public CompetitionRepository(string filePath)
@@ -75,6 +75,13 @@ namespace ColinBaker.Pesto.Services
             Models.Competition competition = new Models.Competition(this);
 
             competition.Name = competitionNode.SelectSingleNode("Name").InnerText;
+
+            XmlNode logoImagePathNode = competitionNode.SelectSingleNode("LogoImagePath");
+            if (logoImagePathNode != null)
+            {
+                competition.LogoImagePath = logoImagePathNode.InnerText;
+			}
+
             // TODO: Check parsing of date is correct, see geo conversion code in ParaComp
             competition.Start = DateTime.Parse(competitionNode.SelectSingleNode("Start").InnerText, System.Globalization.CultureInfo.InvariantCulture);
             // TODO: Check parsing of date is correct, see geo conversion code in ParaComp
@@ -441,7 +448,11 @@ namespace ColinBaker.Pesto.Services
             element.InnerText = competition.Name;
             competitionElement.AppendChild(element);
 
-            element = document.CreateElement("Start");
+			element = document.CreateElement("LogoImagePath");
+			element.InnerText = competition.LogoImagePath;
+			competitionElement.AppendChild(element);
+
+			element = document.CreateElement("Start");
             element.InnerText = competition.Start.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
             competitionElement.AppendChild(element);
 
@@ -957,7 +968,7 @@ namespace ColinBaker.Pesto.Services
 
             XmlElement rootElement = document.CreateElement("Boris");
             rootElement.SetAttribute("Type", "TaskResults");
-            rootElement.SetAttribute("Version", "1.2");
+            rootElement.SetAttribute("Version", "1.3");
             document.AppendChild(rootElement);
 
             XmlElement competitionElement = document.CreateElement("Competition");
@@ -967,7 +978,11 @@ namespace ColinBaker.Pesto.Services
             element.InnerText = results.Task.Competition.Name;
             competitionElement.AppendChild(element);
 
-            XmlElement taskElement = document.CreateElement("Task");
+			element = document.CreateElement("Logo");
+			element.InnerText = results.Task.Competition.LogoImagePath;
+			competitionElement.AppendChild(element);
+
+			XmlElement taskElement = document.CreateElement("Task");
             rootElement.AppendChild(taskElement);
 
             element = document.CreateElement("Number");
@@ -1092,7 +1107,7 @@ namespace ColinBaker.Pesto.Services
 
             XmlElement rootElement = document.CreateElement("Boris");
             rootElement.SetAttribute("Type", "OverallResults");
-            rootElement.SetAttribute("Version", "1.3");
+            rootElement.SetAttribute("Version", "1.4");
             document.AppendChild(rootElement);
 
             XmlElement competitionElement = document.CreateElement("Competition");
@@ -1102,7 +1117,11 @@ namespace ColinBaker.Pesto.Services
             element.InnerText = results.Competition.Name;
             competitionElement.AppendChild(element);
 
-            XmlElement resultsElement = document.CreateElement("Results");
+			element = document.CreateElement("Logo");
+			element.InnerText = results.Competition.LogoImagePath;
+			competitionElement.AppendChild(element);
+
+			XmlElement resultsElement = document.CreateElement("Results");
             rootElement.AppendChild(resultsElement);
 
             element = document.CreateElement("Published");
@@ -1197,7 +1216,7 @@ namespace ColinBaker.Pesto.Services
 
             XmlElement rootElement = document.CreateElement("Boris");
             rootElement.SetAttribute("Type", "TeamResults");
-            rootElement.SetAttribute("Version", "1.3");
+            rootElement.SetAttribute("Version", "1.4");
             document.AppendChild(rootElement);
 
             XmlElement competitionElement = document.CreateElement("Competition");
@@ -1207,7 +1226,11 @@ namespace ColinBaker.Pesto.Services
             element.InnerText = results.Competition.Name;
             competitionElement.AppendChild(element);
 
-            XmlElement resultsElement = document.CreateElement("Results");
+			element = document.CreateElement("Logo");
+			element.InnerText = results.Competition.LogoImagePath;
+			competitionElement.AppendChild(element);
+
+			XmlElement resultsElement = document.CreateElement("Results");
             rootElement.AppendChild(resultsElement);
 
             element = document.CreateElement("Published");
@@ -1251,7 +1274,7 @@ namespace ColinBaker.Pesto.Services
 
             XmlElement rootElement = document.CreateElement("Boris");
             rootElement.SetAttribute("Type", "NationResults");
-            rootElement.SetAttribute("Version", "1.0");
+            rootElement.SetAttribute("Version", "1.1");
             document.AppendChild(rootElement);
 
             XmlElement competitionElement = document.CreateElement("Competition");
@@ -1261,7 +1284,11 @@ namespace ColinBaker.Pesto.Services
             element.InnerText = results.Competition.Name;
             competitionElement.AppendChild(element);
 
-            XmlElement resultsElement = document.CreateElement("Results");
+			element = document.CreateElement("Logo");
+			element.InnerText = results.Competition.LogoImagePath;
+			competitionElement.AppendChild(element);
+
+			XmlElement resultsElement = document.CreateElement("Results");
             rootElement.AppendChild(resultsElement);
 
             element = document.CreateElement("Published");

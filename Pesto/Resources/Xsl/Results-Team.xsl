@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:dt="http://xsltsl.org/date-time">
   <xsl:import href="Libraries/date-time.xsl"/>
-  <xsl:import href="WMPC-Common.xsl"/>
+  <xsl:import href="Results-Common.xsl"/>
   
 	<xsl:output method="xml" indent="yes" />
 
@@ -13,13 +13,13 @@
 		<fo:root>
 			<fo:layout-master-set>
 				<fo:simple-page-master master-name="first-page" page-width="297mm" page-height="210mm" margin-top="5mm" margin-bottom="5mm" margin-left="5mm" margin-right="5mm">
-					<fo:region-body margin-top="25mm" margin-bottom="10mm"/>
-          <fo:region-before extent="20mm"/>
+          <fo:region-body margin-top="35mm" margin-bottom="10mm"/>
+          <fo:region-before extent="30mm"/>
           <fo:region-after extent="5mm"/>
 				</fo:simple-page-master>
 
 				<fo:simple-page-master master-name="other-pages" page-width="297mm" page-height="210mm" margin-top="5mm" margin-bottom="5mm" margin-left="5mm" margin-right="5mm">
-					<fo:region-body margin-top="5mm" margin-bottom="10mm"/>
+          <fo:region-body margin-top="5mm" margin-bottom="10mm"/>
           <fo:region-after extent="5mm"/>
 				</fo:simple-page-master>
 
@@ -52,7 +52,7 @@
                 <fo:table-row>
                   <fo:table-cell>
                     <fo:block font-size="16pt" font-weight="bold">
-                      Overall
+                      Team
                     </fo:block>
                     <fo:block font-size="14pt" font-weight="bold">
                       <xsl:value-of select="/Boris/Results/Class/Code"/>
@@ -82,7 +82,7 @@
                 </fo:table-row>
               </fo:table-body>
             </fo:table>
-            
+
             <xsl:apply-templates select="/Boris/Results/Class"/>
 						
 						<fo:block id="the-end"/>
@@ -152,16 +152,7 @@
                 <xsl:if test="../../../Columns/Column[$cell-number]/Visible = 'Y'">
                   <fo:table-cell text-align="{$cell-align}" padding="0.5mm">
                     <fo:block font-weight="{$cell-bold}">
-                      <xsl:choose>
-                        <xsl:when test="../../../Columns/Column[$cell-number]/Type = 'N'">
-                          <xsl:call-template name="pad-pilot-number">
-                            <xsl:with-param name="pilot-number" select="Value"/>
-                          </xsl:call-template>
-                        </xsl:when>
-                        <xsl:otherwise>
-                          <xsl:value-of select="Value"/>
-                        </xsl:otherwise>
-                      </xsl:choose>
+                      <xsl:value-of select="Value"/>
                     </fo:block>
                   </fo:table-cell>
                 </xsl:if>

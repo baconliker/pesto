@@ -42,6 +42,7 @@ namespace ColinBaker.Pesto.UI
 			this.Text = "Competition Properties";
 
 			nameTextBox.Text = competition.Name;
+            logoTextBox.Text = competition.LogoImagePath;
 			startDatePicker.Value = competition.Start;
 			finishDatePicker.Value = competition.Finish;
 
@@ -216,7 +217,17 @@ namespace ColinBaker.Pesto.UI
 				return false;
 			}
 
-            if (timeZoneComboBox.SelectedIndex == -1)
+			if (logoTextBox.Text.Length > 0)
+			{
+				if (!System.IO.File.Exists(logoTextBox.Text))
+				{
+					MessageBox.Show("Please enter or select a valid logo.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+					competitionTabControl.SelectedTab = generalTabPage;
+					return false;
+				}
+			}
+
+			if (timeZoneComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a time zone.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 competitionTabControl.SelectedTab = generalTabPage;
@@ -409,6 +420,7 @@ namespace ColinBaker.Pesto.UI
 				}
 
 				this.Competition.Name = nameTextBox.Text;
+                this.Competition.LogoImagePath = logoTextBox.Text;
 				this.Competition.Start = startDatePicker.Value;
 				this.Competition.Finish = finishDatePicker.Value;
                 this.Competition.TimeZone = (timeZoneComboBox.SelectedItem as TimeZoneListItem).TimeZone;
@@ -454,6 +466,14 @@ namespace ColinBaker.Pesto.UI
                 MessageBox.Show("Please enter a number.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 e.Cancel = true;
             }
+		}
+
+		private void chooseLogoButton_Click(object sender, EventArgs e)
+		{
+			if (logoDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				logoTextBox.Text = logoDialog.FileName;
+			}
 		}
 	}
 }

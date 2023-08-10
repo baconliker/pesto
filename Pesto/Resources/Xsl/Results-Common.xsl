@@ -4,22 +4,24 @@
   
   <xsl:output method="xml" indent="yes"/>
 
+  <xsl:variable name="logo">
+    <xsl:call-template name="str:subst">
+      <xsl:with-param name="text" select="/Boris/Competition/Logo"/>
+      <xsl:with-param name="replace" select="'\'"/>
+      <xsl:with-param name="with" select="'/'"/>
+    </xsl:call-template>
+  </xsl:variable>
+
   <xsl:template name="header">
     <fo:block>
       <fo:table width="100%" table-layout="fixed">
-        <fo:table-column column-width="70mm"/>
-        <fo:table-column column-width="45mm"/>
+        <fo:table-column column-width="proportional-column-width(1)"/>
         <fo:table-column column-width="proportional-column-width(1)"/>
         <fo:table-body>
           <fo:table-row>
             <fo:table-cell>
               <fo:block>
-                <fo:external-graphic src="Resources/Xsl/BritishOpenLogo.png" width="64.0mm" height="24.9mm" content-width="scale-to-fit" content-height="scale-to-fit"/>
-              </fo:block>
-            </fo:table-cell>
-            <fo:table-cell padding-top="2.9mm">
-              <fo:block>
-                <fo:external-graphic src="Resources/Xsl/VittoraziMotorsLogo.png" width="49.4mm" height="22.0mm" content-width="scale-to-fit" content-height="scale-to-fit"/>
+                <fo:external-graphic src="file:///{$logo}" content-width="scale-to-fit" content-height="scale-to-fit"/>
               </fo:block>
             </fo:table-cell>
             <fo:table-cell>

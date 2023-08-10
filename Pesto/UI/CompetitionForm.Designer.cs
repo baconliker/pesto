@@ -42,6 +42,9 @@
 			this.backupFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
 			this.competitionTabControl = new System.Windows.Forms.TabControl();
 			this.generalTabPage = new System.Windows.Forms.TabPage();
+			this.chooseLogoButton = new System.Windows.Forms.Button();
+			this.logoTextBox = new System.Windows.Forms.TextBox();
+			this.logoLabel = new System.Windows.Forms.Label();
 			this.chooseBackupLocationButton = new System.Windows.Forms.Button();
 			this.backupLocationTextBox = new System.Windows.Forms.TextBox();
 			this.backupLocationLabel = new System.Windows.Forms.Label();
@@ -66,6 +69,13 @@
 			this.defaultPointRadiusTextBox = new System.Windows.Forms.TextBox();
 			this.defaultPointRadiusLabel = new System.Windows.Forms.Label();
 			this.loggersGroupBox = new System.Windows.Forms.GroupBox();
+			this.flymasterApiGroupBox = new System.Windows.Forms.GroupBox();
+			this.flymasterApiGroupIdTextBox = new System.Windows.Forms.TextBox();
+			this.flymasterApiGroupIdLabel = new System.Windows.Forms.Label();
+			this.flymasterApiPasswordTextBox = new System.Windows.Forms.TextBox();
+			this.flymasterApiPasswordlabel = new System.Windows.Forms.Label();
+			this.flymasterApiUsernameTextBox = new System.Windows.Forms.TextBox();
+			this.flymasterApiUsernameLabel = new System.Windows.Forms.Label();
 			this.loggersNoteLabel = new System.Windows.Forms.Label();
 			this.chooseFlymasterIgcLocationButton = new System.Windows.Forms.Button();
 			this.flymasterIgcLocationTextBox = new System.Windows.Forms.TextBox();
@@ -78,21 +88,15 @@
 			this.nationDefinitionsDataGridView = new System.Windows.Forms.DataGridView();
 			this.nationAircraftClassColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.nationNumberWhoScoreColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.flymasterApiGroupBox = new System.Windows.Forms.GroupBox();
-			this.flymasterApiUsernameLabel = new System.Windows.Forms.Label();
-			this.flymasterApiUsernameTextBox = new System.Windows.Forms.TextBox();
-			this.flymasterApiPasswordlabel = new System.Windows.Forms.Label();
-			this.flymasterApiPasswordTextBox = new System.Windows.Forms.TextBox();
-			this.flymasterApiGroupIdLabel = new System.Windows.Forms.Label();
-			this.flymasterApiGroupIdTextBox = new System.Windows.Forms.TextBox();
+			this.logoDialog = new System.Windows.Forms.OpenFileDialog();
 			this.competitionTabControl.SuspendLayout();
 			this.generalTabPage.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.aircraftClassesDataGridView)).BeginInit();
 			this.trackAnalysisTabPage.SuspendLayout();
 			this.loggersGroupBox.SuspendLayout();
+			this.flymasterApiGroupBox.SuspendLayout();
 			this.nationTabPage.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nationDefinitionsDataGridView)).BeginInit();
-			this.flymasterApiGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// okButton
@@ -143,6 +147,9 @@
 			// 
 			// generalTabPage
 			// 
+			this.generalTabPage.Controls.Add(this.chooseLogoButton);
+			this.generalTabPage.Controls.Add(this.logoTextBox);
+			this.generalTabPage.Controls.Add(this.logoLabel);
 			this.generalTabPage.Controls.Add(this.chooseBackupLocationButton);
 			this.generalTabPage.Controls.Add(this.backupLocationTextBox);
 			this.generalTabPage.Controls.Add(this.backupLocationLabel);
@@ -168,9 +175,35 @@
 			this.generalTabPage.Text = "General";
 			this.generalTabPage.UseVisualStyleBackColor = true;
 			// 
+			// chooseLogoButton
+			// 
+			this.chooseLogoButton.Location = new System.Drawing.Point(389, 71);
+			this.chooseLogoButton.Name = "chooseLogoButton";
+			this.chooseLogoButton.Size = new System.Drawing.Size(73, 24);
+			this.chooseLogoButton.TabIndex = 43;
+			this.chooseLogoButton.Text = "Choose...";
+			this.chooseLogoButton.UseVisualStyleBackColor = true;
+			this.chooseLogoButton.Click += new System.EventHandler(this.chooseLogoButton_Click);
+			// 
+			// logoTextBox
+			// 
+			this.logoTextBox.Location = new System.Drawing.Point(11, 74);
+			this.logoTextBox.Name = "logoTextBox";
+			this.logoTextBox.Size = new System.Drawing.Size(371, 20);
+			this.logoTextBox.TabIndex = 42;
+			// 
+			// logoLabel
+			// 
+			this.logoLabel.AutoSize = true;
+			this.logoLabel.Location = new System.Drawing.Point(8, 58);
+			this.logoLabel.Name = "logoLabel";
+			this.logoLabel.Size = new System.Drawing.Size(173, 13);
+			this.logoLabel.TabIndex = 41;
+			this.logoLabel.Text = "Logo (this will be shown on results):";
+			// 
 			// chooseBackupLocationButton
 			// 
-			this.chooseBackupLocationButton.Location = new System.Drawing.Point(389, 404);
+			this.chooseBackupLocationButton.Location = new System.Drawing.Point(389, 448);
 			this.chooseBackupLocationButton.Name = "chooseBackupLocationButton";
 			this.chooseBackupLocationButton.Size = new System.Drawing.Size(73, 24);
 			this.chooseBackupLocationButton.TabIndex = 40;
@@ -180,7 +213,7 @@
 			// 
 			// backupLocationTextBox
 			// 
-			this.backupLocationTextBox.Location = new System.Drawing.Point(11, 407);
+			this.backupLocationTextBox.Location = new System.Drawing.Point(11, 451);
 			this.backupLocationTextBox.Margin = new System.Windows.Forms.Padding(2);
 			this.backupLocationTextBox.Name = "backupLocationTextBox";
 			this.backupLocationTextBox.Size = new System.Drawing.Size(371, 20);
@@ -189,7 +222,7 @@
 			// backupLocationLabel
 			// 
 			this.backupLocationLabel.AutoSize = true;
-			this.backupLocationLabel.Location = new System.Drawing.Point(8, 392);
+			this.backupLocationLabel.Location = new System.Drawing.Point(8, 436);
 			this.backupLocationLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.backupLocationLabel.Name = "backupLocationLabel";
 			this.backupLocationLabel.Size = new System.Drawing.Size(284, 13);
@@ -200,7 +233,7 @@
 			// 
 			this.timeZoneComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.timeZoneComboBox.FormattingEnabled = true;
-			this.timeZoneComboBox.Location = new System.Drawing.Point(11, 120);
+			this.timeZoneComboBox.Location = new System.Drawing.Point(11, 164);
 			this.timeZoneComboBox.Margin = new System.Windows.Forms.Padding(2);
 			this.timeZoneComboBox.Name = "timeZoneComboBox";
 			this.timeZoneComboBox.Size = new System.Drawing.Size(451, 21);
@@ -209,7 +242,7 @@
 			// timeZoneLabel
 			// 
 			this.timeZoneLabel.AutoSize = true;
-			this.timeZoneLabel.Location = new System.Drawing.Point(8, 105);
+			this.timeZoneLabel.Location = new System.Drawing.Point(8, 149);
 			this.timeZoneLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.timeZoneLabel.Name = "timeZoneLabel";
 			this.timeZoneLabel.Size = new System.Drawing.Size(59, 13);
@@ -219,7 +252,7 @@
 			// aircraftClassesLabel
 			// 
 			this.aircraftClassesLabel.AutoSize = true;
-			this.aircraftClassesLabel.Location = new System.Drawing.Point(8, 153);
+			this.aircraftClassesLabel.Location = new System.Drawing.Point(8, 197);
 			this.aircraftClassesLabel.Name = "aircraftClassesLabel";
 			this.aircraftClassesLabel.Size = new System.Drawing.Size(81, 13);
 			this.aircraftClassesLabel.TabIndex = 32;
@@ -259,7 +292,7 @@
 			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.aircraftClassesDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
-			this.aircraftClassesDataGridView.Location = new System.Drawing.Point(11, 168);
+			this.aircraftClassesDataGridView.Location = new System.Drawing.Point(11, 212);
 			this.aircraftClassesDataGridView.MultiSelect = false;
 			this.aircraftClassesDataGridView.Name = "aircraftClassesDataGridView";
 			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -315,7 +348,7 @@
 			// 
 			this.finishDatePicker.CustomFormat = "";
 			this.finishDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-			this.finishDatePicker.Location = new System.Drawing.Point(161, 73);
+			this.finishDatePicker.Location = new System.Drawing.Point(161, 117);
 			this.finishDatePicker.Name = "finishDatePicker";
 			this.finishDatePicker.Size = new System.Drawing.Size(128, 20);
 			this.finishDatePicker.TabIndex = 27;
@@ -323,7 +356,7 @@
 			// finishLabel
 			// 
 			this.finishLabel.AutoSize = true;
-			this.finishLabel.Location = new System.Drawing.Point(158, 57);
+			this.finishLabel.Location = new System.Drawing.Point(158, 101);
 			this.finishLabel.Name = "finishLabel";
 			this.finishLabel.Size = new System.Drawing.Size(37, 13);
 			this.finishLabel.TabIndex = 26;
@@ -333,7 +366,7 @@
 			// 
 			this.startDatePicker.CustomFormat = "";
 			this.startDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-			this.startDatePicker.Location = new System.Drawing.Point(11, 73);
+			this.startDatePicker.Location = new System.Drawing.Point(11, 117);
 			this.startDatePicker.Name = "startDatePicker";
 			this.startDatePicker.Size = new System.Drawing.Size(128, 20);
 			this.startDatePicker.TabIndex = 25;
@@ -341,7 +374,7 @@
 			// startLabel
 			// 
 			this.startLabel.AutoSize = true;
-			this.startLabel.Location = new System.Drawing.Point(8, 57);
+			this.startLabel.Location = new System.Drawing.Point(8, 101);
 			this.startLabel.Name = "startLabel";
 			this.startLabel.Size = new System.Drawing.Size(32, 13);
 			this.startLabel.TabIndex = 24;
@@ -349,7 +382,7 @@
 			// 
 			// chooseLocationButton
 			// 
-			this.chooseLocationButton.Location = new System.Drawing.Point(389, 361);
+			this.chooseLocationButton.Location = new System.Drawing.Point(389, 405);
 			this.chooseLocationButton.Name = "chooseLocationButton";
 			this.chooseLocationButton.Size = new System.Drawing.Size(73, 24);
 			this.chooseLocationButton.TabIndex = 30;
@@ -359,7 +392,7 @@
 			// 
 			// locationTextBox
 			// 
-			this.locationTextBox.Location = new System.Drawing.Point(11, 363);
+			this.locationTextBox.Location = new System.Drawing.Point(11, 407);
 			this.locationTextBox.Name = "locationTextBox";
 			this.locationTextBox.Size = new System.Drawing.Size(371, 20);
 			this.locationTextBox.TabIndex = 29;
@@ -367,7 +400,7 @@
 			// locationLabel
 			// 
 			this.locationLabel.AutoSize = true;
-			this.locationLabel.Location = new System.Drawing.Point(8, 348);
+			this.locationLabel.Location = new System.Drawing.Point(8, 392);
 			this.locationLabel.Name = "locationLabel";
 			this.locationLabel.Size = new System.Drawing.Size(281, 13);
 			this.locationLabel.TabIndex = 28;
@@ -445,6 +478,69 @@
 			this.loggersGroupBox.TabIndex = 43;
 			this.loggersGroupBox.TabStop = false;
 			this.loggersGroupBox.Text = "Loggers";
+			// 
+			// flymasterApiGroupBox
+			// 
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiGroupIdTextBox);
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiGroupIdLabel);
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiPasswordTextBox);
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiPasswordlabel);
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiUsernameTextBox);
+			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiUsernameLabel);
+			this.flymasterApiGroupBox.Location = new System.Drawing.Point(12, 149);
+			this.flymasterApiGroupBox.Name = "flymasterApiGroupBox";
+			this.flymasterApiGroupBox.Size = new System.Drawing.Size(434, 133);
+			this.flymasterApiGroupBox.TabIndex = 53;
+			this.flymasterApiGroupBox.TabStop = false;
+			this.flymasterApiGroupBox.Text = "Flymaster API";
+			// 
+			// flymasterApiGroupIdTextBox
+			// 
+			this.flymasterApiGroupIdTextBox.Location = new System.Drawing.Point(92, 89);
+			this.flymasterApiGroupIdTextBox.Name = "flymasterApiGroupIdTextBox";
+			this.flymasterApiGroupIdTextBox.Size = new System.Drawing.Size(99, 20);
+			this.flymasterApiGroupIdTextBox.TabIndex = 5;
+			// 
+			// flymasterApiGroupIdLabel
+			// 
+			this.flymasterApiGroupIdLabel.AutoSize = true;
+			this.flymasterApiGroupIdLabel.Location = new System.Drawing.Point(17, 92);
+			this.flymasterApiGroupIdLabel.Name = "flymasterApiGroupIdLabel";
+			this.flymasterApiGroupIdLabel.Size = new System.Drawing.Size(53, 13);
+			this.flymasterApiGroupIdLabel.TabIndex = 4;
+			this.flymasterApiGroupIdLabel.Text = "Group ID:";
+			// 
+			// flymasterApiPasswordTextBox
+			// 
+			this.flymasterApiPasswordTextBox.Location = new System.Drawing.Point(92, 63);
+			this.flymasterApiPasswordTextBox.Name = "flymasterApiPasswordTextBox";
+			this.flymasterApiPasswordTextBox.Size = new System.Drawing.Size(180, 20);
+			this.flymasterApiPasswordTextBox.TabIndex = 3;
+			// 
+			// flymasterApiPasswordlabel
+			// 
+			this.flymasterApiPasswordlabel.AutoSize = true;
+			this.flymasterApiPasswordlabel.Location = new System.Drawing.Point(17, 66);
+			this.flymasterApiPasswordlabel.Name = "flymasterApiPasswordlabel";
+			this.flymasterApiPasswordlabel.Size = new System.Drawing.Size(56, 13);
+			this.flymasterApiPasswordlabel.TabIndex = 2;
+			this.flymasterApiPasswordlabel.Text = "Password:";
+			// 
+			// flymasterApiUsernameTextBox
+			// 
+			this.flymasterApiUsernameTextBox.Location = new System.Drawing.Point(92, 37);
+			this.flymasterApiUsernameTextBox.Name = "flymasterApiUsernameTextBox";
+			this.flymasterApiUsernameTextBox.Size = new System.Drawing.Size(180, 20);
+			this.flymasterApiUsernameTextBox.TabIndex = 1;
+			// 
+			// flymasterApiUsernameLabel
+			// 
+			this.flymasterApiUsernameLabel.AutoSize = true;
+			this.flymasterApiUsernameLabel.Location = new System.Drawing.Point(15, 40);
+			this.flymasterApiUsernameLabel.Name = "flymasterApiUsernameLabel";
+			this.flymasterApiUsernameLabel.Size = new System.Drawing.Size(58, 13);
+			this.flymasterApiUsernameLabel.TabIndex = 0;
+			this.flymasterApiUsernameLabel.Text = "Username:";
 			// 
 			// loggersNoteLabel
 			// 
@@ -574,68 +670,10 @@
 			this.nationNumberWhoScoreColumn.HeaderText = "Number Who Score";
 			this.nationNumberWhoScoreColumn.Name = "nationNumberWhoScoreColumn";
 			// 
-			// flymasterApiGroupBox
+			// logoDialog
 			// 
-			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiGroupIdTextBox);
-			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiGroupIdLabel);
-			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiPasswordTextBox);
-			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiPasswordlabel);
-			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiUsernameTextBox);
-			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiUsernameLabel);
-			this.flymasterApiGroupBox.Location = new System.Drawing.Point(12, 149);
-			this.flymasterApiGroupBox.Name = "flymasterApiGroupBox";
-			this.flymasterApiGroupBox.Size = new System.Drawing.Size(434, 133);
-			this.flymasterApiGroupBox.TabIndex = 53;
-			this.flymasterApiGroupBox.TabStop = false;
-			this.flymasterApiGroupBox.Text = "Flymaster API";
-			// 
-			// flymasterApiUsernameLabel
-			// 
-			this.flymasterApiUsernameLabel.AutoSize = true;
-			this.flymasterApiUsernameLabel.Location = new System.Drawing.Point(15, 40);
-			this.flymasterApiUsernameLabel.Name = "flymasterApiUsernameLabel";
-			this.flymasterApiUsernameLabel.Size = new System.Drawing.Size(58, 13);
-			this.flymasterApiUsernameLabel.TabIndex = 0;
-			this.flymasterApiUsernameLabel.Text = "Username:";
-			// 
-			// flymasterApiUsernameTextBox
-			// 
-			this.flymasterApiUsernameTextBox.Location = new System.Drawing.Point(92, 37);
-			this.flymasterApiUsernameTextBox.Name = "flymasterApiUsernameTextBox";
-			this.flymasterApiUsernameTextBox.Size = new System.Drawing.Size(180, 20);
-			this.flymasterApiUsernameTextBox.TabIndex = 1;
-			// 
-			// flymasterApiPasswordlabel
-			// 
-			this.flymasterApiPasswordlabel.AutoSize = true;
-			this.flymasterApiPasswordlabel.Location = new System.Drawing.Point(17, 66);
-			this.flymasterApiPasswordlabel.Name = "flymasterApiPasswordlabel";
-			this.flymasterApiPasswordlabel.Size = new System.Drawing.Size(56, 13);
-			this.flymasterApiPasswordlabel.TabIndex = 2;
-			this.flymasterApiPasswordlabel.Text = "Password:";
-			// 
-			// flymasterApiPasswordTextBox
-			// 
-			this.flymasterApiPasswordTextBox.Location = new System.Drawing.Point(92, 63);
-			this.flymasterApiPasswordTextBox.Name = "flymasterApiPasswordTextBox";
-			this.flymasterApiPasswordTextBox.Size = new System.Drawing.Size(180, 20);
-			this.flymasterApiPasswordTextBox.TabIndex = 3;
-			// 
-			// flymasterApiGroupIdLabel
-			// 
-			this.flymasterApiGroupIdLabel.AutoSize = true;
-			this.flymasterApiGroupIdLabel.Location = new System.Drawing.Point(17, 92);
-			this.flymasterApiGroupIdLabel.Name = "flymasterApiGroupIdLabel";
-			this.flymasterApiGroupIdLabel.Size = new System.Drawing.Size(53, 13);
-			this.flymasterApiGroupIdLabel.TabIndex = 4;
-			this.flymasterApiGroupIdLabel.Text = "Group ID:";
-			// 
-			// flymasterApiGroupIdTextBox
-			// 
-			this.flymasterApiGroupIdTextBox.Location = new System.Drawing.Point(92, 89);
-			this.flymasterApiGroupIdTextBox.Name = "flymasterApiGroupIdTextBox";
-			this.flymasterApiGroupIdTextBox.Size = new System.Drawing.Size(99, 20);
-			this.flymasterApiGroupIdTextBox.TabIndex = 5;
+			this.logoDialog.Filter = "Image files|*.jpg;*.png;*.gif;*.bmp";
+			this.logoDialog.Title = "Select logo";
 			// 
 			// CompetitionForm
 			// 
@@ -662,11 +700,11 @@
 			this.trackAnalysisTabPage.PerformLayout();
 			this.loggersGroupBox.ResumeLayout(false);
 			this.loggersGroupBox.PerformLayout();
+			this.flymasterApiGroupBox.ResumeLayout(false);
+			this.flymasterApiGroupBox.PerformLayout();
 			this.nationTabPage.ResumeLayout(false);
 			this.nationTabPage.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nationDefinitionsDataGridView)).EndInit();
-			this.flymasterApiGroupBox.ResumeLayout(false);
-			this.flymasterApiGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -722,5 +760,9 @@
 		private System.Windows.Forms.Label flymasterApiPasswordlabel;
 		private System.Windows.Forms.TextBox flymasterApiUsernameTextBox;
 		private System.Windows.Forms.Label flymasterApiUsernameLabel;
+		private System.Windows.Forms.Button chooseLogoButton;
+		private System.Windows.Forms.TextBox logoTextBox;
+		private System.Windows.Forms.Label logoLabel;
+		private System.Windows.Forms.OpenFileDialog logoDialog;
 	}
 }

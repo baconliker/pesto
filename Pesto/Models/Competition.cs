@@ -160,8 +160,9 @@ namespace ColinBaker.Pesto.Models
         public Services.CompetitionRepository Repository { get; set; }
 
 		public string Name { get; set; }
+        public string LogoImagePath { get; set; } = string.Empty;
 
-        public DateTime Start { get; set; }
+		public DateTime Start { get; set; }
         public DateTime Finish { get; set; }
 
         public TimeZoneInfo TimeZone { get; set; }

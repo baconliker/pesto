@@ -380,7 +380,7 @@ namespace ColinBaker.Pesto.UI.Features
                 case Models.Features.Feature.FeatureType.Gate:
                     if (!string.IsNullOrWhiteSpace(lineLatitudeTextBox.Text) && !string.IsNullOrWhiteSpace(lineLongitudeTextBox.Text) && !string.IsNullOrWhiteSpace(lineWidthTextBox.Text) && !string.IsNullOrWhiteSpace(lineBearingTextBox.Text))
                     {
-                        Models.Features.GateFeature gate = new Models.Features.GateFeature(nameTextBox.Text);
+                        Models.Features.GateFeature gate = new Models.Features.GateFeature(nameTextBox.Text.Trim());
 
                         decimal bearing = decimal.Parse(lineBearingTextBox.Text);
                         if ((LineBearingType)lineBearingTypeComboBox.SelectedIndex == LineBearingType.Adobe)
@@ -396,7 +396,7 @@ namespace ColinBaker.Pesto.UI.Features
                     break;
 
                 case Models.Features.Feature.FeatureType.NoFlyZone:
-                    Models.Features.NoFlyZoneFeature nfz = new Models.Features.NoFlyZoneFeature(nameTextBox.Text);
+                    Models.Features.NoFlyZoneFeature nfz = new Models.Features.NoFlyZoneFeature(nameTextBox.Text.Trim());
 
                     switch ((shapeComboBox.SelectedItem as ShapeListItem).Type)
                     {
@@ -440,7 +440,7 @@ namespace ColinBaker.Pesto.UI.Features
                 case Models.Features.Feature.FeatureType.Point:
                     if (!string.IsNullOrWhiteSpace(circleLatitudeTextBox.Text) && !string.IsNullOrWhiteSpace(circleLongitudeTextBox.Text) && !string.IsNullOrWhiteSpace(circleRadiusTextBox.Text))
                     {
-                        Models.Features.PointFeature point = new Models.Features.PointFeature(nameTextBox.Text);
+                        Models.Features.PointFeature point = new Models.Features.PointFeature(nameTextBox.Text.Trim());
                         point.Shape = new Models.Features.Circle(new Geolocation.Location(decimal.Parse(circleLatitudeTextBox.Text), decimal.Parse(circleLongitudeTextBox.Text)), int.Parse(circleRadiusTextBox.Text));
 
                         if (!string.IsNullOrWhiteSpace(lowerAltitudeTextBox.Text))
@@ -458,7 +458,7 @@ namespace ColinBaker.Pesto.UI.Features
                     break;
 
                 case Models.Features.Feature.FeatureType.Airfield:
-                    Models.Features.AirfieldFeature airfield = new Models.Features.AirfieldFeature(nameTextBox.Text);
+                    Models.Features.AirfieldFeature airfield = new Models.Features.AirfieldFeature(nameTextBox.Text.Trim());
 
                     if (polygonDataGridView.Rows.Count > 0)
                     {
@@ -478,7 +478,7 @@ namespace ColinBaker.Pesto.UI.Features
                     break;
 
                 case Models.Features.Feature.FeatureType.Deck:
-                    Models.Features.DeckFeature deck = new Models.Features.DeckFeature(nameTextBox.Text);
+                    Models.Features.DeckFeature deck = new Models.Features.DeckFeature(nameTextBox.Text.Trim());
 
                     if (polygonDataGridView.Rows.Count > 0)
                     {
@@ -604,7 +604,7 @@ namespace ColinBaker.Pesto.UI.Features
             {
                 if (this.Feature == null || existingFeature != this.Feature)
                 {
-                    if (string.Compare(existingFeature.Name, nameTextBox.Text, true) == 0)
+                    if (string.Compare(existingFeature.Name, nameTextBox.Text.Trim(), true) == 0)
                     {
                         MessageBox.Show("A feature with this name already exists.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         nameTextBox.Focus();

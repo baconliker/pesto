@@ -687,7 +687,7 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
                                 {
                                     foreach (Models.TrackAnalysis.Pilot pilot in pilotsToExport)
                                     {
-                                        string kmlFilePath = System.IO.Path.Combine(exportKmlFolderBrowserDialog.SelectedPath, string.Format("Task {0:00} - {1:000} - {2}.kml", this.Task.Number, pilot.Number, pilot.Name));
+                                        string kmlFilePath = System.IO.Path.Combine(exportKmlFolderBrowserDialog.SelectedPath, string.Format("Task{0:00}-{1:000}-{2}.kml", this.Task.Number, pilot.Number, pilot.Name.Replace(" ", "")));
 
                                         ExportKml(CleanFilePath(kmlFilePath), pilot, this.Task.EventTypeFilters, form.IncludeTrackFixData, form.ClampTrackToGround, form.IncludeFeatures, form.IncludeEvents);
                                     }

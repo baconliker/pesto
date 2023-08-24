@@ -8,7 +8,7 @@
     <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
   <?endif ?>
   
-  <Product Id="*" Name="Pesto" Language="1033" Version="2.6.0" Manufacturer="Colin Baker" UpgradeCode="D4E11963-902A-4D7A-A9CF-2D88F5E603F8">
+  <Product Id="*" Name="Pesto" Language="1033" Version="2.7.0" Manufacturer="Colin Baker" UpgradeCode="D4E11963-902A-4D7A-A9CF-2D88F5E603F8">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"/>
     
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."/>
@@ -184,67 +184,19 @@
 
     <ComponentGroup Id="XslComponents" Directory="XslFolder">
       <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Common.xsl"/>
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Results-Common.xsl"/>
       </Component>
       <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Overall.xsl"/>
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Results-Task.xsl"/>
       </Component>
       <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\League.xsl"/>
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Results-Overall.xsl"/>
       </Component>
       <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Task.xsl"/>
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Results-Team.xsl"/>
       </Component>
       <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Team.xsl"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPC-Common.xsl"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPC-Task.xsl"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPC-Overall.xsl"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPC-Team.xsl"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPC-Nation.xsl"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\WMPCLogo.png"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BMAALogo.png"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\CIMALogo.png"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpen-Common.xsl"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpen-Task.xsl"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpen-Overall.xsl"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpen-Team.xsl"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpen-Nation.xsl"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\BritishOpenLogo.png"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\GreenDragonsLogo.png"/>
-      </Component>
-      <Component Win64="$(var.Win64)">
-        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\VittoraziMotorsLogo.png"/>
+        <File Source="$(var.Pesto.TargetDir)Resources\Xsl\Results-Nation.xsl"/>
       </Component>
     </ComponentGroup>
 

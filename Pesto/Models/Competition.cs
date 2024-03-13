@@ -176,6 +176,7 @@ namespace ColinBaker.Pesto.Models
         public string FlymasterApiGroupId { get; set; } = string.Empty;
 
         public int DefaultPointRadius { get; set; } = Models.Features.PointFeature.DefaultRadius;
+        public int DefaultGateWidth { get; set; } = Models.Features.GateFeature.DefaultWidth;
 
         public Spreadsheets.PilotsSpreadsheet PilotsSpreadsheet { get; private set; }
 

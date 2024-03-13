@@ -50,7 +50,7 @@ namespace ColinBaker.Pesto.UI.Features
                         lineLongitudeTextBox.Text = initialMapLocation.Longitude.ToString("##0.000000");
                     }
 
-                    lineWidthTextBox.Text = Models.Features.GateFeature.DefaultWidth.ToString();
+                    lineWidthTextBox.Text = this.Competition.DefaultGateWidth.ToString();
 
                     decimal bearing = Models.Features.GateFeature.DefaultBearing;
                     if (m_lineBearingType == LineBearingType.Adobe)

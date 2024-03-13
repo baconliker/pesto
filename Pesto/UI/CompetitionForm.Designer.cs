@@ -89,6 +89,9 @@
 			this.nationAircraftClassColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.nationNumberWhoScoreColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.logoDialog = new System.Windows.Forms.OpenFileDialog();
+			this.defaultGateWidthLabel = new System.Windows.Forms.Label();
+			this.defaultGateWidthTextBox = new System.Windows.Forms.TextBox();
+			this.defaultGateWidthUnitsLabel = new System.Windows.Forms.Label();
 			this.competitionTabControl.SuspendLayout();
 			this.generalTabPage.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.aircraftClassesDataGridView)).BeginInit();
@@ -102,9 +105,10 @@
 			// okButton
 			// 
 			this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.okButton.Location = new System.Drawing.Point(295, 523);
+			this.okButton.Location = new System.Drawing.Point(590, 1006);
+			this.okButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.okButton.Name = "okButton";
-			this.okButton.Size = new System.Drawing.Size(95, 24);
+			this.okButton.Size = new System.Drawing.Size(190, 46);
 			this.okButton.TabIndex = 9;
 			this.okButton.Text = "OK";
 			this.okButton.UseVisualStyleBackColor = true;
@@ -114,9 +118,10 @@
 			// 
 			this.cancelButton.CausesValidation = false;
 			this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.cancelButton.Location = new System.Drawing.Point(395, 523);
+			this.cancelButton.Location = new System.Drawing.Point(790, 1006);
+			this.cancelButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(95, 24);
+			this.cancelButton.Size = new System.Drawing.Size(190, 46);
 			this.cancelButton.TabIndex = 10;
 			this.cancelButton.Text = "Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
@@ -138,11 +143,11 @@
 			this.competitionTabControl.Controls.Add(this.generalTabPage);
 			this.competitionTabControl.Controls.Add(this.trackAnalysisTabPage);
 			this.competitionTabControl.Controls.Add(this.nationTabPage);
-			this.competitionTabControl.Location = new System.Drawing.Point(8, 8);
-			this.competitionTabControl.Margin = new System.Windows.Forms.Padding(2);
+			this.competitionTabControl.Location = new System.Drawing.Point(16, 15);
+			this.competitionTabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.competitionTabControl.Name = "competitionTabControl";
 			this.competitionTabControl.SelectedIndex = 0;
-			this.competitionTabControl.Size = new System.Drawing.Size(484, 510);
+			this.competitionTabControl.Size = new System.Drawing.Size(968, 981);
 			this.competitionTabControl.TabIndex = 22;
 			// 
 			// generalTabPage
@@ -166,20 +171,21 @@
 			this.generalTabPage.Controls.Add(this.locationLabel);
 			this.generalTabPage.Controls.Add(this.nameTextBox);
 			this.generalTabPage.Controls.Add(this.nameLabel);
-			this.generalTabPage.Location = new System.Drawing.Point(4, 22);
-			this.generalTabPage.Margin = new System.Windows.Forms.Padding(2);
+			this.generalTabPage.Location = new System.Drawing.Point(8, 39);
+			this.generalTabPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.generalTabPage.Name = "generalTabPage";
-			this.generalTabPage.Padding = new System.Windows.Forms.Padding(2);
-			this.generalTabPage.Size = new System.Drawing.Size(476, 484);
+			this.generalTabPage.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.generalTabPage.Size = new System.Drawing.Size(952, 934);
 			this.generalTabPage.TabIndex = 0;
 			this.generalTabPage.Text = "General";
 			this.generalTabPage.UseVisualStyleBackColor = true;
 			// 
 			// chooseLogoButton
 			// 
-			this.chooseLogoButton.Location = new System.Drawing.Point(389, 71);
+			this.chooseLogoButton.Location = new System.Drawing.Point(778, 137);
+			this.chooseLogoButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.chooseLogoButton.Name = "chooseLogoButton";
-			this.chooseLogoButton.Size = new System.Drawing.Size(73, 24);
+			this.chooseLogoButton.Size = new System.Drawing.Size(146, 46);
 			this.chooseLogoButton.TabIndex = 43;
 			this.chooseLogoButton.Text = "Choose...";
 			this.chooseLogoButton.UseVisualStyleBackColor = true;
@@ -187,25 +193,28 @@
 			// 
 			// logoTextBox
 			// 
-			this.logoTextBox.Location = new System.Drawing.Point(11, 74);
+			this.logoTextBox.Location = new System.Drawing.Point(22, 142);
+			this.logoTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.logoTextBox.Name = "logoTextBox";
-			this.logoTextBox.Size = new System.Drawing.Size(371, 20);
+			this.logoTextBox.Size = new System.Drawing.Size(738, 31);
 			this.logoTextBox.TabIndex = 42;
 			// 
 			// logoLabel
 			// 
 			this.logoLabel.AutoSize = true;
-			this.logoLabel.Location = new System.Drawing.Point(8, 58);
+			this.logoLabel.Location = new System.Drawing.Point(16, 112);
+			this.logoLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.logoLabel.Name = "logoLabel";
-			this.logoLabel.Size = new System.Drawing.Size(173, 13);
+			this.logoLabel.Size = new System.Drawing.Size(354, 25);
 			this.logoLabel.TabIndex = 41;
 			this.logoLabel.Text = "Logo (this will be shown on results):";
 			// 
 			// chooseBackupLocationButton
 			// 
-			this.chooseBackupLocationButton.Location = new System.Drawing.Point(389, 448);
+			this.chooseBackupLocationButton.Location = new System.Drawing.Point(778, 862);
+			this.chooseBackupLocationButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.chooseBackupLocationButton.Name = "chooseBackupLocationButton";
-			this.chooseBackupLocationButton.Size = new System.Drawing.Size(73, 24);
+			this.chooseBackupLocationButton.Size = new System.Drawing.Size(146, 46);
 			this.chooseBackupLocationButton.TabIndex = 40;
 			this.chooseBackupLocationButton.Text = "Choose...";
 			this.chooseBackupLocationButton.UseVisualStyleBackColor = true;
@@ -213,19 +222,19 @@
 			// 
 			// backupLocationTextBox
 			// 
-			this.backupLocationTextBox.Location = new System.Drawing.Point(11, 451);
-			this.backupLocationTextBox.Margin = new System.Windows.Forms.Padding(2);
+			this.backupLocationTextBox.Location = new System.Drawing.Point(22, 867);
+			this.backupLocationTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.backupLocationTextBox.Name = "backupLocationTextBox";
-			this.backupLocationTextBox.Size = new System.Drawing.Size(371, 20);
+			this.backupLocationTextBox.Size = new System.Drawing.Size(738, 31);
 			this.backupLocationTextBox.TabIndex = 39;
 			// 
 			// backupLocationLabel
 			// 
 			this.backupLocationLabel.AutoSize = true;
-			this.backupLocationLabel.Location = new System.Drawing.Point(8, 436);
-			this.backupLocationLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.backupLocationLabel.Location = new System.Drawing.Point(16, 838);
+			this.backupLocationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.backupLocationLabel.Name = "backupLocationLabel";
-			this.backupLocationLabel.Size = new System.Drawing.Size(284, 13);
+			this.backupLocationLabel.Size = new System.Drawing.Size(569, 25);
 			this.backupLocationLabel.TabIndex = 38;
 			this.backupLocationLabel.Text = "Backup Location (the folder where backups will be saved):";
 			// 
@@ -233,28 +242,29 @@
 			// 
 			this.timeZoneComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.timeZoneComboBox.FormattingEnabled = true;
-			this.timeZoneComboBox.Location = new System.Drawing.Point(11, 164);
-			this.timeZoneComboBox.Margin = new System.Windows.Forms.Padding(2);
+			this.timeZoneComboBox.Location = new System.Drawing.Point(22, 315);
+			this.timeZoneComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.timeZoneComboBox.Name = "timeZoneComboBox";
-			this.timeZoneComboBox.Size = new System.Drawing.Size(451, 21);
+			this.timeZoneComboBox.Size = new System.Drawing.Size(898, 33);
 			this.timeZoneComboBox.TabIndex = 37;
 			// 
 			// timeZoneLabel
 			// 
 			this.timeZoneLabel.AutoSize = true;
-			this.timeZoneLabel.Location = new System.Drawing.Point(8, 149);
-			this.timeZoneLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.timeZoneLabel.Location = new System.Drawing.Point(16, 287);
+			this.timeZoneLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.timeZoneLabel.Name = "timeZoneLabel";
-			this.timeZoneLabel.Size = new System.Drawing.Size(59, 13);
+			this.timeZoneLabel.Size = new System.Drawing.Size(118, 25);
 			this.timeZoneLabel.TabIndex = 36;
 			this.timeZoneLabel.Text = "Time zone:";
 			// 
 			// aircraftClassesLabel
 			// 
 			this.aircraftClassesLabel.AutoSize = true;
-			this.aircraftClassesLabel.Location = new System.Drawing.Point(8, 197);
+			this.aircraftClassesLabel.Location = new System.Drawing.Point(16, 379);
+			this.aircraftClassesLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.aircraftClassesLabel.Name = "aircraftClassesLabel";
-			this.aircraftClassesLabel.Size = new System.Drawing.Size(81, 13);
+			this.aircraftClassesLabel.Size = new System.Drawing.Size(165, 25);
 			this.aircraftClassesLabel.TabIndex = 32;
 			this.aircraftClassesLabel.Text = "Aircraft classes:";
 			// 
@@ -292,7 +302,8 @@
 			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.aircraftClassesDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
-			this.aircraftClassesDataGridView.Location = new System.Drawing.Point(11, 212);
+			this.aircraftClassesDataGridView.Location = new System.Drawing.Point(22, 408);
+			this.aircraftClassesDataGridView.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.aircraftClassesDataGridView.MultiSelect = false;
 			this.aircraftClassesDataGridView.Name = "aircraftClassesDataGridView";
 			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -304,8 +315,9 @@
 			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
 			this.aircraftClassesDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
 			this.aircraftClassesDataGridView.RowHeadersVisible = false;
+			this.aircraftClassesDataGridView.RowHeadersWidth = 82;
 			this.aircraftClassesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-			this.aircraftClassesDataGridView.Size = new System.Drawing.Size(449, 167);
+			this.aircraftClassesDataGridView.Size = new System.Drawing.Size(898, 321);
 			this.aircraftClassesDataGridView.TabIndex = 31;
 			this.aircraftClassesDataGridView.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.aircraftClassesDataGridView_CellMouseUp);
 			this.aircraftClassesDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.aircraftClassesDataGridView_CellValueChanged);
@@ -315,6 +327,7 @@
 			this.SelectedColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
 			this.SelectedColumn.FillWeight = 45.68528F;
 			this.SelectedColumn.HeaderText = "";
+			this.SelectedColumn.MinimumWidth = 10;
 			this.SelectedColumn.Name = "SelectedColumn";
 			this.SelectedColumn.Width = 30;
 			// 
@@ -328,6 +341,7 @@
 			this.CodeColumn.DefaultCellStyle = dataGridViewCellStyle2;
 			this.CodeColumn.FillWeight = 53.29951F;
 			this.CodeColumn.HeaderText = "Code";
+			this.CodeColumn.MinimumWidth = 10;
 			this.CodeColumn.Name = "CodeColumn";
 			this.CodeColumn.ReadOnly = true;
 			this.CodeColumn.Width = 55;
@@ -341,6 +355,7 @@
 			this.DescriptionColumn.DefaultCellStyle = dataGridViewCellStyle3;
 			this.DescriptionColumn.FillWeight = 201.0153F;
 			this.DescriptionColumn.HeaderText = "Description";
+			this.DescriptionColumn.MinimumWidth = 10;
 			this.DescriptionColumn.Name = "DescriptionColumn";
 			this.DescriptionColumn.ReadOnly = true;
 			// 
@@ -348,17 +363,19 @@
 			// 
 			this.finishDatePicker.CustomFormat = "";
 			this.finishDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-			this.finishDatePicker.Location = new System.Drawing.Point(161, 117);
+			this.finishDatePicker.Location = new System.Drawing.Point(322, 225);
+			this.finishDatePicker.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.finishDatePicker.Name = "finishDatePicker";
-			this.finishDatePicker.Size = new System.Drawing.Size(128, 20);
+			this.finishDatePicker.Size = new System.Drawing.Size(252, 31);
 			this.finishDatePicker.TabIndex = 27;
 			// 
 			// finishLabel
 			// 
 			this.finishLabel.AutoSize = true;
-			this.finishLabel.Location = new System.Drawing.Point(158, 101);
+			this.finishLabel.Location = new System.Drawing.Point(316, 194);
+			this.finishLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.finishLabel.Name = "finishLabel";
-			this.finishLabel.Size = new System.Drawing.Size(37, 13);
+			this.finishLabel.Size = new System.Drawing.Size(76, 25);
 			this.finishLabel.TabIndex = 26;
 			this.finishLabel.Text = "Finish:";
 			// 
@@ -366,25 +383,28 @@
 			// 
 			this.startDatePicker.CustomFormat = "";
 			this.startDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-			this.startDatePicker.Location = new System.Drawing.Point(11, 117);
+			this.startDatePicker.Location = new System.Drawing.Point(22, 225);
+			this.startDatePicker.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.startDatePicker.Name = "startDatePicker";
-			this.startDatePicker.Size = new System.Drawing.Size(128, 20);
+			this.startDatePicker.Size = new System.Drawing.Size(252, 31);
 			this.startDatePicker.TabIndex = 25;
 			// 
 			// startLabel
 			// 
 			this.startLabel.AutoSize = true;
-			this.startLabel.Location = new System.Drawing.Point(8, 101);
+			this.startLabel.Location = new System.Drawing.Point(16, 194);
+			this.startLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.startLabel.Name = "startLabel";
-			this.startLabel.Size = new System.Drawing.Size(32, 13);
+			this.startLabel.Size = new System.Drawing.Size(63, 25);
 			this.startLabel.TabIndex = 24;
 			this.startLabel.Text = "Start:";
 			// 
 			// chooseLocationButton
 			// 
-			this.chooseLocationButton.Location = new System.Drawing.Point(389, 405);
+			this.chooseLocationButton.Location = new System.Drawing.Point(778, 779);
+			this.chooseLocationButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.chooseLocationButton.Name = "chooseLocationButton";
-			this.chooseLocationButton.Size = new System.Drawing.Size(73, 24);
+			this.chooseLocationButton.Size = new System.Drawing.Size(146, 46);
 			this.chooseLocationButton.TabIndex = 30;
 			this.chooseLocationButton.Text = "Choose...";
 			this.chooseLocationButton.UseVisualStyleBackColor = true;
@@ -392,46 +412,54 @@
 			// 
 			// locationTextBox
 			// 
-			this.locationTextBox.Location = new System.Drawing.Point(11, 407);
+			this.locationTextBox.Location = new System.Drawing.Point(22, 783);
+			this.locationTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.locationTextBox.Name = "locationTextBox";
-			this.locationTextBox.Size = new System.Drawing.Size(371, 20);
+			this.locationTextBox.Size = new System.Drawing.Size(738, 31);
 			this.locationTextBox.TabIndex = 29;
 			// 
 			// locationLabel
 			// 
 			this.locationLabel.AutoSize = true;
-			this.locationLabel.Location = new System.Drawing.Point(8, 392);
+			this.locationLabel.Location = new System.Drawing.Point(16, 754);
+			this.locationLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.locationLabel.Name = "locationLabel";
-			this.locationLabel.Size = new System.Drawing.Size(281, 13);
+			this.locationLabel.Size = new System.Drawing.Size(570, 25);
 			this.locationLabel.TabIndex = 28;
 			this.locationLabel.Text = "Location (the folder where competition data will be stored):";
 			// 
 			// nameTextBox
 			// 
-			this.nameTextBox.Location = new System.Drawing.Point(11, 25);
+			this.nameTextBox.Location = new System.Drawing.Point(22, 48);
+			this.nameTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.nameTextBox.Name = "nameTextBox";
-			this.nameTextBox.Size = new System.Drawing.Size(451, 20);
+			this.nameTextBox.Size = new System.Drawing.Size(898, 31);
 			this.nameTextBox.TabIndex = 23;
 			// 
 			// nameLabel
 			// 
 			this.nameLabel.AutoSize = true;
-			this.nameLabel.Location = new System.Drawing.Point(8, 8);
+			this.nameLabel.Location = new System.Drawing.Point(16, 15);
+			this.nameLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.nameLabel.Name = "nameLabel";
-			this.nameLabel.Size = new System.Drawing.Size(38, 13);
+			this.nameLabel.Size = new System.Drawing.Size(74, 25);
 			this.nameLabel.TabIndex = 22;
 			this.nameLabel.Text = "Name:";
 			// 
 			// trackAnalysisTabPage
 			// 
+			this.trackAnalysisTabPage.Controls.Add(this.defaultGateWidthUnitsLabel);
+			this.trackAnalysisTabPage.Controls.Add(this.defaultGateWidthTextBox);
+			this.trackAnalysisTabPage.Controls.Add(this.defaultGateWidthLabel);
 			this.trackAnalysisTabPage.Controls.Add(this.defaultPointRadiusUnitsLabel);
 			this.trackAnalysisTabPage.Controls.Add(this.defaultPointRadiusTextBox);
 			this.trackAnalysisTabPage.Controls.Add(this.defaultPointRadiusLabel);
 			this.trackAnalysisTabPage.Controls.Add(this.loggersGroupBox);
-			this.trackAnalysisTabPage.Location = new System.Drawing.Point(4, 22);
+			this.trackAnalysisTabPage.Location = new System.Drawing.Point(8, 39);
+			this.trackAnalysisTabPage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.trackAnalysisTabPage.Name = "trackAnalysisTabPage";
-			this.trackAnalysisTabPage.Padding = new System.Windows.Forms.Padding(3);
-			this.trackAnalysisTabPage.Size = new System.Drawing.Size(476, 484);
+			this.trackAnalysisTabPage.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.trackAnalysisTabPage.Size = new System.Drawing.Size(952, 934);
 			this.trackAnalysisTabPage.TabIndex = 2;
 			this.trackAnalysisTabPage.Text = "Track Analysis";
 			this.trackAnalysisTabPage.UseVisualStyleBackColor = true;
@@ -439,26 +467,29 @@
 			// defaultPointRadiusUnitsLabel
 			// 
 			this.defaultPointRadiusUnitsLabel.AutoSize = true;
-			this.defaultPointRadiusUnitsLabel.Location = new System.Drawing.Point(175, 368);
+			this.defaultPointRadiusUnitsLabel.Location = new System.Drawing.Point(350, 708);
+			this.defaultPointRadiusUnitsLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.defaultPointRadiusUnitsLabel.Name = "defaultPointRadiusUnitsLabel";
-			this.defaultPointRadiusUnitsLabel.Size = new System.Drawing.Size(38, 13);
+			this.defaultPointRadiusUnitsLabel.Size = new System.Drawing.Size(77, 25);
 			this.defaultPointRadiusUnitsLabel.TabIndex = 46;
 			this.defaultPointRadiusUnitsLabel.Text = "metres";
 			// 
 			// defaultPointRadiusTextBox
 			// 
-			this.defaultPointRadiusTextBox.Location = new System.Drawing.Point(114, 365);
+			this.defaultPointRadiusTextBox.Location = new System.Drawing.Point(228, 702);
+			this.defaultPointRadiusTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.defaultPointRadiusTextBox.Name = "defaultPointRadiusTextBox";
-			this.defaultPointRadiusTextBox.Size = new System.Drawing.Size(55, 20);
+			this.defaultPointRadiusTextBox.Size = new System.Drawing.Size(106, 31);
 			this.defaultPointRadiusTextBox.TabIndex = 45;
 			this.defaultPointRadiusTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.defaultTurnpointRadiusTextBox_Validating);
 			// 
 			// defaultPointRadiusLabel
 			// 
 			this.defaultPointRadiusLabel.AutoSize = true;
-			this.defaultPointRadiusLabel.Location = new System.Drawing.Point(7, 368);
+			this.defaultPointRadiusLabel.Location = new System.Drawing.Point(14, 708);
+			this.defaultPointRadiusLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.defaultPointRadiusLabel.Name = "defaultPointRadiusLabel";
-			this.defaultPointRadiusLabel.Size = new System.Drawing.Size(101, 13);
+			this.defaultPointRadiusLabel.Size = new System.Drawing.Size(204, 25);
 			this.defaultPointRadiusLabel.TabIndex = 44;
 			this.defaultPointRadiusLabel.Text = "Default point radius:";
 			// 
@@ -472,9 +503,11 @@
 			this.loggersGroupBox.Controls.Add(this.chooseFrdlIgcLocationButton);
 			this.loggersGroupBox.Controls.Add(this.frdlIgcLocationTextBox);
 			this.loggersGroupBox.Controls.Add(this.frdlIgcLocationLabel);
-			this.loggersGroupBox.Location = new System.Drawing.Point(10, 6);
+			this.loggersGroupBox.Location = new System.Drawing.Point(20, 12);
+			this.loggersGroupBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.loggersGroupBox.Name = "loggersGroupBox";
-			this.loggersGroupBox.Size = new System.Drawing.Size(456, 337);
+			this.loggersGroupBox.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.loggersGroupBox.Size = new System.Drawing.Size(912, 648);
 			this.loggersGroupBox.TabIndex = 43;
 			this.loggersGroupBox.TabStop = false;
 			this.loggersGroupBox.Text = "Loggers";
@@ -487,76 +520,86 @@
 			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiPasswordlabel);
 			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiUsernameTextBox);
 			this.flymasterApiGroupBox.Controls.Add(this.flymasterApiUsernameLabel);
-			this.flymasterApiGroupBox.Location = new System.Drawing.Point(12, 149);
+			this.flymasterApiGroupBox.Location = new System.Drawing.Point(24, 287);
+			this.flymasterApiGroupBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.flymasterApiGroupBox.Name = "flymasterApiGroupBox";
-			this.flymasterApiGroupBox.Size = new System.Drawing.Size(434, 133);
+			this.flymasterApiGroupBox.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+			this.flymasterApiGroupBox.Size = new System.Drawing.Size(868, 256);
 			this.flymasterApiGroupBox.TabIndex = 53;
 			this.flymasterApiGroupBox.TabStop = false;
 			this.flymasterApiGroupBox.Text = "Flymaster API";
 			// 
 			// flymasterApiGroupIdTextBox
 			// 
-			this.flymasterApiGroupIdTextBox.Location = new System.Drawing.Point(92, 89);
+			this.flymasterApiGroupIdTextBox.Location = new System.Drawing.Point(184, 171);
+			this.flymasterApiGroupIdTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.flymasterApiGroupIdTextBox.Name = "flymasterApiGroupIdTextBox";
-			this.flymasterApiGroupIdTextBox.Size = new System.Drawing.Size(99, 20);
+			this.flymasterApiGroupIdTextBox.Size = new System.Drawing.Size(194, 31);
 			this.flymasterApiGroupIdTextBox.TabIndex = 5;
 			// 
 			// flymasterApiGroupIdLabel
 			// 
 			this.flymasterApiGroupIdLabel.AutoSize = true;
-			this.flymasterApiGroupIdLabel.Location = new System.Drawing.Point(17, 92);
+			this.flymasterApiGroupIdLabel.Location = new System.Drawing.Point(34, 177);
+			this.flymasterApiGroupIdLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.flymasterApiGroupIdLabel.Name = "flymasterApiGroupIdLabel";
-			this.flymasterApiGroupIdLabel.Size = new System.Drawing.Size(53, 13);
+			this.flymasterApiGroupIdLabel.Size = new System.Drawing.Size(103, 25);
 			this.flymasterApiGroupIdLabel.TabIndex = 4;
 			this.flymasterApiGroupIdLabel.Text = "Group ID:";
 			// 
 			// flymasterApiPasswordTextBox
 			// 
-			this.flymasterApiPasswordTextBox.Location = new System.Drawing.Point(92, 63);
+			this.flymasterApiPasswordTextBox.Location = new System.Drawing.Point(184, 121);
+			this.flymasterApiPasswordTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.flymasterApiPasswordTextBox.Name = "flymasterApiPasswordTextBox";
-			this.flymasterApiPasswordTextBox.Size = new System.Drawing.Size(180, 20);
+			this.flymasterApiPasswordTextBox.Size = new System.Drawing.Size(356, 31);
 			this.flymasterApiPasswordTextBox.TabIndex = 3;
 			// 
 			// flymasterApiPasswordlabel
 			// 
 			this.flymasterApiPasswordlabel.AutoSize = true;
-			this.flymasterApiPasswordlabel.Location = new System.Drawing.Point(17, 66);
+			this.flymasterApiPasswordlabel.Location = new System.Drawing.Point(34, 127);
+			this.flymasterApiPasswordlabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.flymasterApiPasswordlabel.Name = "flymasterApiPasswordlabel";
-			this.flymasterApiPasswordlabel.Size = new System.Drawing.Size(56, 13);
+			this.flymasterApiPasswordlabel.Size = new System.Drawing.Size(112, 25);
 			this.flymasterApiPasswordlabel.TabIndex = 2;
 			this.flymasterApiPasswordlabel.Text = "Password:";
 			// 
 			// flymasterApiUsernameTextBox
 			// 
-			this.flymasterApiUsernameTextBox.Location = new System.Drawing.Point(92, 37);
+			this.flymasterApiUsernameTextBox.Location = new System.Drawing.Point(184, 71);
+			this.flymasterApiUsernameTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.flymasterApiUsernameTextBox.Name = "flymasterApiUsernameTextBox";
-			this.flymasterApiUsernameTextBox.Size = new System.Drawing.Size(180, 20);
+			this.flymasterApiUsernameTextBox.Size = new System.Drawing.Size(356, 31);
 			this.flymasterApiUsernameTextBox.TabIndex = 1;
 			// 
 			// flymasterApiUsernameLabel
 			// 
 			this.flymasterApiUsernameLabel.AutoSize = true;
-			this.flymasterApiUsernameLabel.Location = new System.Drawing.Point(15, 40);
+			this.flymasterApiUsernameLabel.Location = new System.Drawing.Point(30, 77);
+			this.flymasterApiUsernameLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.flymasterApiUsernameLabel.Name = "flymasterApiUsernameLabel";
-			this.flymasterApiUsernameLabel.Size = new System.Drawing.Size(58, 13);
+			this.flymasterApiUsernameLabel.Size = new System.Drawing.Size(116, 25);
 			this.flymasterApiUsernameLabel.TabIndex = 0;
 			this.flymasterApiUsernameLabel.Text = "Username:";
 			// 
 			// loggersNoteLabel
 			// 
 			this.loggersNoteLabel.AutoSize = true;
-			this.loggersNoteLabel.Location = new System.Drawing.Point(11, 309);
+			this.loggersNoteLabel.Location = new System.Drawing.Point(22, 594);
+			this.loggersNoteLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.loggersNoteLabel.Name = "loggersNoteLabel";
-			this.loggersNoteLabel.Size = new System.Drawing.Size(439, 13);
+			this.loggersNoteLabel.Size = new System.Drawing.Size(894, 25);
 			this.loggersNoteLabel.TabIndex = 52;
 			this.loggersNoteLabel.Text = "Note: if both Flymaster and FRDL tracks are found then the Flymaster tracks will " +
     "take priority";
 			// 
 			// chooseFlymasterIgcLocationButton
 			// 
-			this.chooseFlymasterIgcLocationButton.Location = new System.Drawing.Point(373, 103);
+			this.chooseFlymasterIgcLocationButton.Location = new System.Drawing.Point(746, 198);
+			this.chooseFlymasterIgcLocationButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.chooseFlymasterIgcLocationButton.Name = "chooseFlymasterIgcLocationButton";
-			this.chooseFlymasterIgcLocationButton.Size = new System.Drawing.Size(73, 24);
+			this.chooseFlymasterIgcLocationButton.Size = new System.Drawing.Size(146, 46);
 			this.chooseFlymasterIgcLocationButton.TabIndex = 51;
 			this.chooseFlymasterIgcLocationButton.Text = "Choose...";
 			this.chooseFlymasterIgcLocationButton.UseVisualStyleBackColor = true;
@@ -564,25 +607,28 @@
 			// 
 			// flymasterIgcLocationTextBox
 			// 
-			this.flymasterIgcLocationTextBox.Location = new System.Drawing.Point(12, 106);
+			this.flymasterIgcLocationTextBox.Location = new System.Drawing.Point(24, 204);
+			this.flymasterIgcLocationTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.flymasterIgcLocationTextBox.Name = "flymasterIgcLocationTextBox";
-			this.flymasterIgcLocationTextBox.Size = new System.Drawing.Size(356, 20);
+			this.flymasterIgcLocationTextBox.Size = new System.Drawing.Size(708, 31);
 			this.flymasterIgcLocationTextBox.TabIndex = 50;
 			// 
 			// flymasterIgcLocationLabel
 			// 
 			this.flymasterIgcLocationLabel.AutoSize = true;
-			this.flymasterIgcLocationLabel.Location = new System.Drawing.Point(11, 90);
+			this.flymasterIgcLocationLabel.Location = new System.Drawing.Point(22, 173);
+			this.flymasterIgcLocationLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.flymasterIgcLocationLabel.Name = "flymasterIgcLocationLabel";
-			this.flymasterIgcLocationLabel.Size = new System.Drawing.Size(155, 13);
+			this.flymasterIgcLocationLabel.Size = new System.Drawing.Size(314, 25);
 			this.flymasterIgcLocationLabel.TabIndex = 49;
 			this.flymasterIgcLocationLabel.Text = "Flymaster Tracker IGC location:";
 			// 
 			// chooseFrdlIgcLocationButton
 			// 
-			this.chooseFrdlIgcLocationButton.Location = new System.Drawing.Point(373, 44);
+			this.chooseFrdlIgcLocationButton.Location = new System.Drawing.Point(746, 85);
+			this.chooseFrdlIgcLocationButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.chooseFrdlIgcLocationButton.Name = "chooseFrdlIgcLocationButton";
-			this.chooseFrdlIgcLocationButton.Size = new System.Drawing.Size(73, 24);
+			this.chooseFrdlIgcLocationButton.Size = new System.Drawing.Size(146, 46);
 			this.chooseFrdlIgcLocationButton.TabIndex = 47;
 			this.chooseFrdlIgcLocationButton.Text = "Choose...";
 			this.chooseFrdlIgcLocationButton.UseVisualStyleBackColor = true;
@@ -590,17 +636,19 @@
 			// 
 			// frdlIgcLocationTextBox
 			// 
-			this.frdlIgcLocationTextBox.Location = new System.Drawing.Point(12, 47);
+			this.frdlIgcLocationTextBox.Location = new System.Drawing.Point(24, 90);
+			this.frdlIgcLocationTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.frdlIgcLocationTextBox.Name = "frdlIgcLocationTextBox";
-			this.frdlIgcLocationTextBox.Size = new System.Drawing.Size(355, 20);
+			this.frdlIgcLocationTextBox.Size = new System.Drawing.Size(706, 31);
 			this.frdlIgcLocationTextBox.TabIndex = 46;
 			// 
 			// frdlIgcLocationLabel
 			// 
 			this.frdlIgcLocationLabel.AutoSize = true;
-			this.frdlIgcLocationLabel.Location = new System.Drawing.Point(11, 31);
+			this.frdlIgcLocationLabel.Location = new System.Drawing.Point(22, 60);
+			this.frdlIgcLocationLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.frdlIgcLocationLabel.Name = "frdlIgcLocationLabel";
-			this.frdlIgcLocationLabel.Size = new System.Drawing.Size(395, 13);
+			this.frdlIgcLocationLabel.Size = new System.Drawing.Size(804, 25);
 			this.frdlIgcLocationLabel.TabIndex = 45;
 			this.frdlIgcLocationLabel.Text = "FRDL IGC location (the folder where FRDL stores tracks, normally called \'igcFiles" +
     "\'):";
@@ -609,11 +657,11 @@
 			// 
 			this.nationTabPage.Controls.Add(this.nationDefinitionsLabel);
 			this.nationTabPage.Controls.Add(this.nationDefinitionsDataGridView);
-			this.nationTabPage.Location = new System.Drawing.Point(4, 22);
-			this.nationTabPage.Margin = new System.Windows.Forms.Padding(2);
+			this.nationTabPage.Location = new System.Drawing.Point(8, 39);
+			this.nationTabPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.nationTabPage.Name = "nationTabPage";
-			this.nationTabPage.Padding = new System.Windows.Forms.Padding(2);
-			this.nationTabPage.Size = new System.Drawing.Size(476, 484);
+			this.nationTabPage.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.nationTabPage.Size = new System.Drawing.Size(952, 934);
 			this.nationTabPage.TabIndex = 1;
 			this.nationTabPage.Text = "Nation";
 			this.nationTabPage.UseVisualStyleBackColor = true;
@@ -621,10 +669,10 @@
 			// nationDefinitionsLabel
 			// 
 			this.nationDefinitionsLabel.AutoSize = true;
-			this.nationDefinitionsLabel.Location = new System.Drawing.Point(8, 8);
-			this.nationDefinitionsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.nationDefinitionsLabel.Location = new System.Drawing.Point(16, 15);
+			this.nationDefinitionsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.nationDefinitionsLabel.Name = "nationDefinitionsLabel";
-			this.nationDefinitionsLabel.Size = new System.Drawing.Size(279, 13);
+			this.nationDefinitionsLabel.Size = new System.Drawing.Size(565, 25);
 			this.nationDefinitionsLabel.TabIndex = 1;
 			this.nationDefinitionsLabel.Text = "Nation scores are calculated based on the following rules:";
 			// 
@@ -643,14 +691,15 @@
 			this.nationDefinitionsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nationAircraftClassColumn,
             this.nationNumberWhoScoreColumn});
-			this.nationDefinitionsDataGridView.Location = new System.Drawing.Point(11, 26);
-			this.nationDefinitionsDataGridView.Margin = new System.Windows.Forms.Padding(2);
+			this.nationDefinitionsDataGridView.Location = new System.Drawing.Point(22, 50);
+			this.nationDefinitionsDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.nationDefinitionsDataGridView.MultiSelect = false;
 			this.nationDefinitionsDataGridView.Name = "nationDefinitionsDataGridView";
 			this.nationDefinitionsDataGridView.RowHeadersVisible = false;
+			this.nationDefinitionsDataGridView.RowHeadersWidth = 82;
 			this.nationDefinitionsDataGridView.RowTemplate.Height = 28;
 			this.nationDefinitionsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-			this.nationDefinitionsDataGridView.Size = new System.Drawing.Size(213, 279);
+			this.nationDefinitionsDataGridView.Size = new System.Drawing.Size(426, 537);
 			this.nationDefinitionsDataGridView.TabIndex = 0;
 			this.nationDefinitionsDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.nationDefinitionsDataGridView_CellValidating);
 			// 
@@ -659,6 +708,7 @@
 			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
 			this.nationAircraftClassColumn.DefaultCellStyle = dataGridViewCellStyle6;
 			this.nationAircraftClassColumn.HeaderText = "Aircraft Class";
+			this.nationAircraftClassColumn.MinimumWidth = 10;
 			this.nationAircraftClassColumn.Name = "nationAircraftClassColumn";
 			this.nationAircraftClassColumn.ReadOnly = true;
 			// 
@@ -668,6 +718,7 @@
 			this.nationNumberWhoScoreColumn.DefaultCellStyle = dataGridViewCellStyle7;
 			this.nationNumberWhoScoreColumn.FillWeight = 125F;
 			this.nationNumberWhoScoreColumn.HeaderText = "Number Who Score";
+			this.nationNumberWhoScoreColumn.MinimumWidth = 10;
 			this.nationNumberWhoScoreColumn.Name = "nationNumberWhoScoreColumn";
 			// 
 			// logoDialog
@@ -675,17 +726,44 @@
 			this.logoDialog.Filter = "Image files|*.jpg;*.png;*.gif;*.bmp";
 			this.logoDialog.Title = "Select logo";
 			// 
+			// defaultGateWidthLabel
+			// 
+			this.defaultGateWidthLabel.AutoSize = true;
+			this.defaultGateWidthLabel.Location = new System.Drawing.Point(15, 761);
+			this.defaultGateWidthLabel.Name = "defaultGateWidthLabel";
+			this.defaultGateWidthLabel.Size = new System.Drawing.Size(190, 25);
+			this.defaultGateWidthLabel.TabIndex = 47;
+			this.defaultGateWidthLabel.Text = "Default gate width:";
+			// 
+			// defaultGateWidthTextBox
+			// 
+			this.defaultGateWidthTextBox.Location = new System.Drawing.Point(228, 758);
+			this.defaultGateWidthTextBox.Name = "defaultGateWidthTextBox";
+			this.defaultGateWidthTextBox.Size = new System.Drawing.Size(106, 31);
+			this.defaultGateWidthTextBox.TabIndex = 48;
+			// 
+			// defaultGateWidthUnitsLabel
+			// 
+			this.defaultGateWidthUnitsLabel.AutoSize = true;
+			this.defaultGateWidthUnitsLabel.Location = new System.Drawing.Point(350, 761);
+			this.defaultGateWidthUnitsLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.defaultGateWidthUnitsLabel.Name = "defaultGateWidthUnitsLabel";
+			this.defaultGateWidthUnitsLabel.Size = new System.Drawing.Size(77, 25);
+			this.defaultGateWidthUnitsLabel.TabIndex = 49;
+			this.defaultGateWidthUnitsLabel.Text = "metres";
+			// 
 			// CompetitionForm
 			// 
 			this.AcceptButton = this.okButton;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.cancelButton;
-			this.ClientSize = new System.Drawing.Size(500, 556);
+			this.ClientSize = new System.Drawing.Size(1000, 1069);
 			this.Controls.Add(this.competitionTabControl);
 			this.Controls.Add(this.cancelButton);
 			this.Controls.Add(this.okButton);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "CompetitionForm";
@@ -764,5 +842,8 @@
 		private System.Windows.Forms.TextBox logoTextBox;
 		private System.Windows.Forms.Label logoLabel;
 		private System.Windows.Forms.OpenFileDialog logoDialog;
+		private System.Windows.Forms.Label defaultGateWidthLabel;
+		private System.Windows.Forms.Label defaultGateWidthUnitsLabel;
+		private System.Windows.Forms.TextBox defaultGateWidthTextBox;
 	}
 }

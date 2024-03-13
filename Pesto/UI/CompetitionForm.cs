@@ -29,8 +29,9 @@ namespace ColinBaker.Pesto.UI
             nationDefinitionsDataGridView.Columns["nationNumberWhoScoreColumn"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.TopRight;
 
             defaultPointRadiusTextBox.Text = Models.Features.PointFeature.DefaultRadius.ToString();
+			defaultGateWidthTextBox.Text = Models.Features.GateFeature.DefaultWidth.ToString();
 
-            this.Height = 595;
+			this.Height = 595;
         }
 
 		public CompetitionForm(Models.Competition competition)
@@ -72,8 +73,9 @@ namespace ColinBaker.Pesto.UI
             flymasterApiGroupIdTextBox.Text = competition.FlymasterApiGroupId;
 
             defaultPointRadiusTextBox.Text = competition.DefaultPointRadius.ToString();
+			defaultGateWidthTextBox.Text = competition.DefaultGateWidth.ToString();
 
-            this.Height = 595;
+			this.Height = 595;
         }
 
 		public Models.Competition Competition { get; private set; }
@@ -323,7 +325,15 @@ namespace ColinBaker.Pesto.UI
                 return false;
             }
 
-            return true;
+			if (defaultGateWidthTextBox.Text.Trim().Length == 0)
+			{
+				MessageBox.Show("Please enter a default gate width.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				competitionTabControl.SelectedTab = trackAnalysisTabPage;
+				defaultGateWidthTextBox.Focus();
+				return false;
+			}
+
+			return true;
 		}
 
 		private Models.AircraftClass[] ExtractSelectedAircraftClasses()
@@ -434,7 +444,8 @@ namespace ColinBaker.Pesto.UI
                 this.Competition.FlymasterApiPassword = flymasterApiPasswordTextBox.Text;
                 this.Competition.FlymasterApiGroupId = flymasterApiGroupIdTextBox.Text.Trim();
                 this.Competition.DefaultPointRadius = int.Parse(defaultPointRadiusTextBox.Text.Trim());
-                this.Competition.BackupPath = backupLocationTextBox.Text;
+				this.Competition.DefaultGateWidth = int.Parse(defaultGateWidthTextBox.Text.Trim());
+				this.Competition.BackupPath = backupLocationTextBox.Text;
 			}
 			else
 			{

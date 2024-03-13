@@ -183,7 +183,13 @@ namespace ColinBaker.Pesto.Services
                 competition.DefaultPointRadius = int.Parse(defaultTurnpointRadiusNode.InnerText, System.Globalization.CultureInfo.InvariantCulture);
             }
 
-            competition.PilotsSpreadsheet.Mappings.Clear();
+			XmlNode defaultGateWidthNode = competitionNode.SelectSingleNode("DefaultGateWidth");
+			if (defaultGateWidthNode != null)
+			{
+				competition.DefaultGateWidth = int.Parse(defaultGateWidthNode.InnerText, System.Globalization.CultureInfo.InvariantCulture);
+			}
+
+			competition.PilotsSpreadsheet.Mappings.Clear();
 
             foreach (XmlNode columnMappingNode in competitionNode.SelectNodes("PilotSpreadsheetMappings/ColumnMapping"))
             {
@@ -538,7 +544,11 @@ namespace ColinBaker.Pesto.Services
             element.InnerText = competition.DefaultPointRadius.ToString("0", System.Globalization.CultureInfo.InvariantCulture);
             competitionElement.AppendChild(element);
 
-            XmlElement pilotSpreadsheetMappingsElement = document.CreateElement("PilotSpreadsheetMappings");
+			element = document.CreateElement("DefaultGateWidth");
+			element.InnerText = competition.DefaultGateWidth.ToString("0", System.Globalization.CultureInfo.InvariantCulture);
+			competitionElement.AppendChild(element);
+
+			XmlElement pilotSpreadsheetMappingsElement = document.CreateElement("PilotSpreadsheetMappings");
             competitionElement.AppendChild(pilotSpreadsheetMappingsElement);
 
             foreach (Models.Spreadsheets.SpreadsheetColumnMapping mapping in competition.PilotsSpreadsheet.Mappings)

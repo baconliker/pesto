@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 using System.Threading.Tasks;
+using ColinBaker.Pesto.Models.TrackAnalysis.Events;
 
 namespace ColinBaker.Pesto.UI.TrackAnalysis
 {
@@ -63,12 +64,24 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 
 			List<Models.TrackAnalysis.Events.TrackEvent.EventType> eventTypesToInclude = new List<Models.TrackAnalysis.Events.TrackEvent.EventType>(this.Task.EventTypeFilters);
 
-			Models.TrackAnalysis.Events.TrackEvent firstEvent = null;
-			int counter = 0;
+            // Create filtered list of events
+            List<Models.TrackAnalysis.Events.TrackEvent> filteredTrackEvents = trackEvents.Where(te => eventTypesToInclude.Contains(te.Type)).ToList();
 
-			foreach (Models.TrackAnalysis.Events.TrackEvent trackEvent in trackEvents)
-			{
-				if (eventTypesToInclude.Contains(trackEvent.Type))
+            if (filteredTrackEvents.Count > 0)
+            {
+                Models.TrackAnalysis.Events.TrackEvent elapsedTimeReferenceEvent = null;
+                if (this.Task.ElapsedTimePointOrGate != null)
+                {
+                    elapsedTimeReferenceEvent = filteredTrackEvents.Where(te => (te.Type == TrackEvent.EventType.StartPointHit || te.Type == TrackEvent.EventType.TurnpointHit) && te.RelatedFeature.Name.Equals(this.Task.ElapsedTimePointOrGate.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+				}
+                else
+                {
+                    elapsedTimeReferenceEvent = filteredTrackEvents[0];
+
+				}
+                int counter = 0;
+
+				foreach (Models.TrackAnalysis.Events.TrackEvent trackEvent in filteredTrackEvents)
 				{
 					counter++;
 
@@ -95,14 +108,16 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 					row[1] = counter;
 					if (trackEvent.TimeSet)
 					{
-                        row[2] = trackEvent.Time.ToLocalTime().ToString("HH:mm:ss");
-						if (firstEvent == null)
+						row[2] = trackEvent.Time.ToLocalTime().ToString("HH:mm:ss");
+
+						//trackEvent.Time.Subtract(elapsedTimeReferenceEvent.Time).TotalSeconds < 0
+						if (elapsedTimeReferenceEvent == null || trackEvent.Time < elapsedTimeReferenceEvent.Time)
 						{
-							row[3] = trackEvent.Time.Subtract(trackEvent.Time).ToString();
+							row[3] = "";
 						}
 						else
 						{
-							row[3] = trackEvent.Time.Subtract(firstEvent.Time).ToString();
+							row[3] = trackEvent.Time.Subtract(elapsedTimeReferenceEvent.Time).ToString();
 						}
 					}
 					else
@@ -119,20 +134,8 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 					int index = eventsDataGridView.Rows.Add(row);
 
 					eventsDataGridView.Rows[index].Tag = trackEvent;
-
-					if (firstEvent == null)
-					{
-						firstEvent = trackEvent;
-					}
 				}
-			}
 
-			if (counter == 0)
-			{
-				eventsSplitContainer.Panel1Collapsed = true;
-			}
-			else
-			{
 				eventsSplitContainer.Panel1Collapsed = false;
 
 				// Calculate the height of all the grid content so we can allocate as much screen estate to the map as possible
@@ -153,6 +156,10 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 				{
 					eventsSplitContainer.SplitterDistance = gridContentHeight;
 				}
+			}
+            else
+            {
+				eventsSplitContainer.Panel1Collapsed = true;
 			}
 		}
 
@@ -189,6 +196,11 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
 			if (this.Task.FinishPointOrGate != null)
 			{
                 await analysisMap.AddFeatureAsync(this.Task.FinishPointOrGate);
+			}
+
+			if (this.Task.ElapsedTimePointOrGate != null)
+			{
+				await analysisMap.AddFeatureAsync(this.Task.ElapsedTimePointOrGate);
 			}
 
 			foreach (Models.Features.PointFeature turnpoint in this.Task.Turnpoints)

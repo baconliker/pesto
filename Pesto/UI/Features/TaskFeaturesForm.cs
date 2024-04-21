@@ -53,15 +53,20 @@ namespace ColinBaker.Pesto.UI.Features
 
 		private void PopulateStartPointGate()
 		{
-			PopulateStartFinishPointGate(this.Task.StartPointOrGate, startPointGateComboBox);
+			PopulatePointGate(this.Task.StartPointOrGate, startPointGateComboBox);
 		}
 
 		private void PopulateFinishPointGate()
 		{
-			PopulateStartFinishPointGate(this.Task.FinishPointOrGate, finishPointGateComboBox);
+			PopulatePointGate(this.Task.FinishPointOrGate, finishPointGateComboBox);
 		}
 
-		private void PopulateStartFinishPointGate(Models.Features.Feature selectedFeature, ComboBox comboBox)
+		private void PopulateElapsedTimePointGate()
+		{
+			PopulatePointGate(this.Task.ElapsedTimePointOrGate, elapsedTimePointGateComboBox);
+		}
+
+		private void PopulatePointGate(Models.Features.Feature selectedFeature, ComboBox comboBox)
 		{
 			m_ignoreEvent = true;
 
@@ -245,6 +250,7 @@ namespace ColinBaker.Pesto.UI.Features
             PopulateDecks(this.Task.LandingDeck, landingDeckComboBox);
             PopulateStartPointGate();
 			PopulateFinishPointGate();
+			PopulateElapsedTimePointGate();
 			PopulateTurnpoints();
 			PopulateHiddenGates();
 
@@ -264,6 +270,7 @@ namespace ColinBaker.Pesto.UI.Features
                 PopulateDecks(this.Task.LandingDeck, landingDeckComboBox);
                 PopulateStartPointGate();
 				PopulateFinishPointGate();
+				PopulateElapsedTimePointGate();
 				PopulateTurnpoints();
 				PopulateHiddenGates();
 				await ShowMapAsync();
@@ -378,6 +385,28 @@ namespace ColinBaker.Pesto.UI.Features
 				FeatureListItem selectedItem = finishPointGateComboBox.SelectedItem as FeatureListItem;
 
 				this.Task.FinishPointOrGate = selectedItem.Feature;
+				await AddFeatureToMapAsync(selectedItem.Feature);
+			}
+		}
+
+		private async void elapsedTimePointGateComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (m_ignoreEvent) return;
+
+			if (this.Task.ElapsedTimePointOrGate != null)
+			{
+				await RemoveFeatureFromMapAsync(this.Task.ElapsedTimePointOrGate);
+			}
+
+			if (elapsedTimePointGateComboBox.SelectedIndex == 0)
+			{
+				this.Task.ElapsedTimePointOrGate = null;
+			}
+			else
+			{
+				FeatureListItem selectedItem = elapsedTimePointGateComboBox.SelectedItem as FeatureListItem;
+
+				this.Task.ElapsedTimePointOrGate = selectedItem.Feature;
 				await AddFeatureToMapAsync(selectedItem.Feature);
 			}
 		}

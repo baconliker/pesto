@@ -42,6 +42,8 @@
 			this.zoomInRibbonButton = new System.Windows.Forms.RibbonButton();
 			this.zoomOutRibbonButton = new System.Windows.Forms.RibbonButton();
 			this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
+			this.elapsedTimePointGateComboBox = new System.Windows.Forms.ComboBox();
+			this.elapsedTimePointGateLabel = new System.Windows.Forms.Label();
 			this.landingDeckComboBox = new System.Windows.Forms.ComboBox();
 			this.landingDeckLabel = new System.Windows.Forms.Label();
 			this.takeOffDeckComboBox = new System.Windows.Forms.ComboBox();
@@ -198,6 +200,8 @@
 			// 
 			// mainSplitContainer.Panel1
 			// 
+			this.mainSplitContainer.Panel1.Controls.Add(this.elapsedTimePointGateComboBox);
+			this.mainSplitContainer.Panel1.Controls.Add(this.elapsedTimePointGateLabel);
 			this.mainSplitContainer.Panel1.Controls.Add(this.landingDeckComboBox);
 			this.mainSplitContainer.Panel1.Controls.Add(this.landingDeckLabel);
 			this.mainSplitContainer.Panel1.Controls.Add(this.takeOffDeckComboBox);
@@ -217,6 +221,25 @@
 			this.mainSplitContainer.Size = new System.Drawing.Size(753, 463);
 			this.mainSplitContainer.SplitterDistance = 185;
 			this.mainSplitContainer.TabIndex = 1;
+			// 
+			// elapsedTimePointGateComboBox
+			// 
+			this.elapsedTimePointGateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.elapsedTimePointGateComboBox.FormattingEnabled = true;
+			this.elapsedTimePointGateComboBox.Location = new System.Drawing.Point(15, 191);
+			this.elapsedTimePointGateComboBox.Name = "elapsedTimePointGateComboBox";
+			this.elapsedTimePointGateComboBox.Size = new System.Drawing.Size(158, 21);
+			this.elapsedTimePointGateComboBox.TabIndex = 14;
+			this.elapsedTimePointGateComboBox.SelectedIndexChanged += new System.EventHandler(this.elapsedTimePointGateComboBox_SelectedIndexChanged);
+			// 
+			// elapsedTimePointGateLabel
+			// 
+			this.elapsedTimePointGateLabel.AutoSize = true;
+			this.elapsedTimePointGateLabel.Location = new System.Drawing.Point(12, 175);
+			this.elapsedTimePointGateLabel.Name = "elapsedTimePointGateLabel";
+			this.elapsedTimePointGateLabel.Size = new System.Drawing.Size(132, 13);
+			this.elapsedTimePointGateLabel.TabIndex = 13;
+			this.elapsedTimePointGateLabel.Text = "Elapsed time point or gate:";
 			// 
 			// landingDeckComboBox
 			// 
@@ -262,6 +285,7 @@
 			// 
 			// hiddenGatesCheckedListBox
 			// 
+			this.hiddenGatesCheckedListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.hiddenGatesCheckedListBox.FormattingEnabled = true;
 			this.hiddenGatesCheckedListBox.Location = new System.Drawing.Point(15, 343);
 			this.hiddenGatesCheckedListBox.Name = "hiddenGatesCheckedListBox";
@@ -271,6 +295,7 @@
 			// 
 			// hiddenGatesLabel
 			// 
+			this.hiddenGatesLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.hiddenGatesLabel.AutoSize = true;
 			this.hiddenGatesLabel.Location = new System.Drawing.Point(12, 326);
 			this.hiddenGatesLabel.Name = "hiddenGatesLabel";
@@ -280,17 +305,19 @@
 			// 
 			// turnpointsCheckedListBox
 			// 
+			this.turnpointsCheckedListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.turnpointsCheckedListBox.FormattingEnabled = true;
-			this.turnpointsCheckedListBox.Location = new System.Drawing.Point(15, 201);
+			this.turnpointsCheckedListBox.Location = new System.Drawing.Point(15, 231);
 			this.turnpointsCheckedListBox.Name = "turnpointsCheckedListBox";
-			this.turnpointsCheckedListBox.Size = new System.Drawing.Size(158, 109);
+			this.turnpointsCheckedListBox.Size = new System.Drawing.Size(158, 94);
 			this.turnpointsCheckedListBox.TabIndex = 6;
 			this.turnpointsCheckedListBox.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.turnpointsCheckedListBox_ItemCheck);
 			// 
 			// turnpointsLabel
 			// 
 			this.turnpointsLabel.AutoSize = true;
-			this.turnpointsLabel.Location = new System.Drawing.Point(12, 185);
+			this.turnpointsLabel.Location = new System.Drawing.Point(12, 215);
 			this.turnpointsLabel.Name = "turnpointsLabel";
 			this.turnpointsLabel.Size = new System.Drawing.Size(60, 13);
 			this.turnpointsLabel.TabIndex = 5;
@@ -396,5 +423,7 @@
 		private System.Windows.Forms.RibbonPanel selectRibbonPanel;
 		private System.Windows.Forms.RibbonButton selectAllRibbonButton;
 		private System.Windows.Forms.RibbonButton selectNoneRibbonButton;
+		private System.Windows.Forms.ComboBox elapsedTimePointGateComboBox;
+		private System.Windows.Forms.Label elapsedTimePointGateLabel;
 	}
 }

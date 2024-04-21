@@ -44,6 +44,7 @@ namespace ColinBaker.Pesto.Services
 			newTask.LandingDeck = taskToDuplicate.LandingDeck;
 			newTask.StartPointOrGate = taskToDuplicate.StartPointOrGate;
 			newTask.FinishPointOrGate = taskToDuplicate.FinishPointOrGate;
+			newTask.ElapsedTimePointOrGate = taskToDuplicate.ElapsedTimePointOrGate;
 			newTask.Turnpoints = taskToDuplicate.Turnpoints;
 			newTask.HiddenGates = taskToDuplicate.HiddenGates;
 			foreach (Models.Features.NoFlyZoneFeature nfz in taskToDuplicate.NoFlyZones)

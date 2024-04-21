@@ -74,6 +74,11 @@ namespace ColinBaker.Pesto.Models
 				return true;
 			}
 
+			if (this.ElapsedTimePointOrGate != null && string.Compare(this.ElapsedTimePointOrGate.Name, feature.Name, true) == 0)
+			{
+				return true;
+			}
+
 			foreach (Features.PointFeature turnpoint in this.Turnpoints)
 			{
 				if (string.Compare(turnpoint.Name, feature.Name, true) == 0)
@@ -116,6 +121,11 @@ namespace ColinBaker.Pesto.Models
 			if (this.FinishPointOrGate != null && string.Compare(this.FinishPointOrGate.Name, feature.Name, true) == 0)
 			{
 				this.FinishPointOrGate = null;
+			}
+
+			if (this.ElapsedTimePointOrGate != null && string.Compare(this.ElapsedTimePointOrGate.Name, feature.Name, true) == 0)
+			{
+				this.ElapsedTimePointOrGate = null;
 			}
 
 			while (turnpointIndex < this.Turnpoints.Count)
@@ -206,6 +216,7 @@ namespace ColinBaker.Pesto.Models
         public Features.DeckFeature LandingDeck { get; set; }
         public Features.Feature StartPointOrGate { get; set; }
 		public Features.Feature FinishPointOrGate { get; set; }
+		public Features.Feature ElapsedTimePointOrGate { get; set; }
 		public List<Features.PointFeature> Turnpoints { get; set; }
 		public List<Features.GateFeature> HiddenGates { get; set; }
 

@@ -7,7 +7,7 @@ namespace ColinBaker.Pesto.Services
 {
     class CompetitionRepository
     {
-        private const decimal m_currentFileVersion = 1.8M;
+        private const decimal m_currentFileVersion = 1.9M;
 		private const int m_maxRecentCompetitions = 5;
 
         public CompetitionRepository(string filePath)
@@ -377,6 +377,12 @@ namespace ColinBaker.Pesto.Services
 					task.FinishPointOrGate = ExtractTaskFeature(finishPointOrGateNode.FirstChild, competition);
 				}
 
+				XmlNode elapsedTimePointOrGateNode = taskNode.SelectSingleNode("ElapsedTimePointOrGate");
+				if (elapsedTimePointOrGateNode != null)
+				{
+					task.ElapsedTimePointOrGate = ExtractTaskFeature(elapsedTimePointOrGateNode.FirstChild, competition);
+				}
+
 				foreach (XmlNode turnpointNode in taskNode.SelectNodes("Turnpoints/Point"))
 				{
 					task.Turnpoints.Add(ExtractTaskFeature(turnpointNode, competition) as Models.Features.PointFeature);
@@ -742,6 +748,14 @@ namespace ColinBaker.Pesto.Services
 					taskElement.AppendChild(finishPointOrGateElement);
 
 					InsertTaskFeature(task.FinishPointOrGate, finishPointOrGateElement);
+				}
+
+				if (task.ElapsedTimePointOrGate != null)
+				{
+					XmlElement elapsedTimePointOrGateElement = document.CreateElement("ElapsedTimePointOrGate");
+					taskElement.AppendChild(elapsedTimePointOrGateElement);
+
+					InsertTaskFeature(task.ElapsedTimePointOrGate, elapsedTimePointOrGateElement);
 				}
 
 				if (task.Turnpoints.Count > 0)

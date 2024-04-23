@@ -842,14 +842,17 @@ namespace ColinBaker.Pesto.Services
 
                     switch (reminderNode.SelectSingleNode("Status").InnerText)
                     {
-                        case "O":
+						case "P":
+							status = Models.Results.TaskResults.ResultsStatus.Provisional;
+							break;
+						case "O":
                             status = Models.Results.TaskResults.ResultsStatus.Official;
                             break;
                         case "F":
                             status = Models.Results.TaskResults.ResultsStatus.Final;
                             break;
                         default:
-                            status = Models.Results.TaskResults.ResultsStatus.Provisional;
+                            status = Models.Results.TaskResults.ResultsStatus.Interim;
                             break;
                     }
 
@@ -952,7 +955,10 @@ namespace ColinBaker.Pesto.Services
 
             switch (resultsNode.SelectSingleNode("Status").InnerText)
             {
-                case "O":
+				case "P":
+					results.Status = Models.Results.TaskResults.ResultsStatus.Provisional;
+					break;
+				case "O":
                     results.Status = Models.Results.TaskResults.ResultsStatus.Official;
                     break;
                 case "F":
@@ -962,7 +968,7 @@ namespace ColinBaker.Pesto.Services
                     results.Status = Models.Results.TaskResults.ResultsStatus.Cancelled;
                     break;
                 default:
-                    results.Status = Models.Results.TaskResults.ResultsStatus.Provisional;
+                    results.Status = Models.Results.TaskResults.ResultsStatus.Interim;
                     break;
             }
 
@@ -1042,7 +1048,10 @@ namespace ColinBaker.Pesto.Services
             element = document.CreateElement("Status");
             switch (results.Status)
             {
-                case Models.Results.TaskResults.ResultsStatus.Provisional:
+				case Models.Results.TaskResults.ResultsStatus.Interim:
+					element.InnerText = "I";
+					break;
+				case Models.Results.TaskResults.ResultsStatus.Provisional:
                     element.InnerText = "P";
                     break;
                 case Models.Results.TaskResults.ResultsStatus.Official:

@@ -40,6 +40,7 @@ namespace ColinBaker.Pesto.UI.Results
 
         private void PopulateResultsStatuses()
         {
+			statusComboBox.Items.Add(new ResultsStatusListItem(Models.Results.TaskResults.ResultsStatus.Interim));
 			statusComboBox.Items.Add(new ResultsStatusListItem(Models.Results.TaskResults.ResultsStatus.Provisional));
 			statusComboBox.Items.Add(new ResultsStatusListItem(Models.Results.TaskResults.ResultsStatus.Official));
 			statusComboBox.Items.Add(new ResultsStatusListItem(Models.Results.TaskResults.ResultsStatus.Final));

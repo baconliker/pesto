@@ -90,6 +90,7 @@
                           <fo:table-cell padding="0.5mm" border="1px solid black">
                             <fo:block>
                               <xsl:choose>
+                                <xsl:when test="/Boris/Results/Status = 'I'">Interim</xsl:when>
                                 <xsl:when test="/Boris/Results/Status = 'P'">Provisional</xsl:when>
                                 <xsl:when test="/Boris/Results/Status = 'O'">Official</xsl:when>
                                 <xsl:when test="/Boris/Results/Status = 'F'">Final</xsl:when>

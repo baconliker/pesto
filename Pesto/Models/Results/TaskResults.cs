@@ -11,6 +11,7 @@ namespace ColinBaker.Pesto.Models.Results
     {
         public enum ResultsStatus
         {
+			Interim,
             Provisional,
             Official,
             Final,
@@ -31,7 +32,7 @@ namespace ColinBaker.Pesto.Models.Results
             this.Task = task;
             this.AircraftClass = aircraftClass;
 
-            this.Status = ResultsStatus.Provisional;
+            this.Status = ResultsStatus.Interim;
 		}
 
 		public override void Generate(ResultsGenerationOptions options)
@@ -170,6 +171,8 @@ namespace ColinBaker.Pesto.Models.Results
 		{
 			switch (status)
 			{
+				case ResultsStatus.Interim:
+					return "Interim";
 				case ResultsStatus.Provisional:
 					return "Provisional";
 				case ResultsStatus.Official:

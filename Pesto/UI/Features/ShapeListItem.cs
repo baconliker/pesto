@@ -22,6 +22,8 @@ namespace ColinBaker.Pesto.UI.Features
                     return "Line";
                 case Models.Features.Shape.ShapeType.Polygon:
                     return "Polygon";
+                case Models.Features.Shape.ShapeType.Point:
+                    return "Point";
                 default:
                     return base.ToString();
             }

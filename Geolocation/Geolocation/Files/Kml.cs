@@ -27,8 +27,9 @@ namespace ColinBaker.Geolocation.Files
             this.Lines = new System.Collections.ObjectModel.Collection<Line>();
             this.Polygons = new System.Collections.ObjectModel.Collection<Polygon>();
             this.Labels = new System.Collections.ObjectModel.Collection<Label>();
+			this.Icons = new System.Collections.ObjectModel.Collection<Icon>();
 
-            XmlDocument document = new XmlDocument();
+			XmlDocument document = new XmlDocument();
 
             document.Load(filePath);
 
@@ -89,7 +90,8 @@ namespace ColinBaker.Geolocation.Files
 			this.Lines = new System.Collections.ObjectModel.Collection<Line>();
             this.Polygons = new System.Collections.ObjectModel.Collection<Polygon>();
             this.Labels = new System.Collections.ObjectModel.Collection<Label>();
-        }
+			this.Icons = new System.Collections.ObjectModel.Collection<Icon>();
+		}
 
 		public void Save(string filePath, KmlSaveOptions options)
 		{
@@ -435,7 +437,7 @@ namespace ColinBaker.Geolocation.Files
 
 			// Features
 
-			if ((this.Cylinders.Count + this.Lines.Count + this.Polygons.Count) > 0)
+			if ((this.Cylinders.Count + this.Lines.Count + this.Polygons.Count + this.Icons.Count) > 0)
 			{
 				XmlElement featuresFolderElement = document.CreateElement("Folder", m_kmlNamespaceUri);
 				documentElement.AppendChild(featuresFolderElement);
@@ -884,6 +886,59 @@ namespace ColinBaker.Geolocation.Files
                         cylinderLineLineStringElement.AppendChild(element);
                     }
                 }
+
+				foreach (Icon icon in this.Icons)
+				{
+					XmlElement iconFolderElement = document.CreateElement("Folder", m_kmlNamespaceUri);
+					featuresFolderElement.AppendChild(iconFolderElement);
+
+					element = document.CreateElement("name", m_kmlNamespaceUri);
+					element.InnerText = icon.Name;
+					iconFolderElement.AppendChild(element);
+
+					// Feature icon
+
+					XmlElement iconPlacemarkElement = document.CreateElement("Placemark", m_kmlNamespaceUri);
+					iconFolderElement.AppendChild(iconPlacemarkElement);
+
+					element = document.CreateElement("name", m_kmlNamespaceUri);
+					element.InnerText = icon.Name;
+					iconPlacemarkElement.AppendChild(element);
+
+					XmlElement styleElement = document.CreateElement("Style", m_kmlNamespaceUri);
+					iconPlacemarkElement.AppendChild(styleElement);
+
+					XmlElement iconStyleElement = document.CreateElement("IconStyle", m_kmlNamespaceUri);
+					styleElement.AppendChild(iconStyleElement);
+
+					XmlElement iconElement = document.CreateElement("Icon", m_kmlNamespaceUri);
+					iconStyleElement.AppendChild(iconElement);
+
+					element = document.CreateElement("href", m_kmlNamespaceUri);
+					element.InnerText = icon.IconUri;
+					iconElement.AppendChild(element);
+
+					XmlElement hotSpotElement = document.CreateElement("hotSpot", m_kmlNamespaceUri);
+					hotSpotElement.SetAttribute("x", "0.5");
+					hotSpotElement.SetAttribute("xunits", "fraction");
+					hotSpotElement.SetAttribute("y", "0");
+					hotSpotElement.SetAttribute("yunits", "fraction");
+					iconStyleElement.AppendChild(hotSpotElement);
+
+					XmlElement pointElement = document.CreateElement("Point", m_kmlNamespaceUri);
+					iconPlacemarkElement.AppendChild(pointElement);
+
+					StringBuilder coordinates = new StringBuilder();
+
+					coordinates.Append(icon.Location.Longitude.ToString(m_latLonFormat, System.Globalization.CultureInfo.InvariantCulture));
+					coordinates.Append(",");
+					coordinates.Append(icon.Location.Latitude.ToString(m_latLonFormat, System.Globalization.CultureInfo.InvariantCulture));
+					coordinates.Append(",0");
+
+					element = document.CreateElement("coordinates", m_kmlNamespaceUri);
+					element.InnerText = coordinates.ToString();
+					pointElement.AppendChild(element);
+				}
             }
 
             document.Save(filePath.Replace("/", ""));
@@ -900,6 +955,7 @@ namespace ColinBaker.Geolocation.Files
 		public System.Collections.ObjectModel.Collection<Line> Lines { get; set; }
         public System.Collections.ObjectModel.Collection<Polygon> Polygons { get; set; }
 		public System.Collections.ObjectModel.Collection<Label> Labels { get; set; }
+		public System.Collections.ObjectModel.Collection<Icon> Icons { get; set; }
 
 		internal static string[] FileExtensions
 		{

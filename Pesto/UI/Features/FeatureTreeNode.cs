@@ -14,6 +14,7 @@ namespace ColinBaker.Pesto.UI.Features
 			DecksGroup,
 			PointsGroup,
 			GatesGroup,
+			PointsOfInterestGroup,
 			Feature
 		}
 
@@ -54,6 +55,9 @@ namespace ColinBaker.Pesto.UI.Features
 					break;
 				case FeatureTreeNodeType.GatesGroup:
 					text = "Gates";
+					break;
+				case FeatureTreeNodeType.PointsOfInterestGroup:
+					text = "Points Of Interest";
 					break;
 				case FeatureTreeNodeType.Feature:
 					text = feature.Name;

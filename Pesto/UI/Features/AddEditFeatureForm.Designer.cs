@@ -74,10 +74,16 @@
 			this.lowerAltitudeTextBox = new System.Windows.Forms.TextBox();
 			this.lowerAltitudeLabel = new System.Windows.Forms.Label();
 			this.featureMap = new ColinBaker.Pesto.UI.Map();
+			this.pointGroupBox = new System.Windows.Forms.GroupBox();
+			this.pointLongitudeTextBox = new System.Windows.Forms.TextBox();
+			this.pointLongitudeLabel = new System.Windows.Forms.Label();
+			this.pointLatitudeTextBox = new System.Windows.Forms.TextBox();
+			this.pointLatitudeLabel = new System.Windows.Forms.Label();
 			this.circleGroupBox.SuspendLayout();
 			this.lineGroupBox.SuspendLayout();
 			this.polygonGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.polygonDataGridView)).BeginInit();
+			this.pointGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// featureRibbon
@@ -85,7 +91,7 @@
 			this.featureRibbon.CaptionBarVisible = false;
 			this.featureRibbon.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.featureRibbon.Location = new System.Drawing.Point(0, 0);
-			this.featureRibbon.Margin = new System.Windows.Forms.Padding(2);
+			this.featureRibbon.Margin = new System.Windows.Forms.Padding(4);
 			this.featureRibbon.Minimized = false;
 			this.featureRibbon.Name = "featureRibbon";
 			// 
@@ -99,7 +105,7 @@
 			this.featureRibbon.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2013;
 			this.featureRibbon.OrbVisible = false;
 			this.featureRibbon.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 9F);
-			this.featureRibbon.Size = new System.Drawing.Size(774, 121);
+			this.featureRibbon.Size = new System.Drawing.Size(1548, 200);
 			this.featureRibbon.TabIndex = 10;
 			this.featureRibbon.Tabs.Add(this.featureRibbonTab);
 			this.featureRibbon.Tabs.Add(this.viewRibbonTab);
@@ -231,28 +237,28 @@
 			// nameLabel
 			// 
 			this.nameLabel.AutoSize = true;
-			this.nameLabel.Location = new System.Drawing.Point(8, 129);
-			this.nameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.nameLabel.Location = new System.Drawing.Point(16, 248);
+			this.nameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.nameLabel.Name = "nameLabel";
-			this.nameLabel.Size = new System.Drawing.Size(38, 13);
+			this.nameLabel.Size = new System.Drawing.Size(74, 25);
 			this.nameLabel.TabIndex = 0;
 			this.nameLabel.Text = "Name:";
 			// 
 			// nameTextBox
 			// 
-			this.nameTextBox.Location = new System.Drawing.Point(11, 144);
-			this.nameTextBox.Margin = new System.Windows.Forms.Padding(2);
+			this.nameTextBox.Location = new System.Drawing.Point(22, 277);
+			this.nameTextBox.Margin = new System.Windows.Forms.Padding(4);
 			this.nameTextBox.Name = "nameTextBox";
-			this.nameTextBox.Size = new System.Drawing.Size(263, 20);
+			this.nameTextBox.Size = new System.Drawing.Size(522, 31);
 			this.nameTextBox.TabIndex = 1;
 			// 
 			// shapeLabel
 			// 
 			this.shapeLabel.AutoSize = true;
-			this.shapeLabel.Location = new System.Drawing.Point(8, 172);
-			this.shapeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.shapeLabel.Location = new System.Drawing.Point(16, 331);
+			this.shapeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.shapeLabel.Name = "shapeLabel";
-			this.shapeLabel.Size = new System.Drawing.Size(41, 13);
+			this.shapeLabel.Size = new System.Drawing.Size(80, 25);
 			this.shapeLabel.TabIndex = 2;
 			this.shapeLabel.Text = "Shape:";
 			// 
@@ -260,10 +266,10 @@
 			// 
 			this.shapeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.shapeComboBox.FormattingEnabled = true;
-			this.shapeComboBox.Location = new System.Drawing.Point(11, 187);
-			this.shapeComboBox.Margin = new System.Windows.Forms.Padding(2);
+			this.shapeComboBox.Location = new System.Drawing.Point(22, 360);
+			this.shapeComboBox.Margin = new System.Windows.Forms.Padding(4);
 			this.shapeComboBox.Name = "shapeComboBox";
-			this.shapeComboBox.Size = new System.Drawing.Size(263, 21);
+			this.shapeComboBox.Size = new System.Drawing.Size(522, 33);
 			this.shapeComboBox.TabIndex = 3;
 			this.shapeComboBox.SelectedIndexChanged += new System.EventHandler(this.shapeComboBox_SelectedIndexChanged);
 			// 
@@ -275,11 +281,11 @@
 			this.circleGroupBox.Controls.Add(this.circleLongitudeLabel);
 			this.circleGroupBox.Controls.Add(this.circleLatitudeTextBox);
 			this.circleGroupBox.Controls.Add(this.circleLatitudeLabel);
-			this.circleGroupBox.Location = new System.Drawing.Point(11, 216);
-			this.circleGroupBox.Margin = new System.Windows.Forms.Padding(2);
+			this.circleGroupBox.Location = new System.Drawing.Point(22, 415);
+			this.circleGroupBox.Margin = new System.Windows.Forms.Padding(4);
 			this.circleGroupBox.Name = "circleGroupBox";
-			this.circleGroupBox.Padding = new System.Windows.Forms.Padding(2);
-			this.circleGroupBox.Size = new System.Drawing.Size(262, 205);
+			this.circleGroupBox.Padding = new System.Windows.Forms.Padding(4);
+			this.circleGroupBox.Size = new System.Drawing.Size(524, 394);
 			this.circleGroupBox.TabIndex = 4;
 			this.circleGroupBox.TabStop = false;
 			this.circleGroupBox.Text = "Circle properties";
@@ -287,52 +293,58 @@
 			// 
 			// circleRadiusTextBox
 			// 
-			this.circleRadiusTextBox.Location = new System.Drawing.Point(8, 129);
+			this.circleRadiusTextBox.Location = new System.Drawing.Point(16, 248);
+			this.circleRadiusTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.circleRadiusTextBox.Name = "circleRadiusTextBox";
-			this.circleRadiusTextBox.Size = new System.Drawing.Size(60, 20);
+			this.circleRadiusTextBox.Size = new System.Drawing.Size(116, 31);
 			this.circleRadiusTextBox.TabIndex = 5;
 			this.circleRadiusTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.circleRadiusTextBox_Validating);
 			// 
 			// circleRadiusLabel
 			// 
 			this.circleRadiusLabel.AutoSize = true;
-			this.circleRadiusLabel.Location = new System.Drawing.Point(5, 114);
+			this.circleRadiusLabel.Location = new System.Drawing.Point(10, 219);
+			this.circleRadiusLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.circleRadiusLabel.Name = "circleRadiusLabel";
-			this.circleRadiusLabel.Size = new System.Drawing.Size(83, 13);
+			this.circleRadiusLabel.Size = new System.Drawing.Size(170, 25);
 			this.circleRadiusLabel.TabIndex = 4;
 			this.circleRadiusLabel.Text = "Radius (metres):";
 			// 
 			// circleLongitudeTextBox
 			// 
-			this.circleLongitudeTextBox.Location = new System.Drawing.Point(8, 85);
+			this.circleLongitudeTextBox.Location = new System.Drawing.Point(16, 163);
+			this.circleLongitudeTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.circleLongitudeTextBox.Name = "circleLongitudeTextBox";
-			this.circleLongitudeTextBox.Size = new System.Drawing.Size(94, 20);
+			this.circleLongitudeTextBox.Size = new System.Drawing.Size(184, 31);
 			this.circleLongitudeTextBox.TabIndex = 3;
 			this.circleLongitudeTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.circleLongitudeTextBox_Validating);
 			// 
 			// circleLongitudeLabel
 			// 
 			this.circleLongitudeLabel.AutoSize = true;
-			this.circleLongitudeLabel.Location = new System.Drawing.Point(5, 70);
+			this.circleLongitudeLabel.Location = new System.Drawing.Point(10, 135);
+			this.circleLongitudeLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.circleLongitudeLabel.Name = "circleLongitudeLabel";
-			this.circleLongitudeLabel.Size = new System.Drawing.Size(143, 13);
+			this.circleLongitudeLabel.Size = new System.Drawing.Size(291, 25);
 			this.circleLongitudeLabel.TabIndex = 2;
 			this.circleLongitudeLabel.Text = "Longitude (decimal degrees):";
 			// 
 			// circleLatitudeTextBox
 			// 
-			this.circleLatitudeTextBox.Location = new System.Drawing.Point(8, 42);
+			this.circleLatitudeTextBox.Location = new System.Drawing.Point(16, 81);
+			this.circleLatitudeTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.circleLatitudeTextBox.Name = "circleLatitudeTextBox";
-			this.circleLatitudeTextBox.Size = new System.Drawing.Size(94, 20);
+			this.circleLatitudeTextBox.Size = new System.Drawing.Size(184, 31);
 			this.circleLatitudeTextBox.TabIndex = 1;
 			this.circleLatitudeTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.circleLatitudeTextBox_Validating);
 			// 
 			// circleLatitudeLabel
 			// 
 			this.circleLatitudeLabel.AutoSize = true;
-			this.circleLatitudeLabel.Location = new System.Drawing.Point(5, 25);
+			this.circleLatitudeLabel.Location = new System.Drawing.Point(10, 48);
+			this.circleLatitudeLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.circleLatitudeLabel.Name = "circleLatitudeLabel";
-			this.circleLatitudeLabel.Size = new System.Drawing.Size(134, 13);
+			this.circleLatitudeLabel.Size = new System.Drawing.Size(273, 25);
 			this.circleLatitudeLabel.TabIndex = 0;
 			this.circleLatitudeLabel.Text = "Latitude (decimal degrees):";
 			// 
@@ -347,11 +359,11 @@
 			this.lineGroupBox.Controls.Add(this.lineLongitudeLabel);
 			this.lineGroupBox.Controls.Add(this.lineLatitudeTextBox);
 			this.lineGroupBox.Controls.Add(this.lineLatitudeLabel);
-			this.lineGroupBox.Location = new System.Drawing.Point(11, 216);
-			this.lineGroupBox.Margin = new System.Windows.Forms.Padding(2);
+			this.lineGroupBox.Location = new System.Drawing.Point(22, 415);
+			this.lineGroupBox.Margin = new System.Windows.Forms.Padding(4);
 			this.lineGroupBox.Name = "lineGroupBox";
-			this.lineGroupBox.Padding = new System.Windows.Forms.Padding(2);
-			this.lineGroupBox.Size = new System.Drawing.Size(262, 205);
+			this.lineGroupBox.Padding = new System.Windows.Forms.Padding(4);
+			this.lineGroupBox.Size = new System.Drawing.Size(524, 394);
 			this.lineGroupBox.TabIndex = 5;
 			this.lineGroupBox.TabStop = false;
 			this.lineGroupBox.Text = "Line properties";
@@ -364,88 +376,97 @@
 			this.lineBearingTypeComboBox.Items.AddRange(new object[] {
             "Default (clockwise from north)",
             "Adobe (anti-clockwise from east)"});
-			this.lineBearingTypeComboBox.Location = new System.Drawing.Point(75, 173);
+			this.lineBearingTypeComboBox.Location = new System.Drawing.Point(150, 333);
+			this.lineBearingTypeComboBox.Margin = new System.Windows.Forms.Padding(6);
 			this.lineBearingTypeComboBox.Name = "lineBearingTypeComboBox";
-			this.lineBearingTypeComboBox.Size = new System.Drawing.Size(180, 21);
+			this.lineBearingTypeComboBox.Size = new System.Drawing.Size(356, 33);
 			this.lineBearingTypeComboBox.TabIndex = 8;
 			this.lineBearingTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.lineBearingTypeComboBox_SelectedIndexChanged);
 			// 
 			// lineBearingLabel
 			// 
 			this.lineBearingLabel.AutoSize = true;
-			this.lineBearingLabel.Location = new System.Drawing.Point(6, 157);
+			this.lineBearingLabel.Location = new System.Drawing.Point(12, 302);
+			this.lineBearingLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.lineBearingLabel.Name = "lineBearingLabel";
-			this.lineBearingLabel.Size = new System.Drawing.Size(93, 13);
+			this.lineBearingLabel.Size = new System.Drawing.Size(190, 25);
 			this.lineBearingLabel.TabIndex = 6;
 			this.lineBearingLabel.Text = "Bearing (degrees):";
 			// 
 			// lineBearingTextBox
 			// 
-			this.lineBearingTextBox.Location = new System.Drawing.Point(9, 174);
+			this.lineBearingTextBox.Location = new System.Drawing.Point(18, 335);
+			this.lineBearingTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.lineBearingTextBox.Name = "lineBearingTextBox";
-			this.lineBearingTextBox.Size = new System.Drawing.Size(60, 20);
+			this.lineBearingTextBox.Size = new System.Drawing.Size(116, 31);
 			this.lineBearingTextBox.TabIndex = 7;
 			this.lineBearingTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.lineBearingTextBox_Validating);
 			// 
 			// lineWidthTextBox
 			// 
-			this.lineWidthTextBox.Location = new System.Drawing.Point(9, 129);
+			this.lineWidthTextBox.Location = new System.Drawing.Point(18, 248);
+			this.lineWidthTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.lineWidthTextBox.Name = "lineWidthTextBox";
-			this.lineWidthTextBox.Size = new System.Drawing.Size(60, 20);
+			this.lineWidthTextBox.Size = new System.Drawing.Size(116, 31);
 			this.lineWidthTextBox.TabIndex = 5;
 			this.lineWidthTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.lineWidthTextBox_Validating);
 			// 
 			// lineWidthLabel
 			// 
 			this.lineWidthLabel.AutoSize = true;
-			this.lineWidthLabel.Location = new System.Drawing.Point(5, 114);
+			this.lineWidthLabel.Location = new System.Drawing.Point(10, 219);
+			this.lineWidthLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.lineWidthLabel.Name = "lineWidthLabel";
-			this.lineWidthLabel.Size = new System.Drawing.Size(78, 13);
+			this.lineWidthLabel.Size = new System.Drawing.Size(158, 25);
 			this.lineWidthLabel.TabIndex = 4;
 			this.lineWidthLabel.Text = "Width (metres):";
 			// 
 			// lineLongitudeTextBox
 			// 
-			this.lineLongitudeTextBox.Location = new System.Drawing.Point(9, 85);
+			this.lineLongitudeTextBox.Location = new System.Drawing.Point(18, 163);
+			this.lineLongitudeTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.lineLongitudeTextBox.Name = "lineLongitudeTextBox";
-			this.lineLongitudeTextBox.Size = new System.Drawing.Size(94, 20);
+			this.lineLongitudeTextBox.Size = new System.Drawing.Size(184, 31);
 			this.lineLongitudeTextBox.TabIndex = 3;
 			this.lineLongitudeTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.lineLongitudeTextBox_Validating);
 			// 
 			// lineLongitudeLabel
 			// 
 			this.lineLongitudeLabel.AutoSize = true;
-			this.lineLongitudeLabel.Location = new System.Drawing.Point(5, 70);
+			this.lineLongitudeLabel.Location = new System.Drawing.Point(10, 135);
+			this.lineLongitudeLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.lineLongitudeLabel.Name = "lineLongitudeLabel";
-			this.lineLongitudeLabel.Size = new System.Drawing.Size(143, 13);
+			this.lineLongitudeLabel.Size = new System.Drawing.Size(291, 25);
 			this.lineLongitudeLabel.TabIndex = 2;
 			this.lineLongitudeLabel.Text = "Longitude (decimal degrees):";
 			// 
 			// lineLatitudeTextBox
 			// 
-			this.lineLatitudeTextBox.Location = new System.Drawing.Point(9, 42);
+			this.lineLatitudeTextBox.Location = new System.Drawing.Point(18, 81);
+			this.lineLatitudeTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.lineLatitudeTextBox.Name = "lineLatitudeTextBox";
-			this.lineLatitudeTextBox.Size = new System.Drawing.Size(94, 20);
+			this.lineLatitudeTextBox.Size = new System.Drawing.Size(184, 31);
 			this.lineLatitudeTextBox.TabIndex = 1;
 			this.lineLatitudeTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.lineLatitudeTextBox_Validating);
 			// 
 			// lineLatitudeLabel
 			// 
 			this.lineLatitudeLabel.AutoSize = true;
-			this.lineLatitudeLabel.Location = new System.Drawing.Point(5, 25);
+			this.lineLatitudeLabel.Location = new System.Drawing.Point(10, 48);
+			this.lineLatitudeLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.lineLatitudeLabel.Name = "lineLatitudeLabel";
-			this.lineLatitudeLabel.Size = new System.Drawing.Size(134, 13);
+			this.lineLatitudeLabel.Size = new System.Drawing.Size(273, 25);
 			this.lineLatitudeLabel.TabIndex = 0;
 			this.lineLatitudeLabel.Text = "Latitude (decimal degrees):";
 			// 
 			// polygonGroupBox
 			// 
 			this.polygonGroupBox.Controls.Add(this.polygonDataGridView);
-			this.polygonGroupBox.Location = new System.Drawing.Point(11, 216);
-			this.polygonGroupBox.Margin = new System.Windows.Forms.Padding(2);
+			this.polygonGroupBox.Location = new System.Drawing.Point(22, 415);
+			this.polygonGroupBox.Margin = new System.Windows.Forms.Padding(4);
 			this.polygonGroupBox.Name = "polygonGroupBox";
-			this.polygonGroupBox.Padding = new System.Windows.Forms.Padding(2);
-			this.polygonGroupBox.Size = new System.Drawing.Size(262, 205);
+			this.polygonGroupBox.Padding = new System.Windows.Forms.Padding(4);
+			this.polygonGroupBox.Size = new System.Drawing.Size(524, 394);
 			this.polygonGroupBox.TabIndex = 11;
 			this.polygonGroupBox.TabStop = false;
 			this.polygonGroupBox.Text = "Polygon";
@@ -468,68 +489,72 @@
             this.No,
             this.Latitude,
             this.Longitude});
-			this.polygonDataGridView.Location = new System.Drawing.Point(11, 20);
-			this.polygonDataGridView.Margin = new System.Windows.Forms.Padding(2);
+			this.polygonDataGridView.Location = new System.Drawing.Point(22, 38);
+			this.polygonDataGridView.Margin = new System.Windows.Forms.Padding(4);
 			this.polygonDataGridView.MultiSelect = false;
 			this.polygonDataGridView.Name = "polygonDataGridView";
 			this.polygonDataGridView.RowHeadersVisible = false;
+			this.polygonDataGridView.RowHeadersWidth = 82;
 			this.polygonDataGridView.RowTemplate.Height = 28;
 			this.polygonDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.polygonDataGridView.Size = new System.Drawing.Size(239, 170);
+			this.polygonDataGridView.Size = new System.Drawing.Size(478, 327);
 			this.polygonDataGridView.TabIndex = 0;
 			this.polygonDataGridView.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.polygonDataGridView_CellValidating);
 			// 
 			// No
 			// 
 			this.No.HeaderText = "No";
+			this.No.MinimumWidth = 10;
 			this.No.Name = "No";
 			this.No.ReadOnly = true;
 			// 
 			// Latitude
 			// 
 			this.Latitude.HeaderText = "Latitude";
+			this.Latitude.MinimumWidth = 10;
 			this.Latitude.Name = "Latitude";
 			// 
 			// Longitude
 			// 
 			this.Longitude.HeaderText = "Longitude";
+			this.Longitude.MinimumWidth = 10;
 			this.Longitude.Name = "Longitude";
 			// 
 			// upperAltitudeTextBox
 			// 
-			this.upperAltitudeTextBox.Location = new System.Drawing.Point(11, 490);
-			this.upperAltitudeTextBox.Margin = new System.Windows.Forms.Padding(2);
+			this.upperAltitudeTextBox.Location = new System.Drawing.Point(22, 942);
+			this.upperAltitudeTextBox.Margin = new System.Windows.Forms.Padding(4);
 			this.upperAltitudeTextBox.Name = "upperAltitudeTextBox";
-			this.upperAltitudeTextBox.Size = new System.Drawing.Size(61, 20);
+			this.upperAltitudeTextBox.Size = new System.Drawing.Size(118, 31);
 			this.upperAltitudeTextBox.TabIndex = 8;
 			this.upperAltitudeTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.upperAltitudeTextBox_Validating);
 			// 
 			// upperAltitudeLabel
 			// 
 			this.upperAltitudeLabel.AutoSize = true;
-			this.upperAltitudeLabel.Location = new System.Drawing.Point(8, 475);
-			this.upperAltitudeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.upperAltitudeLabel.Location = new System.Drawing.Point(16, 913);
+			this.upperAltitudeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.upperAltitudeLabel.Name = "upperAltitudeLabel";
-			this.upperAltitudeLabel.Size = new System.Drawing.Size(228, 13);
+			this.upperAltitudeLabel.Size = new System.Drawing.Size(466, 25);
 			this.upperAltitudeLabel.TabIndex = 7;
 			this.upperAltitudeLabel.Text = "Upper Altitude (metres, leave blank for no limit):";
 			// 
 			// lowerAltitudeTextBox
 			// 
-			this.lowerAltitudeTextBox.Location = new System.Drawing.Point(11, 447);
-			this.lowerAltitudeTextBox.Margin = new System.Windows.Forms.Padding(2);
+			this.lowerAltitudeTextBox.Location = new System.Drawing.Point(22, 860);
+			this.lowerAltitudeTextBox.Margin = new System.Windows.Forms.Padding(4);
 			this.lowerAltitudeTextBox.Name = "lowerAltitudeTextBox";
-			this.lowerAltitudeTextBox.Size = new System.Drawing.Size(61, 20);
+			this.lowerAltitudeTextBox.Size = new System.Drawing.Size(118, 31);
 			this.lowerAltitudeTextBox.TabIndex = 6;
 			this.lowerAltitudeTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.lowerAltitudeTextBox_Validating);
 			// 
 			// lowerAltitudeLabel
 			// 
 			this.lowerAltitudeLabel.AutoSize = true;
-			this.lowerAltitudeLabel.Location = new System.Drawing.Point(8, 432);
-			this.lowerAltitudeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.lowerAltitudeLabel.Location = new System.Drawing.Point(16, 831);
+			this.lowerAltitudeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.lowerAltitudeLabel.Name = "lowerAltitudeLabel";
-			this.lowerAltitudeLabel.Size = new System.Drawing.Size(254, 13);
+			this.lowerAltitudeLabel.Size = new System.Drawing.Size(516, 25);
 			this.lowerAltitudeLabel.TabIndex = 5;
 			this.lowerAltitudeLabel.Text = "Lower Altitude (metres, leave blank for ground level):";
 			// 
@@ -538,18 +563,72 @@
 			this.featureMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.featureMap.Location = new System.Drawing.Point(286, 120);
+			this.featureMap.Location = new System.Drawing.Point(572, 231);
+			this.featureMap.Margin = new System.Windows.Forms.Padding(12);
 			this.featureMap.Name = "featureMap";
-			this.featureMap.Size = new System.Drawing.Size(488, 396);
+			this.featureMap.Size = new System.Drawing.Size(976, 762);
 			this.featureMap.TabIndex = 9;
 			this.featureMap.MapInitialized += new System.EventHandler(this.featureMap_MapInitialized);
 			this.featureMap.MapClicked += new System.EventHandler<ColinBaker.Pesto.UI.MapClickedEventArgs>(this.featureMap_MapClicked);
 			// 
+			// pointGroupBox
+			// 
+			this.pointGroupBox.Controls.Add(this.pointLongitudeTextBox);
+			this.pointGroupBox.Controls.Add(this.pointLongitudeLabel);
+			this.pointGroupBox.Controls.Add(this.pointLatitudeTextBox);
+			this.pointGroupBox.Controls.Add(this.pointLatitudeLabel);
+			this.pointGroupBox.Location = new System.Drawing.Point(22, 415);
+			this.pointGroupBox.Name = "pointGroupBox";
+			this.pointGroupBox.Size = new System.Drawing.Size(524, 394);
+			this.pointGroupBox.TabIndex = 12;
+			this.pointGroupBox.TabStop = false;
+			this.pointGroupBox.Text = "Point";
+			this.pointGroupBox.Visible = false;
+			// 
+			// pointLongitudeTextBox
+			// 
+			this.pointLongitudeTextBox.Location = new System.Drawing.Point(14, 160);
+			this.pointLongitudeTextBox.Margin = new System.Windows.Forms.Padding(6);
+			this.pointLongitudeTextBox.Name = "pointLongitudeTextBox";
+			this.pointLongitudeTextBox.Size = new System.Drawing.Size(184, 31);
+			this.pointLongitudeTextBox.TabIndex = 7;
+			this.pointLongitudeTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.pointLongitudeTextBox_Validating);
+			// 
+			// pointLongitudeLabel
+			// 
+			this.pointLongitudeLabel.AutoSize = true;
+			this.pointLongitudeLabel.Location = new System.Drawing.Point(8, 132);
+			this.pointLongitudeLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.pointLongitudeLabel.Name = "pointLongitudeLabel";
+			this.pointLongitudeLabel.Size = new System.Drawing.Size(291, 25);
+			this.pointLongitudeLabel.TabIndex = 6;
+			this.pointLongitudeLabel.Text = "Longitude (decimal degrees):";
+			// 
+			// pointLatitudeTextBox
+			// 
+			this.pointLatitudeTextBox.Location = new System.Drawing.Point(14, 78);
+			this.pointLatitudeTextBox.Margin = new System.Windows.Forms.Padding(6);
+			this.pointLatitudeTextBox.Name = "pointLatitudeTextBox";
+			this.pointLatitudeTextBox.Size = new System.Drawing.Size(184, 31);
+			this.pointLatitudeTextBox.TabIndex = 5;
+			this.pointLatitudeTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.pointLatitudeTextBox_Validating);
+			// 
+			// pointLatitudeLabel
+			// 
+			this.pointLatitudeLabel.AutoSize = true;
+			this.pointLatitudeLabel.Location = new System.Drawing.Point(8, 45);
+			this.pointLatitudeLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.pointLatitudeLabel.Name = "pointLatitudeLabel";
+			this.pointLatitudeLabel.Size = new System.Drawing.Size(273, 25);
+			this.pointLatitudeLabel.TabIndex = 4;
+			this.pointLatitudeLabel.Text = "Latitude (decimal degrees):";
+			// 
 			// AddEditFeatureForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(774, 517);
+			this.ClientSize = new System.Drawing.Size(1548, 994);
+			this.Controls.Add(this.pointGroupBox);
 			this.Controls.Add(this.upperAltitudeTextBox);
 			this.Controls.Add(this.upperAltitudeLabel);
 			this.Controls.Add(this.lowerAltitudeTextBox);
@@ -565,7 +644,7 @@
 			this.Controls.Add(this.lineGroupBox);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.KeyPreview = true;
-			this.Margin = new System.Windows.Forms.Padding(2);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "AddEditFeatureForm";
@@ -580,6 +659,8 @@
 			this.lineGroupBox.PerformLayout();
 			this.polygonGroupBox.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.polygonDataGridView)).EndInit();
+			this.pointGroupBox.ResumeLayout(false);
+			this.pointGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -632,5 +713,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Latitude;
         private System.Windows.Forms.DataGridViewTextBoxColumn Longitude;
 		private System.Windows.Forms.ComboBox lineBearingTypeComboBox;
+		private System.Windows.Forms.GroupBox pointGroupBox;
+		private System.Windows.Forms.TextBox pointLongitudeTextBox;
+		private System.Windows.Forms.Label pointLongitudeLabel;
+		private System.Windows.Forms.TextBox pointLatitudeTextBox;
+		private System.Windows.Forms.Label pointLatitudeLabel;
 	}
 }

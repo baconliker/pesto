@@ -104,7 +104,21 @@ namespace ColinBaker.Pesto.UI.Features
                     upperAltitudeTextBox.Enabled = false;
 
                     break;
-            }
+
+                case Models.Features.Feature.FeatureType.PointOfInterest:
+					this.Text = "New Point Of Interest";
+
+					if (useInitialMapLocationCoordinates && initialMapLocation != null)
+					{
+						pointLatitudeTextBox.Text = initialMapLocation.Latitude.ToString("#0.000000");
+						pointLongitudeTextBox.Text = initialMapLocation.Longitude.ToString("##0.000000");
+					}
+
+					lowerAltitudeTextBox.Enabled = false;
+					upperAltitudeTextBox.Enabled = false;
+
+					break;
+			}
 
             PopulateShapeTypes();
         }
@@ -241,7 +255,21 @@ namespace ColinBaker.Pesto.UI.Features
                     upperAltitudeTextBox.Enabled = false;
 
                     break;
-            }
+
+				case Models.Features.Feature.FeatureType.PointOfInterest:
+					this.Text = "Edit Point Of Interest";
+
+					Models.Features.PointOfInterestFeature poi = this.Feature as Models.Features.PointOfInterestFeature;
+                    Models.Features.Point poiShape = poi.Shape as Models.Features.Point;
+
+					pointLatitudeTextBox.Text = poiShape.Location.Latitude.ToString("#0.000000");
+					pointLongitudeTextBox.Text = poiShape.Location.Longitude.ToString("##0.000000");
+
+					lowerAltitudeTextBox.Enabled = false;
+					upperAltitudeTextBox.Enabled = false;
+
+					break;
+			}
 
             PopulateShapeTypes();
         }
@@ -329,6 +357,11 @@ namespace ColinBaker.Pesto.UI.Features
                     shapeComboBox.Items.Add(new ShapeListItem(Models.Features.Shape.ShapeType.Polygon));
                     SelectShapeType(Models.Features.Shape.ShapeType.Polygon);
                     break;
+
+                case Models.Features.Feature.FeatureType.PointOfInterest:
+					shapeComboBox.Items.Add(new ShapeListItem(Models.Features.Shape.ShapeType.Point));
+					SelectShapeType(Models.Features.Shape.ShapeType.Point);
+					break;
             }
 
             if (shapeComboBox.Items.Count == 1)
@@ -496,7 +529,19 @@ namespace ColinBaker.Pesto.UI.Features
                     }
 
                     break;
-            }
+
+                case Models.Features.Feature.FeatureType.PointOfInterest:
+					if (!string.IsNullOrWhiteSpace(pointLatitudeTextBox.Text) && !string.IsNullOrWhiteSpace(pointLongitudeTextBox.Text))
+					{
+						Models.Features.PointOfInterestFeature poi = new Models.Features.PointOfInterestFeature(nameTextBox.Text.Trim());
+
+						poi.Shape = new Models.Features.Point(new Geolocation.Location(decimal.Parse(pointLatitudeTextBox.Text), decimal.Parse(pointLongitudeTextBox.Text)));
+
+						feature = poi;
+					}
+
+					break;
+			}
 
             return feature;
         }
@@ -581,7 +626,24 @@ namespace ColinBaker.Pesto.UI.Features
                     }
 
                     break;
-            }
+
+                case Models.Features.Shape.ShapeType.Point:
+					if (String.IsNullOrWhiteSpace(pointLatitudeTextBox.Text))
+					{
+						MessageBox.Show("Please enter a latitude.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+						pointLatitudeTextBox.Focus();
+						return false;
+					}
+
+					if (String.IsNullOrWhiteSpace(pointLongitudeTextBox.Text))
+					{
+						MessageBox.Show("Please enter a valid longitude.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+						pointLongitudeTextBox.Focus();
+						return false;
+					}
+
+					break;
+			}
 
             if (m_type == Models.Features.Feature.FeatureType.Point || m_type == Models.Features.Feature.FeatureType.Gate || m_type == Models.Features.Feature.FeatureType.NoFlyZone)
             {
@@ -783,7 +845,14 @@ namespace ColinBaker.Pesto.UI.Features
                             existingDeck.Shape = deckPolygon;
 
                             break;
-                    }
+
+                        case Models.Features.Feature.FeatureType.PointOfInterest:
+							Models.Features.PointOfInterestFeature existingPoi = this.Feature as Models.Features.PointOfInterestFeature;
+
+							existingPoi.Shape = new Models.Features.Point(new Geolocation.Location(decimal.Parse(pointLatitudeTextBox.Text), decimal.Parse(pointLongitudeTextBox.Text)));
+
+							break;
+					}
                 }
 
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -802,6 +871,7 @@ namespace ColinBaker.Pesto.UI.Features
             circleGroupBox.Visible = false;
             lineGroupBox.Visible = false;
             polygonGroupBox.Visible = false;
+            pointGroupBox.Visible = false;
 
             switch ((shapeComboBox.SelectedItem as ShapeListItem).Type)
             {
@@ -816,7 +886,11 @@ namespace ColinBaker.Pesto.UI.Features
                 case Models.Features.Shape.ShapeType.Polygon:
                     polygonGroupBox.Visible = true;
                     break;
-            }
+
+				case Models.Features.Shape.ShapeType.Point:
+					pointGroupBox.Visible = true;
+					break;
+			}
 
             await ClearMapAsync();
             await ShowMapAsync();
@@ -881,7 +955,12 @@ namespace ColinBaker.Pesto.UI.Features
 				case Models.Features.Shape.ShapeType.Polygon:
                     AddPolygonVertex(new Geolocation.Location(e.Location.Latitude, e.Location.Longitude));
                     break;
-            }
+
+				case Models.Features.Shape.ShapeType.Point:
+					pointLatitudeTextBox.Text = e.Location.Latitude.ToString("#0.000000");
+					pointLongitudeTextBox.Text = e.Location.Longitude.ToString("##0.000000");
+					break;
+			}
 
             await ClearMapAsync();
             await ShowMapAsync();
@@ -1136,5 +1215,61 @@ namespace ColinBaker.Pesto.UI.Features
                 m_lineBearingType = (LineBearingType)lineBearingTypeComboBox.SelectedIndex;
             }
         }
+
+		private async void pointLatitudeTextBox_Validating(object sender, CancelEventArgs e)
+		{
+            e.Cancel = !await ValidateLatitude(pointLatitudeTextBox);
+		}
+
+		private async void pointLongitudeTextBox_Validating(object sender, CancelEventArgs e)
+		{
+			e.Cancel = !await ValidateLongitude(pointLongitudeTextBox);
+		}
+
+		private async Task<bool> ValidateLatitude(TextBox latitudeTextBox)
+        {
+			if (latitudeTextBox.Text.Length > 0)
+			{
+				if (!decimal.TryParse(latitudeTextBox.Text, out _))
+				{
+					MessageBox.Show("Please enter a valid latitude.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+				}
+				else
+				{
+					await ClearMapAsync();
+					await ShowMapAsync();
+				}
+			}
+			else
+			{
+				await ClearMapAsync();
+			}
+
+            return true;
+		}
+
+		private async Task<bool> ValidateLongitude(TextBox longitudeTextBox)
+        {
+			if (longitudeTextBox.Text.Length > 0)
+			{
+				if (!decimal.TryParse(longitudeTextBox.Text, out _))
+				{
+					MessageBox.Show("Please enter a valid longitude.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+				}
+				else
+				{
+					await ClearMapAsync();
+					await ShowMapAsync();
+				}
+			}
+			else
+			{
+				await ClearMapAsync();
+			}
+
+            return true;
+		}
 	}
 }

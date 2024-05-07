@@ -129,7 +129,12 @@ namespace ColinBaker.Pesto.Models.TrackAnalysis
 					kmlFile.Lines.Add(CreateLineFromGate(hiddenGate, "gateFeature", "gateFeatureExtrusion", maxAltitude));
                 }
 
-                foreach (Features.NoFlyZoneFeature nfz in task.NoFlyZones)
+				foreach (Features.PointOfInterestFeature poi in task.PointsOfInterest)
+				{
+					kmlFile.Icons.Add(CreatePointOfInterestIcon(poi, "https://maps.google.com/mapfiles/kml/paddle/ylw-blank.png"));
+				}
+
+				foreach (Features.NoFlyZoneFeature nfz in task.NoFlyZones)
                 {
                     switch (nfz.Shape.Type)
                     {
@@ -303,7 +308,12 @@ namespace ColinBaker.Pesto.Models.TrackAnalysis
 			return new Geolocation.Files.Line(gate.Name, from, to, gate.LowerAltitude, upperAltitude, styleName, extrusionStyleName);
 		}
 
-        private static Geolocation.Files.Polygon CreatePolygonFromNoFlyZone(Features.NoFlyZoneFeature nfz, string styleName, string extrusionStyleName, decimal maxAltitude)
+		private static Geolocation.Files.Icon CreatePointOfInterestIcon(Features.PointOfInterestFeature poi, string iconUri)
+		{
+			return new Geolocation.Files.Icon(poi.Name, ((Features.Point)poi.Shape).Location, iconUri);
+		}
+
+		private static Geolocation.Files.Polygon CreatePolygonFromNoFlyZone(Features.NoFlyZoneFeature nfz, string styleName, string extrusionStyleName, decimal maxAltitude)
         {
             decimal upperAltitude;
 

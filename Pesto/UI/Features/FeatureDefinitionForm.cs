@@ -48,7 +48,10 @@ namespace ColinBaker.Pesto.UI.Features
                         case Models.Features.Feature.FeatureType.Deck:
                             groupNode = GetFirstNodeOfType(FeatureTreeNode.FeatureTreeNodeType.DecksGroup);
                             break;
-                    }
+						case Models.Features.Feature.FeatureType.PointOfInterest:
+							groupNode = GetFirstNodeOfType(FeatureTreeNode.FeatureTreeNodeType.PointsOfInterestGroup);
+							break;
+					}
 
                     AddFeatureToTree(form.Feature, groupNode);
                     await AddFeatureToMapAsync(form.Feature);
@@ -83,7 +86,10 @@ namespace ColinBaker.Pesto.UI.Features
                         case Models.Features.Feature.FeatureType.Deck:
                             groupNode = GetFirstNodeOfType(FeatureTreeNode.FeatureTreeNodeType.DecksGroup);
                             break;
-                    }
+						case Models.Features.Feature.FeatureType.PointOfInterest:
+							groupNode = GetFirstNodeOfType(FeatureTreeNode.FeatureTreeNodeType.PointsOfInterestGroup);
+							break;
+					}
 
                     foreach (FeatureTreeNode featureNode in groupNode.Nodes)
                     {
@@ -161,6 +167,17 @@ namespace ColinBaker.Pesto.UI.Features
 			foreach (Models.Features.Feature feature in this.Competition.Features)
 			{
 				if (feature.Type == Models.Features.Feature.FeatureType.Gate)
+				{
+					AddFeatureToTree(feature, groupNode);
+				}
+			}
+
+			groupNode = new FeatureTreeNode(FeatureTreeNode.BuildText(FeatureTreeNode.FeatureTreeNodeType.PointsOfInterestGroup), FeatureTreeNode.FeatureTreeNodeType.PointsOfInterestGroup);
+			featuresTreeView.Nodes.Add(groupNode);
+
+			foreach (Models.Features.Feature feature in this.Competition.Features)
+			{
+				if (feature.Type == Models.Features.Feature.FeatureType.PointOfInterest)
 				{
 					AddFeatureToTree(feature, groupNode);
 				}
@@ -306,7 +323,12 @@ namespace ColinBaker.Pesto.UI.Features
 			await AddFeatureAsync(Models.Features.Feature.FeatureType.Deck, await featuresMap.GetCenterAsync(), false);
         }
 
-        private async void editRibbonButton_Click(object sender, EventArgs e)
+		private async void addPoiRibbonButton_Click(object sender, EventArgs e)
+		{
+			await AddFeatureAsync(Models.Features.Feature.FeatureType.PointOfInterest, await featuresMap.GetCenterAsync(), false);
+		}
+
+		private async void editRibbonButton_Click(object sender, EventArgs e)
 		{
 			FeatureTreeNode selectedNode = featuresTreeView.SelectedNode as FeatureTreeNode;
 
@@ -490,5 +512,5 @@ namespace ColinBaker.Pesto.UI.Features
             AddFeatureToTree(pointClone, groupNode);
 			await AddFeatureToMapAsync(pointClone);
         }
-    }
+	}
 }

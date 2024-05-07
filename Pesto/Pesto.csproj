@@ -119,7 +119,9 @@
     <Compile Include="Models\Features\GateFeature.cs" />
     <Compile Include="Models\Features\Line.cs" />
     <Compile Include="Models\Features\NoFlyZoneFeature.cs" />
+    <Compile Include="Models\Features\Point.cs" />
     <Compile Include="Models\Features\PointFeature.cs" />
+    <Compile Include="Models\Features\PointOfInterestFeature.cs" />
     <Compile Include="Models\Features\Polygon.cs" />
     <Compile Include="Models\Features\Shape.cs" />
     <Compile Include="Models\General.cs" />

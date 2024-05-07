@@ -213,7 +213,12 @@ namespace ColinBaker.Pesto.UI.TrackAnalysis
                 await analysisMap.AddFeatureAsync(hiddenGate);
 			}
 
-            foreach (Models.Features.NoFlyZoneFeature nfz in this.Task.NoFlyZones)
+			foreach (Models.Features.PointOfInterestFeature poi in this.Task.PointsOfInterest)
+			{
+				await analysisMap.AddFeatureAsync(poi);
+			}
+
+			foreach (Models.Features.NoFlyZoneFeature nfz in this.Task.NoFlyZones)
             {
                 await analysisMap.AddFeatureAsync(nfz);
             }

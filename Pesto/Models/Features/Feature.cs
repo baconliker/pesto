@@ -13,7 +13,8 @@ namespace ColinBaker.Pesto.Models.Features
 			Airfield,
 			Deck,
 			Point,
-			Gate
+			Gate,
+			PointOfInterest
 		}
 
 		protected Feature(string name, FeatureType type)

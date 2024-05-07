@@ -156,6 +156,37 @@ namespace ColinBaker.Pesto.UI.Features
 			m_ignoreEvent = false;
 		}
 
+		private void PopulatePointsOfInterest()
+		{
+			m_ignoreEvent = true;
+
+			pointsOfInterestCheckedListBox.Items.Clear();
+
+			foreach (Models.Features.Feature feature in this.Task.Competition.Features)
+			{
+				if (feature.Type == Models.Features.Feature.FeatureType.PointOfInterest)
+				{
+					bool selected = false;
+
+					foreach (Models.Features.PointOfInterestFeature poi in this.Task.PointsOfInterest)
+					{
+						if (string.Compare(poi.Name, feature.Name, true) == 0)
+						{
+							selected = true;
+							break;
+						}
+					}
+
+					FeatureListItem item = new FeatureListItem(feature);
+					int index = pointsOfInterestCheckedListBox.Items.Add(item);
+
+					pointsOfInterestCheckedListBox.SetItemChecked(index, selected);
+				}
+			}
+
+			m_ignoreEvent = false;
+		}
+
 		private void SelectListboxItems(CheckedListBox listBox, bool selected)
 		{
 			for (int i = 0; i < listBox.Items.Count; i++)
@@ -200,7 +231,12 @@ namespace ColinBaker.Pesto.UI.Features
 				await AddFeatureToMapAsync(gate);
 			}
 
-            foreach (Models.Features.NoFlyZoneFeature nfz in this.Task.NoFlyZones)
+			foreach (Models.Features.PointOfInterestFeature poi in this.Task.PointsOfInterest)
+			{
+				await AddFeatureToMapAsync(poi);
+			}
+
+			foreach (Models.Features.NoFlyZoneFeature nfz in this.Task.NoFlyZones)
             {
 				await AddFeatureToMapAsync(nfz);
             }
@@ -253,6 +289,7 @@ namespace ColinBaker.Pesto.UI.Features
 			PopulateElapsedTimePointGate();
 			PopulateTurnpoints();
 			PopulateHiddenGates();
+			PopulatePointsOfInterest();
 
 			await ShowMapAsync();
 		}
@@ -273,6 +310,7 @@ namespace ColinBaker.Pesto.UI.Features
 				PopulateElapsedTimePointGate();
 				PopulateTurnpoints();
 				PopulateHiddenGates();
+				PopulatePointsOfInterest();
 				await ShowMapAsync();
 			}
 		}
@@ -462,6 +500,37 @@ namespace ColinBaker.Pesto.UI.Features
 						if (string.Compare(taskGate.Name, selectedItem.Feature.Name, true) == 0)
 						{
 							this.Task.HiddenGates.Remove(taskGate);
+							break;
+						}
+					}
+
+					await RemoveFeatureFromMapAsync(selectedItem.Feature);
+				}
+			}
+
+			RefreshControlState();
+		}
+
+		private async void pointsOfInterestCheckedListBox_ItemCheck(object sender, ItemCheckEventArgs e)
+		{
+			if (m_ignoreEvent) return;
+
+			if (e.NewValue != e.CurrentValue)
+			{
+				FeatureListItem selectedItem = pointsOfInterestCheckedListBox.Items[e.Index] as FeatureListItem;
+
+				if (e.NewValue == CheckState.Checked)
+				{
+					this.Task.PointsOfInterest.Add(selectedItem.Feature as Models.Features.PointOfInterestFeature);
+					await AddFeatureToMapAsync(selectedItem.Feature);
+				}
+				else if (e.NewValue == CheckState.Unchecked)
+				{
+					foreach (Models.Features.PointOfInterestFeature taskPoi in this.Task.PointsOfInterest)
+					{
+						if (string.Compare(taskPoi.Name, selectedItem.Feature.Name, true) == 0)
+						{
+							this.Task.PointsOfInterest.Remove(taskPoi);
 							break;
 						}
 					}

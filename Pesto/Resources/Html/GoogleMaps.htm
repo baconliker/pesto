@@ -258,6 +258,15 @@
 
 				itemAdded();
 			}
+      
+      function addPointOfInterest(name, latitude, longitude) {
+				var location = new google.maps.LatLng(latitude, longitude);
+
+				var feature = new Feature(name, [location], [createMarker(name, location)]);
+				features.push(feature);
+
+				itemAdded();
+			}
 
 			function startPolygon(name) {
 				var feature = new Feature(name, [], []);

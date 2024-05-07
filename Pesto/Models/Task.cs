@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ColinBaker.Pesto.Models.Features;
+using org.apache.batik.svggen.font.table;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +30,8 @@ namespace ColinBaker.Pesto.Models
 
             this.Turnpoints = new List<Features.PointFeature>();
 			this.HiddenGates = new List<Features.GateFeature>();
-            this.NoFlyZones = new List<Features.NoFlyZoneFeature>();
+			this.PointsOfInterest = new List<Features.PointOfInterestFeature>();
+			this.NoFlyZones = new List<Features.NoFlyZoneFeature>();
 
             this.Results = new List<Results.TaskResults>();
         }
@@ -54,34 +58,34 @@ namespace ColinBaker.Pesto.Models
 
 		public bool IsUsingFeature(Features.Feature feature)
 		{
-            if (this.TakeOffDeck != null && string.Compare(this.TakeOffDeck.Name, feature.Name, true) == 0)
+            if (this.TakeOffDeck != null && string.Equals(this.TakeOffDeck.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
 
-            if (this.LandingDeck != null && string.Compare(this.LandingDeck.Name, feature.Name, true) == 0)
+            if (this.LandingDeck != null && string.Equals(this.LandingDeck.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
 
-            if (this.StartPointOrGate != null && string.Compare(this.StartPointOrGate.Name, feature.Name, true) == 0)
+            if (this.StartPointOrGate != null && string.Equals(this.StartPointOrGate.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
 			{
 				return true;
 			}
 
-			if (this.FinishPointOrGate != null && string.Compare(this.FinishPointOrGate.Name, feature.Name, true) == 0)
+			if (this.FinishPointOrGate != null && string.Equals(this.FinishPointOrGate.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
 			{
 				return true;
 			}
 
-			if (this.ElapsedTimePointOrGate != null && string.Compare(this.ElapsedTimePointOrGate.Name, feature.Name, true) == 0)
+			if (this.ElapsedTimePointOrGate != null && string.Equals(this.ElapsedTimePointOrGate.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
 			{
 				return true;
 			}
 
 			foreach (Features.PointFeature turnpoint in this.Turnpoints)
 			{
-				if (string.Compare(turnpoint.Name, feature.Name, true) == 0)
+				if (string.Equals(turnpoint.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
 				{
 					return true;
 				}
@@ -89,68 +93,62 @@ namespace ColinBaker.Pesto.Models
 
 			foreach (Features.GateFeature gate in this.HiddenGates)
 			{
-				if (string.Compare(gate.Name, feature.Name, true) == 0)
+				if (string.Equals(gate.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
 				{
 					return true;
 				}
 			}
 
-            return false;
+			foreach (Features.PointOfInterestFeature poi in this.PointsOfInterest)
+			{
+				if (string.Equals(poi.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
+				{
+					return true;
+				}
+			}
+
+			foreach (Features.NoFlyZoneFeature nfz in this.NoFlyZones)
+			{
+				if (string.Equals(nfz.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		public void RemoveFeatureFromUse(Features.Feature feature)
 		{
-			int turnpointIndex = 0;
-			int gateIndex = 0;
-
-            if (this.TakeOffDeck != null && string.Compare(this.TakeOffDeck.Name, feature.Name, true) == 0)
+            if (this.TakeOffDeck != null && string.Equals(this.TakeOffDeck.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
             {
                 this.TakeOffDeck = null;
             }
 
-            if (this.LandingDeck != null && string.Compare(this.LandingDeck.Name, feature.Name, true) == 0)
+            if (this.LandingDeck != null && string.Equals(this.LandingDeck.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
             {
                 this.LandingDeck = null;
             }
 
-            if (this.StartPointOrGate != null && string.Compare(this.StartPointOrGate.Name, feature.Name, true) == 0)
+            if (this.StartPointOrGate != null && string.Equals(this.StartPointOrGate.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
 			{
 				this.StartPointOrGate = null;
 			}
 
-			if (this.FinishPointOrGate != null && string.Compare(this.FinishPointOrGate.Name, feature.Name, true) == 0)
+			if (this.FinishPointOrGate != null && string.Equals(this.FinishPointOrGate.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
 			{
 				this.FinishPointOrGate = null;
 			}
 
-			if (this.ElapsedTimePointOrGate != null && string.Compare(this.ElapsedTimePointOrGate.Name, feature.Name, true) == 0)
+			if (this.ElapsedTimePointOrGate != null && string.Equals(this.ElapsedTimePointOrGate.Name, feature.Name, StringComparison.OrdinalIgnoreCase))
 			{
 				this.ElapsedTimePointOrGate = null;
 			}
 
-			while (turnpointIndex < this.Turnpoints.Count)
-			{
-				if (string.Compare(this.Turnpoints[turnpointIndex].Name, feature.Name, true) == 0)
-				{
-					this.Turnpoints.RemoveAt(turnpointIndex);
-				}
-				else
-				{
-					turnpointIndex++;
-				}
-			}
-
-			while (gateIndex < this.HiddenGates.Count)
-			{
-				if (string.Compare(this.HiddenGates[gateIndex].Name, feature.Name, true) == 0)
-				{
-					this.HiddenGates.RemoveAt(gateIndex);
-				}
-				else
-				{
-					gateIndex++;
-				}
-			}
+			RemoveFeatureFromList(feature.Name, this.Turnpoints);
+			RemoveFeatureFromList(feature.Name, this.HiddenGates);
+			RemoveFeatureFromList(feature.Name, this.PointsOfInterest);
+			RemoveFeatureFromList(feature.Name, this.NoFlyZones);
 		}
 
         public void SyncTaskResultsWithAircraftClasses()
@@ -217,12 +215,13 @@ namespace ColinBaker.Pesto.Models
         public Features.Feature StartPointOrGate { get; set; }
 		public Features.Feature FinishPointOrGate { get; set; }
 		public Features.Feature ElapsedTimePointOrGate { get; set; }
+
 		public List<Features.PointFeature> Turnpoints { get; set; }
 		public List<Features.GateFeature> HiddenGates { get; set; }
+		public List<Features.PointOfInterestFeature> PointsOfInterest { get; set; }
+		public List<Features.NoFlyZoneFeature> NoFlyZones { get; set; }
 
-        public List<AircraftClass> AircraftClasses { get; set; }
-
-        public List<Features.NoFlyZoneFeature> NoFlyZones { get; set; }
+		public List<AircraftClass> AircraftClasses { get; set; }
 
 		public List<ManualTrack> ManualTracks = new List<ManualTrack>();
 
@@ -247,5 +246,22 @@ namespace ColinBaker.Pesto.Models
 		}
 
 		public TrackAnalysis.Events.TrackEvent.EventType[] EventTypeFilters { get; set; } = TrackAnalysis.Events.TrackEvent.DefaultEventTypeFilters;
+
+		private static void RemoveFeatureFromList(string featureName, IList features)
+		{
+			int listIndex = 0;
+
+			while (listIndex < features.Count)
+			{
+				if (string.Equals(((Features.Feature)features[listIndex]).Name, featureName, StringComparison.OrdinalIgnoreCase))
+				{
+					features.RemoveAt(listIndex);
+				}
+				else
+				{
+					listIndex++;
+				}
+			}
+		}
 	}
 }

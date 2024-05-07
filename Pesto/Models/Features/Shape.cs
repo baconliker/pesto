@@ -11,7 +11,8 @@ namespace ColinBaker.Pesto.Models.Features
         {
             Circle,
             Line,
-            Polygon
+            Polygon,
+            Point
         }
 
         protected Shape(ShapeType type)

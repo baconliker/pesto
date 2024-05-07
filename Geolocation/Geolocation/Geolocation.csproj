@@ -72,6 +72,7 @@
     <Compile Include="Files\FileSaveException.cs" />
     <Compile Include="Files\Geometry.cs" />
     <Compile Include="Files\Gpx.cs" />
+    <Compile Include="Files\Icon.cs" />
     <Compile Include="Files\Igc.cs" />
     <Compile Include="Files\Kml.cs" />
     <Compile Include="Files\FileLoadException.cs" />

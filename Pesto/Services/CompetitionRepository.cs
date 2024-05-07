@@ -7,7 +7,7 @@ namespace ColinBaker.Pesto.Services
 {
     class CompetitionRepository
     {
-        private const decimal m_currentFileVersion = 1.9M;
+        private const decimal m_currentFileVersion = 2.0M;
 		private const int m_maxRecentCompetitions = 5;
 
         public CompetitionRepository(string filePath)
@@ -393,7 +393,12 @@ namespace ColinBaker.Pesto.Services
 					task.HiddenGates.Add(ExtractTaskFeature(hiddenGateNode, competition) as Models.Features.GateFeature);
 				}
 
-                foreach (XmlNode noFlyZoneNode in taskNode.SelectNodes("NoFlyZones/NoFlyZone"))
+				foreach (XmlNode poiNode in taskNode.SelectNodes("PointsOfInterest/PointOfInterest"))
+				{
+					task.PointsOfInterest.Add(ExtractTaskFeature(poiNode, competition) as Models.Features.PointOfInterestFeature);
+				}
+
+				foreach (XmlNode noFlyZoneNode in taskNode.SelectNodes("NoFlyZones/NoFlyZone"))
                 {
                     task.NoFlyZones.Add(ExtractCompetitionFeature(noFlyZoneNode) as Models.Features.NoFlyZoneFeature);
                 }
@@ -780,7 +785,18 @@ namespace ColinBaker.Pesto.Services
 					}
 				}
 
-                if (task.NoFlyZones.Count > 0)
+				if (task.PointsOfInterest.Count > 0)
+				{
+					XmlElement poiElement = document.CreateElement("PointsOfInterest");
+					taskElement.AppendChild(poiElement);
+
+					foreach (Models.Features.PointOfInterestFeature poi in task.PointsOfInterest)
+					{
+						InsertTaskFeature(poi, poiElement);
+					}
+				}
+
+				if (task.NoFlyZones.Count > 0)
                 {
                     XmlElement noFlyZonesElement = document.CreateElement("NoFlyZones");
                     taskElement.AppendChild(noFlyZonesElement);
@@ -1363,7 +1379,6 @@ namespace ColinBaker.Pesto.Services
 			{
 				case Models.Features.Feature.FeatureType.Point:
 					Models.Features.PointFeature point = feature as Models.Features.PointFeature;
-                    Models.Features.Circle pointCircle = point.Shape as Models.Features.Circle;
 
 					XmlElement pointElement = parentElement.OwnerDocument.CreateElement("Point");
 					parentElement.AppendChild(pointElement);
@@ -1391,7 +1406,6 @@ namespace ColinBaker.Pesto.Services
 
 				case Models.Features.Feature.FeatureType.Gate:
 					Models.Features.GateFeature gate = feature as Models.Features.GateFeature;
-                    Models.Features.Line gateLine = (gate.Shape as Models.Features.Line);
                     
                     XmlElement gateElement = parentElement.OwnerDocument.CreateElement("Gate");
 					parentElement.AppendChild(gateElement);
@@ -1471,7 +1485,21 @@ namespace ColinBaker.Pesto.Services
                     InsertCompetitionFeatureShape(deck.Shape, deckElement);
 
                     break;
-            }
+
+				case Models.Features.Feature.FeatureType.PointOfInterest:
+					Models.Features.PointOfInterestFeature poi = feature as Models.Features.PointOfInterestFeature;
+
+					XmlElement poiElement = parentElement.OwnerDocument.CreateElement("PointOfInterest");
+					parentElement.AppendChild(poiElement);
+
+					element = parentElement.OwnerDocument.CreateElement("Name");
+					element.InnerText = poi.Name;
+					poiElement.AppendChild(element);
+
+					InsertCompetitionFeatureShape(poi.Shape, poiElement);
+
+					break;
+			}
 		}
 
         private void InsertCompetitionFeatureShape(Models.Features.Shape shape, XmlElement parentElement)
@@ -1545,7 +1573,23 @@ namespace ColinBaker.Pesto.Services
                     }
 
                     break;
-            }
+
+				case Models.Features.Shape.ShapeType.Point:
+					Models.Features.Point point = shape as Models.Features.Point;
+
+					XmlElement pointElement = parentElement.OwnerDocument.CreateElement("Point");
+					parentElement.AppendChild(pointElement);
+
+					element = parentElement.OwnerDocument.CreateElement("Latitude");
+					element.InnerText = point.Location.Latitude.ToString("#0.000000", System.Globalization.CultureInfo.InvariantCulture);
+					pointElement.AppendChild(element);
+
+					element = parentElement.OwnerDocument.CreateElement("Longitude");
+					element.InnerText = point.Location.Longitude.ToString("##0.000000", System.Globalization.CultureInfo.InvariantCulture);
+					pointElement.AppendChild(element);
+
+					break;
+			}
         }
 
 		private void InsertTaskFeature(Models.Features.Feature feature, XmlElement parentElement)
@@ -1587,6 +1631,18 @@ namespace ColinBaker.Pesto.Services
 					element = parentElement.OwnerDocument.CreateElement("Name");
 					element.InnerText = gate.Name;
 					gateElement.AppendChild(element);
+
+					break;
+
+				case Models.Features.Feature.FeatureType.PointOfInterest:
+					Models.Features.PointOfInterestFeature poi = feature as Models.Features.PointOfInterestFeature;
+
+					XmlElement poiElement = parentElement.OwnerDocument.CreateElement("PointOfInterest");
+					parentElement.AppendChild(poiElement);
+
+					element = parentElement.OwnerDocument.CreateElement("Name");
+					element.InnerText = poi.Name;
+					poiElement.AppendChild(element);
 
 					break;
 			}
@@ -1809,7 +1865,11 @@ namespace ColinBaker.Pesto.Services
                 case "Deck":
                     feature = new Models.Features.DeckFeature(featureNode.SelectSingleNode("Name").InnerText, ExtractCompetitionFeatureShape(featureNode));
                     break;
-            }
+
+				case "PointOfInterest":
+					feature = new Models.Features.PointOfInterestFeature(featureNode.SelectSingleNode("Name").InnerText, ExtractCompetitionFeatureShape(featureNode));
+					break;
+			}
 
 			return feature;
 		}
@@ -1832,7 +1892,10 @@ namespace ColinBaker.Pesto.Services
                 case "Polygon":
                     type = Models.Features.Shape.ShapeType.Polygon;
                     break;
-                default: // For compatibility
+				case "Point":
+					type = Models.Features.Shape.ShapeType.Point;
+					break;
+				default: // For compatibility
                     if (featureNode.Name == "Gate")
                     {
                         type = Models.Features.Shape.ShapeType.Line;
@@ -1868,7 +1931,12 @@ namespace ColinBaker.Pesto.Services
                     }
                     shape = polygon;
                     break;
-            }
+				case Models.Features.Shape.ShapeType.Point:
+					Models.Features.Point point = new Models.Features.Point();
+					point.Location = new Geolocation.Location(ParseDecimal(shapeNode.SelectSingleNode("Latitude").InnerText), ParseDecimal(shapeNode.SelectSingleNode("Longitude").InnerText));
+					shape = point;
+					break;
+			}
 
             return shape;
         }

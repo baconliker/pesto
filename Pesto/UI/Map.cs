@@ -171,7 +171,15 @@ namespace ColinBaker.Pesto.UI
 						await ExecuteScriptAsync("finishDeckPolygon()").ConfigureAwait(false);
 
                         break;
-                }
+
+					case Models.Features.Feature.FeatureType.PointOfInterest:
+						Models.Features.PointOfInterestFeature poi = feature as Models.Features.PointOfInterestFeature;
+						Models.Features.Point poiShape = poi.Shape as Models.Features.Point;
+
+						await ExecuteScriptAsync($"addPointOfInterest('{feature.Name}', {decimal.Round(poiShape.Location.Latitude, 6)}, {decimal.Round(poiShape.Location.Longitude, 6)})").ConfigureAwait(false);
+
+						break;
+				}
 			}
 			else
 			{

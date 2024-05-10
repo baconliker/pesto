@@ -81,7 +81,7 @@ namespace ColinBaker.Pesto.UI
 		{
 			if (m_initialized)
 			{
-				await ExecuteScriptAsync($"pan({decimal.Round(location.Latitude, 6)}, {decimal.Round(location.Longitude, 6)})").ConfigureAwait(false);
+				await ExecuteScriptAsync($"pan({decimal.Round(location.Latitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {decimal.Round(location.Longitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)})").ConfigureAwait(false);
 			}
 		}
 
@@ -111,7 +111,7 @@ namespace ColinBaker.Pesto.UI
 						Models.Features.PointFeature point = feature as Models.Features.PointFeature;
                         Models.Features.Circle pointCircle = point.Shape as Models.Features.Circle;
 
-						await ExecuteScriptAsync($"addPoint('{feature.Name}', {decimal.Round(pointCircle.Center.Latitude, 6)}, {decimal.Round(pointCircle.Center.Longitude, 6)}, {pointCircle.Radius})").ConfigureAwait(false);
+						await ExecuteScriptAsync($"addPoint('{feature.Name}', {decimal.Round(pointCircle.Center.Latitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {decimal.Round(pointCircle.Center.Longitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {pointCircle.Radius.ToString(System.Globalization.CultureInfo.InvariantCulture)})").ConfigureAwait(false);
 
 						break;
 
@@ -119,7 +119,7 @@ namespace ColinBaker.Pesto.UI
 						Models.Features.GateFeature gate = feature as Models.Features.GateFeature;
                         Models.Features.Line gateLine = gate.Shape as Models.Features.Line;
 
-						await ExecuteScriptAsync($"addGate('{feature.Name}', {decimal.Round(gateLine.Center.Latitude, 6)}, {decimal.Round(gateLine.Center.Longitude, 6)}, {gateLine.Width}, {decimal.Round(gateLine.Bearing, 1)})").ConfigureAwait(false);
+						await ExecuteScriptAsync($"addGate('{feature.Name}', {decimal.Round(gateLine.Center.Latitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {decimal.Round(gateLine.Center.Longitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {gateLine.Width.ToString(System.Globalization.CultureInfo.InvariantCulture)}, {decimal.Round(gateLine.Bearing, 1).ToString(System.Globalization.CultureInfo.InvariantCulture)})").ConfigureAwait(false);
 
 						break;
 
@@ -130,7 +130,7 @@ namespace ColinBaker.Pesto.UI
                         {
                             case Models.Features.Shape.ShapeType.Circle:
                                 Models.Features.Circle nfzCircle = (Models.Features.Circle)nfz.Shape;
-								await ExecuteScriptAsync($"addNoFlyZone('{feature.Name}', {decimal.Round(nfzCircle.Center.Latitude, 6)}, {decimal.Round(nfzCircle.Center.Longitude, 6)}, {nfzCircle.Radius})").ConfigureAwait(false);
+								await ExecuteScriptAsync($"addNoFlyZone('{feature.Name}', {decimal.Round(nfzCircle.Center.Latitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {decimal.Round(nfzCircle.Center.Longitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {nfzCircle.Radius.ToString(System.Globalization.CultureInfo.InvariantCulture)})").ConfigureAwait(false);
                                 break;
 
                             case Models.Features.Shape.ShapeType.Polygon:
@@ -138,7 +138,7 @@ namespace ColinBaker.Pesto.UI
 								await ExecuteScriptAsync($"startPolygon('{feature.Name}')");
                                 foreach (Geolocation.Location vertex in nfzPolygon.Vertices)
                                 {
-									await ExecuteScriptAsync($"addPolygonPoint({decimal.Round(vertex.Latitude, 6)}, {decimal.Round(vertex.Longitude, 6)})");
+									await ExecuteScriptAsync($"addPolygonPoint({decimal.Round(vertex.Latitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {decimal.Round(vertex.Longitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)})");
                                 }
 								await ExecuteScriptAsync("finishNoFlyZonePolygon()").ConfigureAwait(false);
                                 break;
@@ -153,7 +153,7 @@ namespace ColinBaker.Pesto.UI
 						await ExecuteScriptAsync($"startPolygon('{feature.Name}')");
                         foreach (Geolocation.Location vertex in airfieldPolygon.Vertices)
                         {
-							await ExecuteScriptAsync($"addPolygonPoint({decimal.Round(vertex.Latitude, 6)}, {decimal.Round(vertex.Longitude, 6)})");
+							await ExecuteScriptAsync($"addPolygonPoint({decimal.Round(vertex.Latitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {decimal.Round(vertex.Longitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)})");
                         }
 						await ExecuteScriptAsync("finishAirfieldPolygon()").ConfigureAwait(false);
 
@@ -166,7 +166,7 @@ namespace ColinBaker.Pesto.UI
 						await ExecuteScriptAsync($"startPolygon('{feature.Name}')");
                         foreach (Geolocation.Location vertex in deckPolygon.Vertices)
                         {
-							await ExecuteScriptAsync($"addPolygonPoint({decimal.Round(vertex.Latitude, 6)}, {decimal.Round(vertex.Longitude, 6)})");
+							await ExecuteScriptAsync($"addPolygonPoint({decimal.Round(vertex.Latitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {decimal.Round(vertex.Longitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)})");
                         }
 						await ExecuteScriptAsync("finishDeckPolygon()").ConfigureAwait(false);
 
@@ -176,7 +176,7 @@ namespace ColinBaker.Pesto.UI
 						Models.Features.PointOfInterestFeature poi = feature as Models.Features.PointOfInterestFeature;
 						Models.Features.Point poiShape = poi.Shape as Models.Features.Point;
 
-						await ExecuteScriptAsync($"addPointOfInterest('{feature.Name}', {decimal.Round(poiShape.Location.Latitude, 6)}, {decimal.Round(poiShape.Location.Longitude, 6)})").ConfigureAwait(false);
+						await ExecuteScriptAsync($"addPointOfInterest('{feature.Name}', {decimal.Round(poiShape.Location.Latitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {decimal.Round(poiShape.Location.Longitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)})").ConfigureAwait(false);
 
 						break;
 				}
@@ -214,10 +214,10 @@ namespace ColinBaker.Pesto.UI
 		{
 			if (m_initialized)
 			{
-				await ExecuteScriptAsync($"startTrack({pilotNumber})");
+				await ExecuteScriptAsync($"startTrack({pilotNumber.ToString(System.Globalization.CultureInfo.InvariantCulture)})");
 				foreach (ColinBaker.Geolocation.Tracks.Fix fix in track.Fixes)
 				{
-					await ExecuteScriptAsync($"addTrackFix({decimal.Round(fix.Latitude, 6)}, {decimal.Round(fix.Longitude, 6)})");
+					await ExecuteScriptAsync($"addTrackFix({decimal.Round(fix.Latitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {decimal.Round(fix.Longitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)})");
 				}
 				await ExecuteScriptAsync("finishTrack()").ConfigureAwait(false);
 			}
@@ -245,8 +245,8 @@ namespace ColinBaker.Pesto.UI
 		{
 			if (m_initialized)
 			{
-				decimal latitude = System.Convert.ToDecimal(await ExecuteScriptAsync("getCenterLatitude()"));
-				decimal longitude = System.Convert.ToDecimal(await ExecuteScriptAsync("getCenterLongitude()").ConfigureAwait(false));
+				decimal latitude = decimal.Parse((string)await ExecuteScriptAsync("getCenterLatitude()"), System.Globalization.CultureInfo.InvariantCulture);
+				decimal longitude = decimal.Parse((string)await ExecuteScriptAsync("getCenterLongitude()").ConfigureAwait(false), System.Globalization.CultureInfo.InvariantCulture);
 
 				return new Geolocation.Location(latitude, longitude);
 			}
@@ -260,7 +260,7 @@ namespace ColinBaker.Pesto.UI
 		{
 			if (m_initialized)
 			{
-				await ExecuteScriptAsync($"setCenter({decimal.Round(location.Latitude, 6)}, {decimal.Round(location.Longitude, 6)})").ConfigureAwait(false);
+				await ExecuteScriptAsync($"setCenter({decimal.Round(location.Latitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)}, {decimal.Round(location.Longitude, 6).ToString(System.Globalization.CultureInfo.InvariantCulture)})").ConfigureAwait(false);
 			}
 		}
 
@@ -280,7 +280,7 @@ namespace ColinBaker.Pesto.UI
 		{
 			if (m_initialized)
 			{
-				await ExecuteScriptAsync($"setZoom({zoom})").ConfigureAwait(false);
+				await ExecuteScriptAsync($"setZoom({zoom.ToString(System.Globalization.CultureInfo.InvariantCulture)})").ConfigureAwait(false);
 			}
 		}
 
